@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
+  <defs>
+    <linearGradient id="tile" x1="18" y1="10" x2="111" y2="120" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#29B5B9"/>
+      <stop offset=".52" stop-color="#1D96A3"/>
+      <stop offset="1" stop-color="#0B5C7D"/>
+    </linearGradient>
+    <linearGradient id="pin" x1="56" y1="23" x2="82" y2="69" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F05859"/>
+      <stop offset="1" stop-color="#D8444C"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="30" y1="59" x2="53" y2="96" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFD071"/>
+      <stop offset="1" stop-color="#FBAF3C"/>
+    </linearGradient>
+    <filter id="shadow" x="5" y="4" width="124" height="128" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+      <feGaussianBlur stdDeviation="5"/>
+    </filter>
+  </defs>
+  <rect x="12" y="10" width="104" height="108" rx="29" fill="#0B5C7D" opacity=".38" filter="url(#shadow)"/>
+  <rect x="9" y="7" width="108" height="108" rx="30" fill="url(#tile)"/>
+  <path d="M25 67 48 52l22 10 29-20-6 28-23 16-24-9-18 11-3-21Z" fill="#1D96A3" fill-opacity=".72" stroke="#29B5B9" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M31 88c14 8 28 8 41 2 13-7 23-19 27-32" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-dasharray="5 7"/>
+  <path d="M78 53 91 33l8 13-5 16-9 5-7-8Z" fill="#FBAF3C" opacity=".9"/>
+  <path d="m94 34 17-11-8 17-7 7-5-5 3-8Z" fill="#FFFFFF"/>
+  <path d="m92 39-9 9m15-7-4 12" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+  <path d="M68 28c0-8 6-14 14-14s14 6 14 14c0 11-14 29-14 29S68 39 68 28Z" fill="#0B5C7D" opacity=".45"/>
+  <path d="M64 26c0-9 7-16 16-16s16 7 16 16c0 12-16 32-16 32S64 38 64 26Z" fill="url(#pin)"/>
+  <circle cx="80" cy="26" r="8" fill="#0B5C7D" stroke="#FFFFFF" stroke-opacity=".7" stroke-width="4"/>
+  <path d="M31 65c0-7 5-12 12-12s12 5 12 12c0 9-12 24-12 24S31 74 31 65Z" fill="url(#gold)"/>
+  <circle cx="43" cy="65" r="6" fill="#0B5C7D" stroke="#FFFFFF" stroke-width="3"/>
+  <path d="M27 39v14m-4-14v6m8-6v6m-4 0v8" stroke="#FBAF3C" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="m90 83 2.4 4.9 5.4.8-3.9 3.8.9 5.4-4.8-2.5-4.8 2.5.9-5.4-3.9-3.8 5.4-.8 2.4-4.9Z" fill="#FBAF3C"/>
+  <path d="M105 88h13v3h-13zm2 3h9v12h-9zM104 103h15v3h-15zM110 84h3v4h-3zm-4 10h2v7h-2zm5 0h2v7h-2zm5 0h2v7h-2z" fill="#FBAF3C"/>
+</svg>

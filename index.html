@@ -1,0 +1,617 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#29B5B9">
+  <title>nextstop - Smart Travel Planner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: '#0B5C7D',
+            muted: '#527481',
+            canvas: '#F3FAFA',
+            paper: '#FFFFFF',
+            line: '#D5E9EB',
+            lagoon: '#1D96A3',
+            turquoise: '#29B5B9',
+            mint: '#DDF3F2',
+            coral: '#F05859',
+            sun: '#FBAF3C'
+          },
+          fontFamily: {
+            sans: ['DM Sans', 'sans-serif'],
+            display: ['Fraunces', 'serif']
+          },
+          boxShadow: {
+            soft: '0 12px 40px rgba(11, 92, 125, .10)'
+          }
+        }
+      }
+    }
+  </script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    body { font-family: 'DM Sans', sans-serif; }
+    .display { font-family: 'Fraunces', serif; }
+    .fade-in { animation: fadeIn .35s ease both; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: translateY(0); } }
+    .nav-active { color: #1D96A3; background: #DDF3F2; }
+    .trip-image { background-color: #EAF7F7; }
+    .chat-scroll::-webkit-scrollbar { width: 5px; }
+    .chat-scroll::-webkit-scrollbar-thumb { background: #B8DDE0; border-radius: 8px; }
+    [class~="bg-[#b8d7ca]"], [class~="bg-[#cbded2]"], [class~="bg-[#dce7df]"], [class~="bg-[#e4f0e8]"], [class~="bg-[#e6f0e9]"], [class~="bg-[#edf4ed]"], [class~="bg-[#fbfcf9]"] { background-color: #DDF3F2 !important; }
+    [class~="bg-[#d9d4ed]"], [class~="bg-[#e8edf7]"] { background-color: rgb(41 181 185 / 15%) !important; }
+    [class~="bg-[#f3d9ce]"], [class~="bg-[#f4d0bd]"], [class~="bg-[#fce9e2]"] { background-color: rgb(240 88 89 / 16%) !important; }
+    [class~="bg-[#f4dca6]"], [class~="bg-[#e8e4d7]"], [class~="bg-[#fff3df]"], [class~="bg-[#fff8e9]"] { background-color: rgb(251 175 60 / 19%) !important; }
+    [class~="border-[#b8d7ca]"] { border-color: rgb(41 181 185 / 45%) !important; }
+    [class~="border-[#f2dfb6]"] { border-color: rgb(251 175 60 / 55%) !important; }
+    [class~="text-[#53698e]"], [class~="text-[#765b2c]"], [class~="text-[#9b6824]"] { color: #0B5C7D !important; }
+    [class~="text-[#a9563d]"] { color: #F05859 !important; }
+    [class~="ring-[#f9e9e1]"] { --tw-ring-color: rgb(240 88 89 / 20%) !important; }
+    [class~="from-[#173e38]"] { --tw-gradient-from: #0B5C7D var(--tw-gradient-from-position); --tw-gradient-to: rgb(11 92 125 / 0) var(--tw-gradient-to-position); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+    [class~="via-[#173e38]"] { --tw-gradient-to: rgb(11 92 125 / 0) var(--tw-gradient-to-position); --tw-gradient-stops: var(--tw-gradient-from), #0B5C7D var(--tw-gradient-via-position), var(--tw-gradient-to); }
+  </style>
+</head>
+<body class="min-h-screen bg-canvas text-ink antialiased">
+  <div class="min-h-screen">
+    <aside class="fixed inset-y-0 left-0 z-30 hidden w-[252px] flex-col border-r border-line bg-paper px-5 py-6 lg:flex">
+      <a href="#dashboard" class="mb-10 flex items-center gap-3 px-2" data-nav="dashboard" aria-label="nextstop home">
+        <img src="nextstop-mark.svg" alt="" class="h-10 w-10 rounded-2xl">
+        <span class="text-[19px] font-bold tracking-tight">nextstop</span>
+      </a>
+      <p class="mb-3 px-3 text-[10px] font-bold uppercase tracking-[.18em] text-muted">Workspace</p>
+      <nav class="space-y-1" aria-label="Main navigation">
+        <button data-nav="dashboard" class="nav-item nav-active flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-semibold text-muted transition hover:bg-mint hover:text-lagoon"><i data-lucide="layout-dashboard" class="h-[18px] w-[18px]"></i>Overview</button>
+        <button data-nav="itinerary" class="nav-item flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-semibold text-muted transition hover:bg-mint hover:text-lagoon"><i data-lucide="map" class="h-[18px] w-[18px]"></i>Itinerary builder</button>
+        <button data-nav="chat" class="nav-item flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-semibold text-muted transition hover:bg-mint hover:text-lagoon"><i data-lucide="messages-square" class="h-[18px] w-[18px]"></i>Trip circle <span class="ml-auto rounded-full bg-coral/10 px-2 py-0.5 text-[10px] font-bold text-coral">2</span></button>
+      </nav>
+      <p class="mb-3 mt-9 px-3 text-[10px] font-bold uppercase tracking-[.18em] text-muted">You</p>
+      <nav class="space-y-1" aria-label="Account navigation">
+        <button data-nav="profile" class="nav-item flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-semibold text-muted transition hover:bg-mint hover:text-lagoon"><i data-lucide="circle-user-round" class="h-[18px] w-[18px]"></i>My profile</button>
+      </nav>
+      <div class="mt-auto rounded-2xl bg-[#edf4ed] p-4">
+        <div class="mb-3 flex h-9 w-9 items-center justify-center rounded-full bg-sun/60 text-lagoon"><i data-lucide="compass" class="h-4 w-4"></i></div>
+        <p class="text-sm font-bold">A little more wonder</p>
+        <p class="mt-1 text-xs leading-5 text-muted">Your saved places are ready when you are.</p>
+        <button data-nav="itinerary" class="mt-3 inline-flex items-center gap-1 text-xs font-bold text-lagoon">Plan a day <i data-lucide="arrow-up-right" class="h-3.5 w-3.5"></i></button>
+      </div>
+      <div class="mt-5 flex items-center gap-3 border-t border-line px-2 pt-5">
+        <div class="grid h-9 w-9 place-items-center rounded-full bg-[#f3d9ce] text-xs font-bold text-ink">AM</div>
+        <div class="min-w-0 flex-1"><p class="truncate text-xs font-bold">Alex Morgan</p><p class="text-[11px] text-muted">Free explorer</p></div>
+        <button class="rounded-lg p-2 text-muted hover:bg-canvas" aria-label="Account options"><i data-lucide="ellipsis" class="h-4 w-4"></i></button>
+      </div>
+    </aside>
+
+    <main class="min-h-screen lg:ml-[252px]">
+      <header class="sticky top-0 z-20 border-b border-line/80 bg-paper/95 backdrop-blur">
+        <div class="mx-auto flex h-[68px] max-w-[1440px] items-center justify-between px-4 sm:px-7 xl:px-10">
+          <a href="#dashboard" data-nav="dashboard" class="flex items-center gap-2.5 lg:hidden">
+            <img src="nextstop-mark.svg" alt="" class="h-9 w-9 rounded-xl">
+            <span class="text-base font-bold tracking-tight">nextstop</span>
+          </a>
+          <div class="hidden text-sm text-muted lg:block"><span class="font-semibold text-ink">Monday, November 2</span><span class="mx-2 text-line">/</span>Your travel journal</div>
+          <div class="ml-auto flex items-center gap-2 sm:gap-3">
+            <button data-nav="chat" class="relative grid h-10 w-10 place-items-center rounded-xl text-muted transition hover:bg-canvas" aria-label="Open messages"><i data-lucide="bell" class="h-[18px] w-[18px]"></i><span class="absolute right-2 top-2 h-2 w-2 rounded-full bg-coral ring-2 ring-paper"></span></button>
+            <button data-nav="profile" class="flex items-center gap-2 rounded-full p-1 pr-2 transition hover:bg-canvas" aria-label="Open profile"><span class="grid h-8 w-8 place-items-center rounded-full bg-[#f3d9ce] text-[10px] font-bold">AM</span><i data-lucide="chevron-down" class="hidden h-3.5 w-3.5 text-muted sm:block"></i></button>
+          </div>
+        </div>
+        <nav class="flex gap-1 overflow-x-auto border-t border-line/70 px-3 py-2 lg:hidden" aria-label="Mobile navigation">
+          <button data-nav="dashboard" class="nav-item nav-active flex shrink-0 items-center gap-2 rounded-lg px-3 py-2 text-xs font-semibold text-muted"><i data-lucide="layout-dashboard" class="h-4 w-4"></i>Overview</button>
+          <button data-nav="itinerary" class="nav-item flex shrink-0 items-center gap-2 rounded-lg px-3 py-2 text-xs font-semibold text-muted"><i data-lucide="map" class="h-4 w-4"></i>Itinerary</button>
+          <button data-nav="chat" class="nav-item flex shrink-0 items-center gap-2 rounded-lg px-3 py-2 text-xs font-semibold text-muted"><i data-lucide="messages-square" class="h-4 w-4"></i>Trip circle</button>
+          <button data-nav="profile" class="nav-item flex shrink-0 items-center gap-2 rounded-lg px-3 py-2 text-xs font-semibold text-muted"><i data-lucide="circle-user-round" class="h-4 w-4"></i>Profile</button>
+        </nav>
+      </header>
+
+      <div class="mx-auto max-w-[1440px] px-4 pb-12 pt-7 sm:px-7 sm:pt-9 xl:px-10">
+        <section id="page-dashboard" class="page fade-in">
+          <div class="mb-7 flex flex-wrap items-end justify-between gap-4">
+            <div><p class="mb-2 text-xs font-bold uppercase tracking-[.15em] text-lagoon">Your travel, thoughtfully planned</p><h1 class="display text-[34px] leading-tight sm:text-[40px]">A good day starts <span class="text-lagoon">somewhere.</span></h1><p class="mt-2 text-sm text-muted">Pick a place. We'll help with the rest.</p></div>
+            <button data-nav="itinerary" class="hidden items-center gap-2 rounded-xl bg-ink px-4 py-3 text-sm font-semibold text-white transition hover:bg-lagoon sm:inline-flex"><i data-lucide="plus" class="h-4 w-4"></i>Build an itinerary</button>
+          </div>
+
+          <form id="destination-search" class="mb-8 flex flex-col gap-2 rounded-2xl border border-line bg-paper p-2 shadow-soft sm:flex-row sm:items-center">
+            <div class="flex min-w-0 flex-1 items-center gap-3 px-3"><i data-lucide="search" class="h-5 w-5 shrink-0 text-lagoon"></i><input id="search-input" class="w-full bg-transparent py-2.5 text-sm outline-none placeholder:text-muted/80" type="search" placeholder="Where do you want to go? Add places like Acropolis..." aria-label="Search destinations"></div>
+            <button class="flex items-center justify-center gap-2 rounded-xl bg-lagoon px-5 py-3 text-sm font-semibold text-white transition hover:bg-ink" type="submit">Explore <i data-lucide="arrow-right" class="h-4 w-4"></i></button>
+          </form>
+
+          <div class="grid items-start gap-8 xl:grid-cols-[minmax(0,1fr)_300px]">
+            <div class="min-w-0">
+              <div class="mb-4 flex items-end justify-between gap-3"><div><p class="text-xs font-bold uppercase tracking-[.14em] text-muted">Picked for your next chapter</p><h2 class="display mt-1 text-[25px]">Recommended trips</h2></div><button id="clear-search" class="hidden text-xs font-bold text-lagoon hover:underline">Clear search</button></div>
+              <div id="trip-grid" class="grid gap-4 sm:grid-cols-2 2xl:grid-cols-3"></div>
+              <p id="no-results" class="hidden rounded-2xl border border-dashed border-line bg-paper px-5 py-10 text-center text-sm text-muted">No trips match that search. Try another destination.</p>
+              <div class="mt-7 flex items-center justify-between rounded-2xl bg-[#e6f0e9] p-5 sm:p-6">
+                <div class="flex items-start gap-3"><span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-paper text-lagoon"><i data-lucide="sparkles" class="h-5 w-5"></i></span><div><h3 class="font-bold">Only have a few hours?</h3><p class="mt-1 max-w-md text-sm leading-6 text-muted">Turn one landmark into a lovely little route, with time for the in-between.</p></div></div>
+                <button data-nav="itinerary" class="ml-3 grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-lagoon text-white transition hover:bg-ink" aria-label="Open itinerary builder"><i data-lucide="arrow-up-right" class="h-4 w-4"></i></button>
+              </div>
+            </div>
+
+            <aside class="space-y-4">
+              <div class="group cursor-pointer overflow-hidden rounded-2xl border border-line bg-paper transition hover:shadow-soft focus-visible:outline focus-visible:outline-2 focus-visible:outline-lagoon" data-trip-open="cinque-terre" role="button" tabindex="0" aria-label="Open Cinque Terre trip details">
+                <div class="flex items-center justify-between px-5 pb-3 pt-5"><div><p class="text-[10px] font-bold uppercase tracking-[.14em] text-muted">On the horizon</p><h3 class="mt-1 font-bold">Your next trip</h3></div><span class="rounded-full bg-mint px-2.5 py-1 text-[10px] font-bold text-lagoon">In 12 days</span></div>
+                <div class="relative h-32 overflow-hidden"><img class="h-full w-full object-cover" src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=800&q=85" alt="Colorful coastal villages in Cinque Terre"><div class="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent"></div><p class="absolute bottom-3 left-4 text-lg font-bold text-white">Cinque Terre, Italy</p></div>
+                <div class="flex items-center justify-between px-5 py-4"><div><p class="text-xs font-semibold">Nov 14 &ndash; Nov 19</p><p class="mt-1 text-[11px] text-muted">5 days &middot; 3 travelers</p></div><span class="grid h-9 w-9 place-items-center rounded-xl border border-line text-lagoon transition group-hover:bg-mint" aria-hidden="true"><i data-lucide="arrow-up-right" class="h-4 w-4"></i></span></div>
+              </div>
+              <div class="rounded-2xl border border-line bg-paper p-5">
+                <div class="flex items-center justify-between"><h3 class="text-sm font-bold">Your travel rhythm</h3><i data-lucide="chart-no-axes-column-increasing" class="h-4 w-4 text-lagoon"></i></div>
+                <div class="mt-5 flex items-end gap-2" aria-label="Six trips saved this year"><div class="h-9 flex-1 rounded-t-md bg-[#b8d7ca]"></div><div class="h-14 flex-1 rounded-t-md bg-lagoon"></div><div class="h-11 flex-1 rounded-t-md bg-[#b8d7ca]"></div><div class="h-16 flex-1 rounded-t-md bg-coral"></div><div class="h-12 flex-1 rounded-t-md bg-[#b8d7ca]"></div><div class="h-20 flex-1 rounded-t-md bg-lagoon"></div></div>
+                <div class="mt-2 flex justify-between text-[10px] font-medium text-muted"><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span></div>
+                <p class="mt-4 border-t border-line pt-3 text-xs text-muted"><span class="font-bold text-ink">6 trips saved</span> this year. That's a good start.</p>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <section id="page-itinerary" class="page hidden fade-in">
+          <div class="mb-7 max-w-2xl"><p class="mb-2 text-xs font-bold uppercase tracking-[.15em] text-lagoon">Make time for the good bits</p><h1 class="display text-[34px] leading-tight sm:text-[40px]">Build a little adventure.</h1><p class="mt-2 text-sm leading-6 text-muted">Tell us where you're headed and how much time you have. We'll sketch out a walkable day.</p></div>
+          <div class="grid items-start gap-6 xl:grid-cols-[minmax(0,.9fr)_minmax(0,1.1fr)]">
+            <form id="itinerary-form" class="rounded-2xl border border-line bg-paper p-5 shadow-soft sm:p-6">
+              <label for="destination" class="mb-2 block text-sm font-bold">Where are you exploring?</label>
+              <div class="mb-5 flex items-center gap-3 rounded-xl border border-line px-3"><i data-lucide="map-pin" class="h-4 w-4 text-lagoon"></i><input id="destination" required value="Athens" class="w-full bg-transparent py-3 text-sm outline-none placeholder:text-muted" placeholder="City or landmark"></div>
+              <label for="available-time" class="mb-2 block text-sm font-bold">How much time do you have?</label>
+              <div class="mb-6 flex items-center gap-3 rounded-xl border border-line px-3"><i data-lucide="clock-3" class="h-4 w-4 text-lagoon"></i><input id="available-time" required value="3 hours" class="w-full bg-transparent py-3 text-sm outline-none placeholder:text-muted" placeholder="e.g. 3 hours or 2 days"></div>
+              <button class="flex w-full items-center justify-center gap-2 rounded-xl bg-lagoon px-4 py-3.5 text-sm font-bold text-white transition hover:bg-ink" type="submit"><i data-lucide="sparkles" class="h-4 w-4"></i>Generate my route</button>
+              <p class="mt-3 text-center text-[11px] text-muted">A thoughtful starting point, ready to make your own.</p>
+            </form>
+
+            <div id="itinerary-result" class="rounded-2xl border border-line bg-paper p-5 sm:p-6">
+              <div class="mb-5 flex flex-wrap items-center justify-between gap-3"><div><p id="route-eyebrow" class="text-[10px] font-bold uppercase tracking-[.15em] text-lagoon">Your easygoing afternoon</p><h2 id="route-title" class="display mt-1 text-[25px]">Athens in 3 hours</h2></div><span class="inline-flex items-center gap-1.5 rounded-full bg-[#fff3df] px-3 py-1.5 text-xs font-bold text-[#9b6824]"><i data-lucide="footprints" class="h-3.5 w-3.5"></i>Mostly on foot</span></div>
+              <div class="mb-5 rounded-xl bg-canvas p-4"><div class="flex items-start justify-between gap-3"><div><p id="route-summary" class="text-sm font-bold">Acropolis -&gt; Acropolis Museum -&gt; Plaka Walkway</p><p id="route-description" class="mt-1 text-xs leading-5 text-muted">Ancient stone, thoughtful exhibits, and a slow wander through the old neighborhood.</p></div><i data-lucide="route" class="h-5 w-5 shrink-0 text-lagoon"></i></div></div>
+              <div id="stops-list" class="space-y-0"></div>
+              <div class="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-line pt-4"><p class="text-xs text-muted"><span class="font-bold text-ink">About 2.5 km</span> &middot; Includes a little breathing room</p><button id="share-itinerary" class="inline-flex items-center gap-2 rounded-lg border border-line px-3 py-2 text-xs font-bold hover:bg-canvas"><i data-lucide="share-2" class="h-3.5 w-3.5"></i>Share plan</button></div>
+            </div>
+          </div>
+          <div class="mt-6 flex items-start gap-3 rounded-xl border border-[#f2dfb6] bg-[#fff8e9] p-4 text-xs leading-5 text-[#765b2c]"><i data-lucide="info" class="mt-0.5 h-4 w-4 shrink-0"></i><p>Travel times are estimates. Check opening hours and local conditions before you head out.</p></div>
+        </section>
+
+        <section id="page-profile" class="page hidden fade-in">
+          <div class="mb-7"><p class="mb-2 text-xs font-bold uppercase tracking-[.15em] text-lagoon">Your corner of the map</p><h1 class="display text-[34px] sm:text-[40px]">Traveler profile</h1></div>
+          <div class="grid items-start gap-6 xl:grid-cols-[320px_minmax(0,1fr)]">
+            <div class="rounded-2xl border border-line bg-paper p-6 text-center shadow-soft">
+              <div class="mx-auto grid h-24 w-24 place-items-center rounded-full bg-[#f3d9ce] text-2xl font-bold text-ink ring-4 ring-[#f9e9e1]">AM</div>
+              <h2 class="display mt-4 text-[26px]">Alex Morgan</h2><p class="mt-1 text-sm text-muted">San Francisco, CA</p>
+              <p class="mx-auto mt-4 max-w-xs text-sm leading-6 text-muted">Collector of little moments, good coffee, and scenic detours.</p>
+              <button id="edit-profile" class="mt-5 inline-flex items-center gap-2 rounded-xl border border-line px-4 py-2.5 text-sm font-semibold hover:bg-canvas"><i data-lucide="pencil" class="h-4 w-4"></i>Edit profile</button>
+              <div class="mt-6 grid grid-cols-2 divide-x divide-line border-t border-line pt-5"><div><p class="text-2xl font-bold">8</p><p class="mt-1 text-xs text-muted">Saved trips</p></div><div><p class="text-2xl font-bold">3</p><p class="mt-1 text-xs text-muted">Countries explored</p></div></div>
+            </div>
+            <div class="space-y-6">
+              <div class="rounded-2xl border border-line bg-paper p-5 sm:p-6"><div class="mb-4 flex items-center justify-between"><div><p class="text-[10px] font-bold uppercase tracking-[.15em] text-muted">Coming up</p><h2 class="display mt-1 text-[24px]">Upcoming trips</h2></div><button data-nav="itinerary" class="inline-flex items-center gap-1.5 text-xs font-bold text-lagoon"><i data-lucide="plus" class="h-4 w-4"></i>Plan a trip</button></div>
+                <div class="divide-y divide-line">
+                  <button type="button" data-trip-open="cinque-terre" aria-label="Open Cinque Terre itinerary" class="flex w-full items-center gap-4 py-4 text-left transition hover:bg-canvas"><img src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=200&q=80" alt="Cinque Terre coast" class="h-16 w-20 rounded-xl object-cover"><span class="min-w-0 flex-1"><span class="block font-bold">Cinque Terre, Italy</span><span class="mt-1 block text-xs text-muted">Nov 14 &ndash; Nov 19 &middot; 5 days</span></span><span class="hidden rounded-full bg-mint px-2.5 py-1 text-[10px] font-bold text-lagoon sm:inline-block">Confirmed</span></button>
+                  <button type="button" data-trip-open="kyoto" aria-label="Open Kyoto itinerary" class="flex w-full items-center gap-4 py-4 text-left transition hover:bg-canvas"><img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=200&q=80" alt="Kyoto street at dusk" class="h-16 w-20 rounded-xl object-cover"><span class="min-w-0 flex-1"><span class="block font-bold">Kyoto, Japan</span><span class="mt-1 block text-xs text-muted">Mar 8 &ndash; Mar 15 &middot; 7 days</span></span><span class="hidden rounded-full bg-[#fff3df] px-2.5 py-1 text-[10px] font-bold text-[#9b6824] sm:inline-block">Planning</span></button>
+                  <button type="button" data-trip-open="athens" aria-label="Open Athens Weekend Getaway itinerary" class="flex w-full items-center gap-4 py-4 text-left transition hover:bg-canvas"><img src="https://images.unsplash.com/photo-1603565816030-6b389eeb23cb?auto=format&fit=crop&w=200&q=80" alt="Acropolis in Athens" class="h-16 w-20 rounded-xl object-cover"><span class="min-w-0 flex-1"><span class="block font-bold">Athens Weekend Getaway</span><span class="mt-1 block text-xs text-muted">Nov 21 &ndash; Nov 24 &middot; 4 days</span></span><span class="hidden rounded-full bg-mint px-2.5 py-1 text-[10px] font-bold text-lagoon sm:inline-block">Upcoming</span></button>
+                </div>
+              </div>
+              <div class="rounded-2xl border border-line bg-paper p-5 sm:p-6"><p class="text-[10px] font-bold uppercase tracking-[.15em] text-muted">Travel style</p><h2 class="display mt-1 text-[24px]">The curious wanderer</h2><div class="mt-4 flex flex-wrap gap-2"><span class="rounded-full bg-mint px-3 py-1.5 text-xs font-semibold text-lagoon">Walkable neighborhoods</span><span class="rounded-full bg-[#fff3df] px-3 py-1.5 text-xs font-semibold text-[#9b6824]">Local food</span><span class="rounded-full bg-[#fce9e2] px-3 py-1.5 text-xs font-semibold text-[#a9563d]">History & culture</span><span class="rounded-full bg-[#e8edf7] px-3 py-1.5 text-xs font-semibold text-[#53698e]">Slow mornings</span></div></div>
+            </div>
+          </div>
+        </section>
+
+        <section id="page-trip" class="page hidden fade-in">
+          <div class="mb-5 flex flex-wrap items-center justify-between gap-3">
+            <button data-nav="dashboard" class="inline-flex items-center gap-2 rounded-lg px-2 py-2 text-sm font-bold text-lagoon transition hover:bg-mint"><i data-lucide="arrow-left" class="h-4 w-4"></i>Back to Dashboard</button>
+            <div class="flex flex-wrap gap-2">
+              <button id="trip-add-stop" class="inline-flex items-center gap-2 rounded-lg border border-line bg-paper px-3 py-2 text-xs font-bold hover:bg-canvas"><i data-lucide="plus" class="h-4 w-4"></i>Add New Stop</button>
+              <button id="trip-open-chat" class="inline-flex items-center gap-2 rounded-lg border border-line bg-paper px-3 py-2 text-xs font-bold hover:bg-canvas"><i data-lucide="messages-square" class="h-4 w-4"></i>Open Group Chat</button>
+              <button id="trip-share" class="inline-flex items-center gap-2 rounded-lg bg-lagoon px-3 py-2 text-xs font-bold text-white hover:bg-ink"><i data-lucide="share-2" class="h-4 w-4"></i>Export / Share</button>
+            </div>
+          </div>
+
+          <div class="relative mb-6 h-[250px] overflow-hidden rounded-2xl bg-[#dce7df] sm:h-[310px]">
+            <img id="trip-detail-cover" class="absolute inset-0 h-full w-full object-cover" src="" alt="">
+            <div class="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/20 to-transparent"></div>
+            <div class="absolute inset-x-0 bottom-0 flex flex-wrap items-end justify-between gap-4 p-5 text-white sm:p-7">
+              <div><p id="trip-detail-destination" class="mb-2 text-xs font-bold uppercase tracking-[.16em] text-white/80"></p><h1 id="trip-detail-title" class="display text-[32px] leading-tight sm:text-[40px]"></h1><p id="trip-detail-dates" class="mt-2 text-sm text-white/90"></p></div>
+              <span class="rounded-full bg-mint px-3 py-1.5 text-xs font-bold text-lagoon">Upcoming</span>
+            </div>
+          </div>
+
+          <div class="grid items-start gap-6 xl:grid-cols-[minmax(0,1fr)_300px]">
+            <div class="min-w-0 space-y-5">
+              <div class="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-line bg-paper p-4 sm:px-5">
+                <div><p class="text-[10px] font-bold uppercase tracking-[.14em] text-muted">Trip collaborators</p><div id="trip-members" class="mt-3 flex items-center"></div></div>
+                <button id="trip-invite" class="inline-flex items-center gap-2 rounded-lg border border-line px-3 py-2 text-xs font-bold text-lagoon hover:bg-mint"><i data-lucide="user-round-plus" class="h-4 w-4"></i>Invite Friend</button>
+              </div>
+              <div><div class="mb-4 flex items-end justify-between gap-3"><div><p class="text-[10px] font-bold uppercase tracking-[.14em] text-muted">Make the most of each day</p><h2 class="display mt-1 text-[27px]">Day-by-day itinerary</h2></div><span class="inline-flex items-center gap-1.5 rounded-full bg-[#fff3df] px-3 py-1.5 text-xs font-bold text-[#9b6824]"><i data-lucide="footprints" class="h-3.5 w-3.5"></i>Walkable route</span></div>
+                <div id="trip-itinerary" class="space-y-4"></div>
+                <div id="trip-added-stops" class="mt-4 space-y-3"></div>
+              </div>
+            </div>
+            <aside class="space-y-4">
+              <div class="rounded-2xl border border-line bg-paper p-5"><p class="text-[10px] font-bold uppercase tracking-[.14em] text-muted">Trip at a glance</p><div class="mt-4 space-y-4 text-sm"><div class="flex gap-3"><i data-lucide="calendar-days" class="h-4 w-4 text-lagoon"></i><span id="trip-summary-dates" class="text-muted"></span></div><div class="flex gap-3"><i data-lucide="map-pin" class="h-4 w-4 text-lagoon"></i><span id="trip-summary-destination" class="text-muted"></span></div><div class="flex gap-3"><i data-lucide="users-round" class="h-4 w-4 text-lagoon"></i><span id="trip-summary-members" class="text-muted"></span></div></div></div>
+              <div class="rounded-2xl border border-[#f2dfb6] bg-[#fff8e9] p-4"><div class="flex gap-3"><i data-lucide="lightbulb" class="mt-0.5 h-4 w-4 shrink-0 text-[#9b6824]"></i><div><p class="text-sm font-bold text-ink">A local tip</p><p id="trip-local-tip" class="mt-1 text-xs leading-5 text-[#765b2c]"></p></div></div></div>
+            </aside>
+          </div>
+        </section>
+
+        <section id="page-chat" class="page hidden fade-in">
+          <div class="mb-7"><p class="mb-2 text-xs font-bold uppercase tracking-[.15em] text-lagoon">Better trips, together</p><h1 class="display text-[34px] sm:text-[40px]">The trip circle.</h1><p class="mt-2 text-sm text-muted">Swap ideas, save the good ones, make a plan.</p></div>
+          <div class="grid overflow-hidden rounded-2xl border border-line bg-paper shadow-soft lg:grid-cols-[250px_minmax(0,1fr)]">
+            <aside class="border-b border-line bg-[#fbfcf9] p-4 lg:border-b-0 lg:border-r"><div class="mb-4 flex items-center justify-between px-1"><p class="text-[10px] font-bold uppercase tracking-[.14em] text-muted">Your circles</p><button id="new-circle" class="grid h-8 w-8 place-items-center rounded-lg text-muted hover:bg-mint hover:text-lagoon" aria-label="New trip circle"><i data-lucide="plus" class="h-4 w-4"></i></button></div>
+              <button class="flex w-full items-center gap-3 rounded-xl bg-mint p-3 text-left"><span class="grid h-10 w-10 place-items-center rounded-xl bg-[#f4d0bd] text-[10px] font-bold text-ink">IT</span><span class="min-w-0 flex-1"><span class="block truncate text-sm font-bold">Italy in autumn</span><span class="mt-0.5 block text-[11px] text-muted">3 travelers &middot; 2 new</span></span><i data-lucide="chevron-right" class="h-4 w-4 text-lagoon"></i></button>
+              <button class="mt-1 flex w-full items-center gap-3 rounded-xl p-3 text-left transition hover:bg-canvas"><span class="grid h-10 w-10 place-items-center rounded-xl bg-[#e8e4d7] text-[10px] font-bold text-ink">JP</span><span class="min-w-0 flex-1"><span class="block truncate text-sm font-semibold">Kyoto spring trip</span><span class="mt-0.5 block text-[11px] text-muted">2 travelers</span></span></button>
+              <div class="mt-6 rounded-xl border border-line bg-paper p-3"><p class="text-xs font-bold">In this circle</p><div id="collaborator-list" class="mt-3 flex items-center"><span class="grid h-8 w-8 place-items-center rounded-full border-2 border-paper bg-[#f3d9ce] text-[9px] font-bold">AM</span><span class="-ml-2 grid h-8 w-8 place-items-center rounded-full border-2 border-paper bg-[#cbded2] text-[9px] font-bold">JL</span><span class="-ml-2 grid h-8 w-8 place-items-center rounded-full border-2 border-paper bg-[#f4dca6] text-[9px] font-bold">SK</span><span class="ml-2 text-[10px] text-muted">3 friends</span></div><button id="invite-button" class="mt-3 flex w-full items-center justify-center gap-2 rounded-lg border border-line py-2 text-xs font-bold text-lagoon hover:bg-mint"><i data-lucide="user-round-plus" class="h-3.5 w-3.5"></i>Invite someone</button></div>
+            </aside>
+            <div class="flex min-h-[540px] flex-col">
+              <div class="flex items-center justify-between border-b border-line px-5 py-4 sm:px-6"><div><h2 id="circle-title" class="font-bold">Italy in autumn</h2><p class="mt-0.5 text-[11px] text-muted">Cinque Terre &middot; Nov 14 &ndash; Nov 19</p></div><button id="share-circle" class="grid h-9 w-9 place-items-center rounded-lg text-muted hover:bg-canvas" aria-label="Share trip circle"><i data-lucide="share-2" class="h-4 w-4"></i></button></div>
+              <div id="chat-messages" class="chat-scroll flex-1 space-y-5 overflow-y-auto p-5 sm:p-6" aria-live="polite">
+                <p class="text-center text-[10px] font-semibold uppercase tracking-widest text-muted">Today &middot; Italy in autumn</p>
+                <div class="flex max-w-[88%] items-end gap-2"><span class="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-[#cbded2] text-[9px] font-bold">JL</span><div><p class="mb-1 text-[10px] font-semibold text-muted">Jamie</p><div class="rounded-2xl rounded-bl-sm bg-canvas px-4 py-3 text-sm leading-5">Found a little seafood place in Vernazza that looks lovely. Adding it to our list! I bet they have great lemons.</div><p class="mt-1 text-[10px] text-muted">10:14 AM</p></div></div>
+                <div class="ml-auto flex max-w-[88%] flex-row-reverse items-end gap-2"><span class="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-[#f3d9ce] text-[9px] font-bold">AM</span><div><p class="mb-1 text-right text-[10px] font-semibold text-muted">You</p><div class="rounded-2xl rounded-br-sm bg-lagoon px-4 py-3 text-sm leading-5 text-white">Yes! I've been wanting to try the anchovies there.</div><p class="mt-1 text-right text-[10px] text-muted">10:19 AM</p></div></div>
+                <div class="flex max-w-[88%] items-end gap-2"><span class="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-[#f4dca6] text-[9px] font-bold">SK</span><div><p class="mb-1 text-[10px] font-semibold text-muted">Sam</p><div class="rounded-2xl rounded-bl-sm bg-canvas px-4 py-3 text-sm leading-5">Should we take the train to Manarola before sunset?</div><p class="mt-1 text-[10px] text-muted">10:24 AM</p></div></div>
+              </div>
+              <form id="chat-form" class="border-t border-line p-4 sm:p-5"><div class="flex items-center gap-2 rounded-xl border border-line bg-white p-1.5 pl-3 focus-within:border-lagoon"><input id="message-input" class="min-w-0 flex-1 bg-transparent py-2 text-sm outline-none placeholder:text-muted" placeholder="Share an idea with your circle..." aria-label="Message"><button class="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-lagoon text-white transition hover:bg-ink" type="submit" aria-label="Send message"><i data-lucide="send" class="h-4 w-4"></i></button></div><p class="mt-2 text-[10px] text-muted">Keep the good ideas coming.</p></form>
+            </div>
+          </div>
+        </section>
+
+        <section id="page-login" class="page hidden fade-in">
+          <div class="mx-auto grid max-w-4xl overflow-hidden rounded-3xl border border-line bg-paper shadow-soft md:grid-cols-[.9fr_1.1fr]">
+            <div class="relative hidden min-h-[580px] overflow-hidden md:block"><img class="absolute inset-0 h-full w-full object-cover" src="https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=1000&q=85" alt="Whitewashed Greek island overlooking the sea"><div class="absolute inset-0 bg-gradient-to-t from-[#173e38]/85 via-[#173e38]/15 to-transparent"></div><div class="absolute bottom-8 left-8 right-8 text-white"><p class="mb-2 text-xs font-bold uppercase tracking-[.16em] text-[#c8e4d7]">Make room for wonder</p><p class="display text-[32px] leading-tight">The best stories<br>start with a way there.</p></div></div>
+            <div class="flex items-center px-6 py-10 sm:px-10"><div class="mx-auto w-full max-w-sm"><a href="#dashboard" data-nav="dashboard" class="mb-8 inline-flex items-center gap-2 text-sm font-bold"><img src="nextstop-mark.svg" alt="" class="h-9 w-9 rounded-xl">nextstop</a><p class="text-xs font-bold uppercase tracking-[.15em] text-lagoon">Welcome back</p><h1 class="display mt-2 text-[32px]">Your next trip awaits.</h1><p class="mt-2 text-sm text-muted">Sign in to pick up where you left off.</p>
+              <form id="login-form" class="mt-7 space-y-4"><div><label for="email" class="mb-2 block text-xs font-bold">Email address</label><input id="email" required type="email" autocomplete="email" placeholder="you@example.com" class="w-full rounded-xl border border-line bg-white px-4 py-3 text-sm outline-none transition focus:border-lagoon"></div><div><div class="mb-2 flex items-center justify-between"><label for="password" class="text-xs font-bold">Password</label><button id="forgot-password" type="button" class="text-xs font-semibold text-lagoon hover:underline">Forgot password?</button></div><input id="password" required type="password" autocomplete="current-password" placeholder="Enter your password" class="w-full rounded-xl border border-line bg-white px-4 py-3 text-sm outline-none transition focus:border-lagoon"></div><button type="submit" class="w-full rounded-xl bg-lagoon px-4 py-3.5 text-sm font-bold text-white transition hover:bg-ink">Sign in</button></form>
+              <div class="my-5 flex items-center gap-3 text-[10px] font-semibold uppercase tracking-widest text-muted"><span class="h-px flex-1 bg-line"></span>or continue with<span class="h-px flex-1 bg-line"></span></div><button id="google-login" class="flex w-full items-center justify-center gap-3 rounded-xl border border-line px-4 py-3 text-sm font-semibold transition hover:bg-canvas"><span class="grid h-5 w-5 place-items-center rounded-full border border-line text-xs font-bold text-[#4285f4]">G</span>Continue with Google</button><p class="mt-6 text-center text-xs text-muted">New to nextstop? <button id="signup-link" class="font-bold text-lagoon hover:underline">Create an account</button></p><p id="login-message" class="mt-4 hidden rounded-lg bg-mint px-3 py-2 text-center text-xs font-semibold text-lagoon" role="status"></p>
+            </div></div>
+          </div>
+        </section>
+        <footer class="mt-12 flex flex-wrap items-center justify-between gap-3 border-t border-line pt-5 text-[10px] text-muted"><span>&copy; 2026 nextstop Travel Co.</span><span class="flex items-center gap-4"><span>Made for the long way round</span><i data-lucide="heart" class="h-3.5 w-3.5 text-coral"></i></span></footer>
+      </div>
+    </main>
+  </div>
+
+  <div id="toast" class="pointer-events-none fixed bottom-5 left-1/2 z-50 hidden -translate-x-1/2 rounded-xl bg-ink px-4 py-3 text-sm font-semibold text-white shadow-soft" role="status" aria-live="polite"></div>
+
+  <script>
+    const trips = [
+      { city: 'Lisbon', country: 'Portugal', duration: '4 days', date: 'May 12 - May 16', image: 'photo-1555881400-74d7acaacd8b', tag: 'City & coast', color: 'bg-[#e4f0e8] text-lagoon' },
+      { city: 'Kyoto', country: 'Japan', duration: '7 days', date: 'Mar 8 - Mar 15', image: 'photo-1493976040374-85c8e12f0c0e', tag: 'Culture', color: 'bg-[#fce9e2] text-[#a9563d]' },
+      { city: 'Milos', country: 'Greece', duration: '5 days', date: 'Jun 2 - Jun 7', image: 'photo-1533105079780-92b9be482077', tag: 'Slow escape', color: 'bg-[#fff3df] text-[#9b6824]' },
+      { city: 'Marrakech', country: 'Morocco', duration: '3 days', date: 'Oct 18 - Oct 21', image: 'photo-1539020140153-e479b8c22e70', tag: 'Food & color', color: 'bg-[#fce9e2] text-[#a9563d]' },
+      { city: 'Copenhagen', country: 'Denmark', duration: '4 days', date: 'Sep 4 - Sep 8', image: 'photo-1513622470522-26c3c8a854bc', tag: 'City break', color: 'bg-[#e8edf7] text-[#53698e]' },
+      { city: 'Madeira', country: 'Portugal', duration: '6 days', date: 'Apr 20 - Apr 26', image: 'photo-1519046904884-53103b34b206', tag: 'Outdoors', color: 'bg-[#e4f0e8] text-lagoon' }
+    ];
+
+    const itinerarySamples = {
+      athens: [
+        { place: 'Acropolis', detail: 'Start early for cooler air and quieter paths.', time: '9:00 AM', duration: '75 min visit' },
+        { place: 'Acropolis Museum', detail: 'A short downhill walk to the stories behind the stones.', time: '10:25 AM', duration: '15 min walk - 60 min visit' },
+        { place: 'Plaka Walkway', detail: 'Finish with a gentle wander and a well-earned coffee.', time: '11:40 AM', duration: '12 min walk - 45 min stroll' }
+      ],
+      rome: [
+        { place: 'Pantheon', detail: 'Arrive before the crowds gather in the piazza.', time: '9:00 AM', duration: '50 min visit' },
+        { place: 'Piazza Navona', detail: 'Pause by the fountains and pick up a pastry nearby.', time: '10:00 AM', duration: '8 min walk - 35 min visit' },
+        { place: "Campo de' Fiori", detail: 'Browse the market stalls and settle in for lunch.', time: '10:45 AM', duration: '10 min walk - 45 min stroll' }
+      ],
+      kyoto: [
+        { place: 'Kiyomizu-dera', detail: 'Take in the hillside view before the day warms up.', time: '8:30 AM', duration: '65 min visit' },
+        { place: 'Sannenzaka', detail: 'Wander the old lanes and browse the small craft shops.', time: '9:45 AM', duration: '12 min walk - 40 min stroll' },
+        { place: 'Yasaka Shrine', detail: 'End among the lanterns and quiet garden paths.', time: '10:40 AM', duration: '15 min walk - 35 min visit' }
+      ],
+      paris: [
+        { place: "Musee d'Orsay", detail: 'Start with the impressionist galleries before it gets busy.', time: '9:30 AM', duration: '75 min visit' },
+        { place: 'Jardin des Tuileries', detail: 'Cross the river for a slow stroll through the gardens.', time: '11:00 AM', duration: '12 min walk - 35 min stroll' },
+        { place: 'Rue de Rivoli', detail: 'Find a cafe terrace and watch the city go by.', time: '11:50 AM', duration: '10 min walk - 45 min pause' }
+      ]
+    };
+
+    const tripDetails = {
+      'cinque-terre': {
+        title: 'Cinque Terre Coastal Escape',
+        destination: 'Cinque Terre, Italy',
+        dates: 'Nov 14 - Nov 19, 2026',
+        image: 'photo-1516483638261-f4dbaf036963',
+        tip: 'Local trains connect the five villages. Check the regional timetable each morning, since service can change with the weather.',
+        members: [{ initials: 'AM', name: 'Alex Morgan', color: 'bg-[#f3d9ce]' }, { initials: 'JL', name: 'Jamie Lee', color: 'bg-[#cbded2]' }, { initials: 'SK', name: 'Sam Kim', color: 'bg-[#f4dca6]' }],
+        days: [
+          { label: 'Day 1', date: 'Nov 14', theme: 'Arrive in Monterosso', stops: [
+            { name: 'Monterosso Old Town', time: '10:00 - 11:30 AM', duration: '90 min', description: 'Drop your bags, then wander the lanes around Piazza Garibaldi.', nearby: 'Nearby: San Giovanni Battista, 4-min walk', travel: '12-min train to Vernazza' },
+            { name: 'Vernazza Harbor', time: '12:00 - 1:30 PM', duration: '90 min', description: 'Find a waterside table and take the afternoon at an easy pace.', nearby: 'Nearby: Doria Castle viewpoint, 6-min walk', travel: '15-min train to Corniglia' },
+            { name: 'Corniglia Viewpoint', time: '2:00 - 3:00 PM', duration: '60 min', description: 'Take in the coastline from the village terrace.', nearby: 'Nearby: Santa Maria Belvedere, 3-min walk', travel: '' }
+          ] },
+          { label: 'Day 2', date: 'Nov 15', theme: 'Coastal paths & Riomaggiore', stops: [
+            { name: 'Manarola Harbor', time: '9:30 - 11:00 AM', duration: '90 min', description: 'Follow the harbor path for the classic village view.', nearby: 'Nearby: Punta Bonfiglio terrace, 8-min walk', travel: '10-min train to Riomaggiore' },
+            { name: 'Riomaggiore Marina', time: '11:30 AM - 1:00 PM', duration: '90 min', description: 'Browse the waterfront and pause for a long lunch.', nearby: 'Nearby: Castello di Riomaggiore, 7-min walk', travel: '' }
+          ] }
+        ]
+      },
+      kyoto: {
+        title: 'Kyoto Spring Discovery',
+        destination: 'Kyoto, Japan',
+        dates: 'Mar 8 - Mar 15, 2027',
+        image: 'photo-1493976040374-85c8e12f0c0e',
+        tip: 'Visit the busiest temples early, and keep a little cash on hand for small neighborhood cafes and buses.',
+        members: [{ initials: 'AM', name: 'Alex Morgan', color: 'bg-[#f3d9ce]' }, { initials: 'TK', name: 'Taylor Kim', color: 'bg-[#d9d4ed]' }],
+        days: [
+          { label: 'Day 1', date: 'Mar 8', theme: 'Higashiyama at a gentle pace', stops: [
+            { name: 'Kiyomizu-dera', time: '8:30 - 10:00 AM', duration: '90 min', description: 'Arrive early for the hillside views and quiet temple grounds.', nearby: 'Nearby: Otowa waterfall, inside the temple grounds', travel: '10-min walk to Sannenzaka' },
+            { name: 'Sannenzaka & Ninenzaka', time: '10:15 AM - 12:00 PM', duration: '105 min', description: 'Explore the old stone lanes and independent craft shops.', nearby: 'Nearby: Yasaka Pagoda, 5-min walk', travel: '15-min walk to Yasaka Shrine' },
+            { name: 'Yasaka Shrine', time: '12:20 - 1:00 PM', duration: '40 min', description: 'Take a quiet loop through the shrine before lunch.', nearby: 'Nearby: Maruyama Park, 3-min walk', travel: '' }
+          ] },
+          { label: 'Day 2', date: 'Mar 9', theme: 'Arashiyama riverside', stops: [
+            { name: 'Bamboo Grove', time: '8:00 - 9:00 AM', duration: '60 min', description: 'Walk the grove before the main tour groups arrive.', nearby: 'Nearby: Tenryu-ji garden, 4-min walk', travel: '12-min walk to Togetsukyo Bridge' },
+            { name: 'Togetsukyo Bridge', time: '9:20 - 10:00 AM', duration: '40 min', description: 'Pause along the river for a slow morning view.', nearby: 'Nearby: Riverside coffee shops, 5-min walk', travel: '' }
+          ] }
+        ]
+      },
+      athens: {
+        title: 'Athens Weekend Getaway',
+        destination: 'Athens, Greece',
+        dates: 'Nov 21 - Nov 24, 2026',
+        image: 'photo-1603565816030-6b389eeb23cb',
+        tip: 'Start the Acropolis visit early and book timed entry in advance. Comfortable shoes make the marble paths much easier.',
+        members: [{ initials: 'AM', name: 'Alex Morgan', color: 'bg-[#f3d9ce]' }, { initials: 'JL', name: 'Jamie Lee', color: 'bg-[#cbded2]' }, { initials: 'SK', name: 'Sam Kim', color: 'bg-[#f4dca6]' }],
+        days: [
+          { label: 'Day 1', date: 'Nov 21', theme: 'Ancient Athens', stops: [
+            { name: 'Acropolis Hill', time: '8:30 - 10:00 AM', duration: '90 min', description: 'Explore the Parthenon and hillside monuments while the morning is cool.', nearby: 'Nearby: Areopagus Hill, 5-min walk', travel: '10-min walk to Acropolis Museum' },
+            { name: 'Acropolis Museum', time: '10:15 AM - 12:00 PM', duration: '105 min', description: 'Follow the archaeological story from the gallery floors to the glass atrium.', nearby: 'Nearby: Dionysiou Areopagitou promenade, 2-min walk', travel: '12-min walk to Plaka' },
+            { name: 'Plaka & Anafiotika', time: '12:15 - 2:00 PM', duration: '105 min', description: 'Take a relaxed lunch and explore the narrow lanes beneath the Acropolis.', nearby: 'Nearby: Roman Agora, 6-min walk', travel: '' }
+          ] },
+          { label: 'Day 2', date: 'Nov 22', theme: 'Markets, gardens & city views', stops: [
+            { name: 'Monastiraki Flea Market', time: '9:30 - 11:00 AM', duration: '90 min', description: 'Browse the stalls and side streets around the lively square.', nearby: 'Nearby: Hadrian’s Library, 3-min walk', travel: '12-min walk to the National Garden' },
+            { name: 'National Garden', time: '11:20 AM - 12:30 PM', duration: '70 min', description: 'Take a shady break along the garden paths before lunch.', nearby: 'Nearby: Zappeion Hall, 4-min walk', travel: '15-min walk to Panathenaic Stadium' },
+            { name: 'Panathenaic Stadium', time: '12:50 - 1:45 PM', duration: '55 min', description: 'Finish with a visit to the marble stadium and its museum.', nearby: 'Nearby: Ardittos Hill viewpoint, 8-min walk', travel: '' }
+          ] }
+        ]
+      }
+    };
+
+    const tripGrid = document.querySelector('#trip-grid');
+    const toast = document.querySelector('#toast');
+    let toastTimer;
+    let activeTripId = null;
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.remove('hidden');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.add('hidden'), 2600);
+    }
+
+    function renderTrips(query = '') {
+      const filtered = trips.filter((trip) => `${trip.city} ${trip.country} ${trip.tag}`.toLowerCase().includes(query.toLowerCase()));
+      tripGrid.innerHTML = filtered.map((trip) => `
+        <article class="group overflow-hidden rounded-2xl border border-line bg-paper transition duration-200 hover:-translate-y-1 hover:shadow-soft">
+          <div class="trip-image relative h-40 overflow-hidden"><img src="https://images.unsplash.com/${trip.image}?auto=format&fit=crop&w=800&q=85" alt="Scenery in ${trip.city}, ${trip.country}" class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]" loading="lazy"><span class="absolute left-3 top-3 rounded-full bg-paper/95 px-2.5 py-1 text-[10px] font-bold ${trip.color}">${trip.tag}</span><button class="save-trip absolute right-3 top-3 grid h-8 w-8 place-items-center rounded-full bg-paper/95 text-ink transition hover:text-coral" aria-label="Save ${trip.city}" data-city="${trip.city}"><i data-lucide="bookmark" class="h-4 w-4"></i></button></div>
+          <div class="p-4"><div class="flex items-start justify-between gap-2"><div><h3 class="text-lg font-bold leading-tight">${trip.city}</h3><p class="mt-0.5 text-xs text-muted">${trip.country}</p></div><span class="inline-flex items-center gap-1 rounded-lg bg-canvas px-2 py-1 text-[10px] font-semibold text-muted"><i data-lucide="calendar-days" class="h-3 w-3"></i>${trip.duration}</span></div><div class="mt-4 flex items-center justify-between border-t border-line pt-3"><span class="text-[11px] text-muted">${trip.date}</span><button class="plan-trip inline-flex items-center gap-1 text-xs font-bold text-lagoon hover:text-ink" data-city="${trip.city}">View plan <i data-lucide="arrow-up-right" class="h-3.5 w-3.5"></i></button></div></div>
+        </article>`).join('');
+      document.querySelector('#no-results').classList.toggle('hidden', filtered.length > 0);
+      lucide.createIcons();
+    }
+
+    function showPage(name) {
+      document.querySelectorAll('.page').forEach((page) => page.classList.add('hidden'));
+      document.querySelector(`#page-${name}`).classList.remove('hidden');
+      document.querySelectorAll('.nav-item').forEach((button) => {
+        button.classList.toggle('nav-active', button.dataset.nav === name);
+      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function renderTripDetails(tripId) {
+      const trip = tripDetails[tripId];
+      if (!trip) return;
+      activeTripId = tripId;
+      document.querySelector('#trip-detail-title').textContent = trip.title;
+      document.querySelector('#trip-detail-destination').textContent = trip.destination;
+      document.querySelector('#trip-detail-dates').textContent = trip.dates;
+      document.querySelector('#trip-detail-cover').src = `https://images.unsplash.com/${trip.image}?auto=format&fit=crop&w=1400&q=85`;
+      document.querySelector('#trip-detail-cover').alt = `Trip cover: ${trip.destination}`;
+      document.querySelector('#trip-summary-dates').textContent = trip.dates;
+      document.querySelector('#trip-summary-destination').textContent = trip.destination;
+      document.querySelector('#trip-summary-members').textContent = `${trip.members.length} travelers`;
+      document.querySelector('#trip-local-tip').textContent = trip.tip;
+      document.querySelector('#trip-members').innerHTML = `${trip.members.map((member) => `<span title="${member.name}" aria-label="${member.name}" class="-ml-2 first:ml-0 grid h-9 w-9 place-items-center rounded-full border-2 border-paper ${member.color} text-[10px] font-bold text-ink">${member.initials}</span>`).join('')}<span id="trip-member-count" class="ml-2 text-xs text-muted">${trip.members.length} friends</span>`;
+      document.querySelector('#trip-itinerary').innerHTML = trip.days.map((day) => `
+        <article class="overflow-hidden rounded-2xl border border-line bg-paper">
+          <div class="flex items-center gap-3 border-b border-line bg-[#fbfcf9] px-4 py-3 sm:px-5"><span class="grid h-9 w-9 place-items-center rounded-xl bg-mint text-xs font-bold text-lagoon">${day.label.replace('Day ', '')}</span><div><h3 class="text-sm font-bold">${day.theme}</h3><p class="mt-0.5 text-[11px] text-muted">${day.label} &middot; ${day.date}</p></div></div>
+          <div class="p-4 sm:p-5">${day.stops.map((stop, index) => `
+            <div class="relative flex gap-3 ${index < day.stops.length - 1 || stop.travel ? 'pb-4' : ''}">
+              ${index < day.stops.length - 1 ? '<span class="absolute left-[13px] top-8 h-[calc(100%-24px)] w-px bg-line"></span>' : ''}
+              <span class="relative z-10 grid h-7 w-7 shrink-0 place-items-center rounded-full border border-[#b8d7ca] bg-white text-[10px] font-bold text-lagoon">${index + 1}</span>
+              <div class="min-w-0 flex-1"><div class="flex flex-wrap items-start justify-between gap-2"><h4 class="text-sm font-bold">${stop.name}</h4><span class="rounded-md bg-canvas px-2 py-1 text-[10px] font-semibold text-muted">${stop.time}</span></div><p class="mt-1 text-xs leading-5 text-muted">${stop.description}</p><div class="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-[10px]"><span class="font-semibold text-lagoon">${stop.duration}</span><span class="text-muted">${stop.nearby}</span></div>${stop.travel ? `<div class="mt-3 flex items-center gap-2 border-l border-dashed border-lagoon/40 pl-3 text-[10px] font-semibold text-lagoon"><i data-lucide="footprints" class="h-3 w-3"></i>${stop.travel}</div>` : ''}</div>
+            </div>`).join('')}</div>
+        </article>`).join('');
+      document.querySelector('#trip-added-stops').replaceChildren();
+      lucide.createIcons();
+    }
+
+    function renderStops(stops) {
+      document.querySelector('#stops-list').innerHTML = stops.map((stop, index) => `
+        <div class="relative flex gap-4 pb-5 last:pb-0">
+          ${index < stops.length - 1 ? '<span class="absolute left-[13px] top-8 h-[calc(100%-24px)] w-px bg-line"></span>' : ''}
+          <span class="relative z-10 grid h-7 w-7 shrink-0 place-items-center rounded-full border border-[#b8d7ca] bg-white text-[10px] font-bold text-lagoon">${index + 1}</span>
+          <div class="min-w-0 flex-1"><div class="flex flex-wrap items-center justify-between gap-x-3 gap-y-1"><h3 class="text-sm font-bold">${stop.place}</h3><span class="text-[10px] font-semibold text-muted">${stop.time}</span></div><p class="mt-1 text-xs leading-5 text-muted">${stop.detail}</p><p class="mt-1.5 text-[10px] font-semibold text-lagoon">${stop.duration}</p></div>
+        </div>`).join('');
+    }
+
+    document.addEventListener('click', (event) => {
+      const tripCard = event.target.closest('[data-trip-open]');
+      if (tripCard) {
+        renderTripDetails(tripCard.dataset.tripOpen);
+        showPage('trip');
+        return;
+      }
+      const nav = event.target.closest('[data-nav]');
+      if (nav) {
+        event.preventDefault();
+        showPage(nav.dataset.nav);
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      const tripCard = event.target.closest('[data-trip-open][role="button"]');
+      if (tripCard && (event.key === 'Enter' || event.key === ' ')) {
+        event.preventDefault();
+        renderTripDetails(tripCard.dataset.tripOpen);
+        showPage('trip');
+      }
+    });
+
+    document.querySelector('#trip-add-stop').addEventListener('click', () => {
+      const name = window.prompt('What stop would you like to add?');
+      if (!name || !name.trim()) return;
+      const stop = document.createElement('div');
+      stop.className = 'flex items-start gap-3 rounded-xl border border-dashed border-lagoon/40 bg-paper p-4';
+      const icon = document.createElement('span');
+      icon.className = 'grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-mint text-lagoon';
+      icon.innerHTML = '<i data-lucide="map-pin" class="h-4 w-4"></i>';
+      const content = document.createElement('div');
+      content.innerHTML = '<p class="text-sm font-bold"></p><p class="mt-1 text-xs text-muted">Added to your trip ideas</p>';
+      content.querySelector('p').textContent = name.trim();
+      stop.append(icon, content);
+      document.querySelector('#trip-added-stops').append(stop);
+      lucide.createIcons();
+      showToast(`${name.trim()} added to the itinerary`);
+    });
+
+    document.querySelector('#trip-invite').addEventListener('click', () => {
+      const email = window.prompt("Enter your friend's email address:");
+      if (!email || !email.trim()) return;
+      const members = document.querySelector('#trip-members');
+      const avatar = document.createElement('span');
+      avatar.className = '-ml-2 grid h-9 w-9 place-items-center rounded-full border-2 border-paper bg-[#e8edf7] text-[10px] font-bold text-ink';
+      avatar.textContent = email.trim().slice(0, 2).toUpperCase();
+      avatar.title = email.trim();
+      members.insertBefore(avatar, document.querySelector('#trip-member-count'));
+      document.querySelector('#trip-member-count').textContent = `${members.querySelectorAll('[title]').length} friends`;
+      document.querySelector('#trip-summary-members').textContent = `${members.querySelectorAll('[title]').length} travelers`;
+      showToast(`Invite ready for ${email.trim()}`);
+    });
+
+    document.querySelector('#trip-open-chat').addEventListener('click', () => showPage('chat'));
+    document.querySelector('#trip-share').addEventListener('click', async () => {
+      const title = document.querySelector('#trip-detail-title').textContent;
+      const dates = document.querySelector('#trip-detail-dates').textContent;
+      try {
+        await navigator.clipboard.writeText(`${title} - ${dates}`);
+        showToast('Trip itinerary copied to clipboard');
+      } catch {
+        showToast('Trip itinerary is ready to share');
+      }
+    });
+
+    document.querySelector('#destination-search').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const query = document.querySelector('#search-input').value.trim();
+      renderTrips(query);
+      document.querySelector('#clear-search').classList.toggle('hidden', !query);
+      if (query && trips.some((trip) => `${trip.city} ${trip.country} ${trip.tag}`.toLowerCase().includes(query.toLowerCase()))) {
+        document.querySelector('#trip-grid').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+    document.querySelector('#clear-search').addEventListener('click', () => {
+      document.querySelector('#search-input').value = '';
+      document.querySelector('#clear-search').classList.add('hidden');
+      renderTrips();
+    });
+    tripGrid.addEventListener('click', (event) => {
+      const save = event.target.closest('.save-trip');
+      if (save) {
+        const icon = save.querySelector('svg');
+        const saved = save.classList.toggle('text-coral');
+        if (icon) icon.setAttribute('fill', saved ? 'currentColor' : 'none');
+        save.setAttribute('aria-label', `${saved ? 'Unsave' : 'Save'} ${save.dataset.city}`);
+        showToast(`${save.dataset.city} ${saved ? 'saved to' : 'removed from'} your trips`);
+        return;
+      }
+      const plan = event.target.closest('.plan-trip');
+      if (plan) {
+        document.querySelector('#destination').value = plan.dataset.city;
+        showPage('itinerary');
+        const form = document.querySelector('#itinerary-form');
+        form.requestSubmit();
+      }
+    });
+
+    document.querySelector('#itinerary-form').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const place = document.querySelector('#destination').value.trim();
+      const available = document.querySelector('#available-time').value.trim();
+      if (!place || !available) return;
+      const key = place.toLowerCase().includes('acropolis') ? 'athens' : Object.keys(itinerarySamples).find((city) => place.toLowerCase().includes(city));
+      const stops = itinerarySamples[key] || [
+        { place: `${place} old town`, detail: 'Start somewhere central and take time to get your bearings.', time: '9:00 AM', duration: '60 min to explore' },
+        { place: `${place} local market`, detail: 'Follow the lively streets toward a favorite local gathering place.', time: '10:10 AM', duration: '12 min walk - 45 min visit' },
+        { place: `${place} scenic viewpoint`, detail: 'Wind down with a wide-open view and a slower pace.', time: '11:15 AM', duration: '18 min walk - 35 min pause' }
+      ];
+      document.querySelector('#route-eyebrow').textContent = `A little route through ${place}`;
+      document.querySelector('#route-title').textContent = `${place} in ${available}`;
+      document.querySelector('#route-summary').textContent = stops.map((stop) => stop.place).join(' -> ');
+      document.querySelector('#route-description').textContent = `A thoughtfully paced route with time to explore ${stops[0].place}, ${stops[1].place}, and ${stops[2].place}.`;
+      renderStops(stops);
+      showToast(`A ${available} route for ${place} is ready`);
+    });
+
+    document.querySelector('#share-itinerary').addEventListener('click', async () => {
+      const title = document.querySelector('#route-title').textContent;
+      try {
+        await navigator.clipboard.writeText(`${title} - planned with nextstop`);
+        showToast('Itinerary copied to clipboard');
+      } catch {
+        showToast('Your itinerary is ready to share');
+      }
+    });
+
+    document.querySelector('#chat-form').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const input = document.querySelector('#message-input');
+      const text = input.value.trim();
+      if (!text) return;
+      const message = document.createElement('div');
+      message.className = 'ml-auto flex max-w-[88%] flex-row-reverse items-end gap-2';
+      const bubble = document.createElement('div');
+      bubble.innerHTML = `<p class="mb-1 text-right text-[10px] font-semibold text-muted">You - just now</p><div class="rounded-2xl rounded-br-sm bg-lagoon px-4 py-3 text-sm leading-5 text-white"></div>`;
+      bubble.querySelector('div').textContent = text;
+      const avatar = document.createElement('span');
+      avatar.className = 'grid h-7 w-7 shrink-0 place-items-center rounded-full bg-[#f3d9ce] text-[9px] font-bold';
+      avatar.textContent = 'AM';
+      message.append(avatar, bubble);
+      document.querySelector('#chat-messages').append(message);
+      input.value = '';
+      document.querySelector('#chat-messages').scrollTop = document.querySelector('#chat-messages').scrollHeight;
+    });
+
+    document.querySelector('#invite-button').addEventListener('click', () => {
+      const email = window.prompt("Enter your friend's email address:");
+      if (!email || !email.trim()) return;
+      const list = document.querySelector('#collaborator-list');
+      const avatar = document.createElement('span');
+      avatar.className = '-ml-2 grid h-8 w-8 place-items-center rounded-full border-2 border-paper bg-[#e8edf7] text-[9px] font-bold';
+      avatar.textContent = email.trim().slice(0, 2).toUpperCase();
+      avatar.title = email.trim();
+      list.insertBefore(avatar, list.lastElementChild);
+      list.lastElementChild.textContent = '4 friends';
+      showToast(`Invite ready for ${email.trim()}`);
+    });
+
+    document.querySelector('#share-circle').addEventListener('click', () => showToast('Trip circle link copied'));
+    document.querySelector('#new-circle').addEventListener('click', () => showToast('New trip circle created'));
+    document.querySelector('#edit-profile').addEventListener('click', () => showToast('Profile editing is ready to connect'));
+
+    document.querySelector('#login-form').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const email = document.querySelector('#email').value;
+      document.querySelector('#login-message').textContent = `You're signed in as ${email}. Your next trip is waiting.`;
+      document.querySelector('#login-message').classList.remove('hidden');
+      showToast('Welcome back to nextstop');
+    });
+    document.querySelector('#google-login').addEventListener('click', () => {
+      document.querySelector('#login-message').textContent = 'Google sign-in is a demo in this mockup.';
+      document.querySelector('#login-message').classList.remove('hidden');
+    });
+    document.querySelector('#forgot-password').addEventListener('click', () => showToast('Password reset is not connected in this demo'));
+    document.querySelector('#signup-link').addEventListener('click', () => showToast('Account creation is not connected in this demo'));
+
+    renderTrips();
+    renderStops(itinerarySamples.athens);
+    lucide.createIcons();
+  </script>
+</body>
+</html>
