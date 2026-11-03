@@ -196,13 +196,13 @@
       </a>
       <p class="mb-3 px-3 text-[10px] font-bold uppercase tracking-[.18em] text-muted">Workspace</p>
       <nav class="space-y-1" aria-label="Main navigation">
-        <button data-nav="dashboard" class="nav-item nav-active flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-semibold text-muted transition hover:bg-mint hover:text-lagoon"><i data-lucide="layout-dashboard" class="h-[18px] w-[18px]"></i>Overview</button>
-        <button data-nav="itinerary" class="nav-item flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-semibold text-muted transition hover:bg-mint hover:text-lagoon"><i data-lucide="map" class="h-[18px] w-[18px]"></i>Itinerary builder</button>
-        <button data-nav="chat" class="nav-item flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-semibold text-muted transition hover:bg-mint hover:text-lagoon"><i data-lucide="messages-square" class="h-[18px] w-[18px]"></i>Trip circle <span class="ml-auto rounded-full bg-coral/10 px-2 py-0.5 text-[10px] font-bold text-coral">2</span></button>
+        <button data-nav="dashboard" class="nav-item nav-active flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-semibold text-muted transition hover:bg-mint hover:text-lagoon"><i data-lucide="layout-dashboard" class="h-[18px] w-[18px]"></i>For You Page</button>
+        <button data-nav="itinerary" class="nav-item flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-semibold text-muted transition hover:bg-mint hover:text-lagoon"><i data-lucide="map" class="h-[18px] w-[18px]"></i>Control Room</button>
+        <button data-nav="chat" class="nav-item flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-semibold text-muted transition hover:bg-mint hover:text-lagoon"><i data-lucide="messages-square" class="h-[18px] w-[18px]"></i>Who is coming? <span class="ml-auto rounded-full bg-coral/10 px-2 py-0.5 text-[10px] font-bold text-coral">2</span></button>
       </nav>
       <p class="mb-3 mt-9 px-3 text-[10px] font-bold uppercase tracking-[.18em] text-muted">You</p>
       <nav class="space-y-1" aria-label="Account navigation">
-        <button data-nav="profile" class="nav-item flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-semibold text-muted transition hover:bg-mint hover:text-lagoon"><i data-lucide="circle-user-round" class="h-[18px] w-[18px]"></i>My profile</button>
+        <button data-nav="profile" class="nav-item flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-semibold text-muted transition hover:bg-mint hover:text-lagoon"><i data-lucide="circle-user-round" class="h-[18px] w-[18px]"></i>The main character</button>
       </nav>
       <div class="mt-auto rounded-2xl bg-[#edf4ed] p-4">
         <div class="mb-3 flex h-9 w-9 items-center justify-center rounded-full bg-sun/60 text-lagoon"><i data-lucide="compass" class="h-4 w-4"></i></div>
@@ -236,10 +236,10 @@
           </div>
         </div>
         <nav class="flex gap-1 overflow-x-auto border-t border-line/70 px-3 py-2 lg:hidden" aria-label="Mobile navigation">
-          <button data-nav="dashboard" class="nav-item nav-active flex shrink-0 items-center gap-2 rounded-lg px-3 py-2 text-xs font-semibold text-muted"><i data-lucide="layout-dashboard" class="h-4 w-4"></i>Overview</button>
-          <button data-nav="itinerary" class="nav-item flex shrink-0 items-center gap-2 rounded-lg px-3 py-2 text-xs font-semibold text-muted"><i data-lucide="map" class="h-4 w-4"></i>Itinerary</button>
-          <button data-nav="chat" class="nav-item flex shrink-0 items-center gap-2 rounded-lg px-3 py-2 text-xs font-semibold text-muted"><i data-lucide="messages-square" class="h-4 w-4"></i>Trip circle</button>
-          <button data-nav="profile" class="nav-item flex shrink-0 items-center gap-2 rounded-lg px-3 py-2 text-xs font-semibold text-muted"><i data-lucide="circle-user-round" class="h-4 w-4"></i>Profile</button>
+          <button data-nav="dashboard" class="nav-item nav-active flex shrink-0 items-center gap-2 rounded-lg px-3 py-2 text-xs font-semibold text-muted"><i data-lucide="layout-dashboard" class="h-4 w-4"></i>For You Page</button>
+          <button data-nav="itinerary" class="nav-item flex shrink-0 items-center gap-2 rounded-lg px-3 py-2 text-xs font-semibold text-muted"><i data-lucide="map" class="h-4 w-4"></i>Control Room</button>
+          <button data-nav="chat" class="nav-item flex shrink-0 items-center gap-2 rounded-lg px-3 py-2 text-xs font-semibold text-muted"><i data-lucide="messages-square" class="h-4 w-4"></i>Who is coming?</button>
+          <button data-nav="profile" class="nav-item flex shrink-0 items-center gap-2 rounded-lg px-3 py-2 text-xs font-semibold text-muted"><i data-lucide="circle-user-round" class="h-4 w-4"></i>The main character</button>
         </nav>
       </header>
 
@@ -247,7 +247,7 @@
         <section id="page-dashboard" class="page fade-in">
           <div class="mb-7 flex flex-wrap items-end justify-between gap-4">
             <div><p class="mb-2 text-xs font-bold uppercase tracking-[.15em] text-lagoon">Your travel, thoughtfully planned</p><h1 class="display text-[34px] leading-tight sm:text-[40px]">A good day starts <span class="text-lagoon">somewhere.</span></h1><p class="mt-2 text-sm text-muted">Pick a place. We'll help with the rest.</p></div>
-            <button data-nav="itinerary" class="hidden items-center gap-2 rounded-xl bg-ink px-4 py-3 text-sm font-semibold text-white transition hover:bg-lagoon sm:inline-flex"><i data-lucide="plus" class="h-4 w-4"></i>Build an itinerary</button>
+            <span class="hidden rounded-full bg-mint px-4 py-2 text-xs font-bold text-lagoon sm:inline-flex">A little inspiration for your next trip</span>
           </div>
 
           <form id="destination-search" class="mb-8 flex flex-col gap-2 rounded-2xl border border-line bg-paper p-2 shadow-soft sm:flex-row sm:items-center">
@@ -267,16 +267,13 @@
             </div>
 
             <aside class="space-y-4">
-              <div class="group cursor-pointer overflow-hidden rounded-2xl border border-line bg-paper transition hover:shadow-soft focus-visible:outline focus-visible:outline-2 focus-visible:outline-lagoon" data-trip-open="cinque-terre" role="button" tabindex="0" aria-label="Open Cinque Terre trip details">
-                <div class="flex items-center justify-between px-5 pb-3 pt-5"><div><p class="text-[10px] font-bold uppercase tracking-[.14em] text-muted">On the horizon</p><h3 class="mt-1 font-bold">Your next trip</h3></div><span class="rounded-full bg-mint px-2.5 py-1 text-[10px] font-bold text-lagoon">In 12 days</span></div>
-                <div class="relative h-32 overflow-hidden"><img class="h-full w-full object-cover" src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=800&q=85" alt="Colorful coastal villages in Cinque Terre"><div class="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent"></div><p class="absolute bottom-3 left-4 text-lg font-bold text-white">Cinque Terre, Italy</p></div>
-                <div class="flex items-center justify-between px-5 py-4"><div><p class="text-xs font-semibold">Nov 14 &ndash; Nov 19</p><p class="mt-1 text-[11px] text-muted">5 days &middot; 3 travelers</p></div><span class="grid h-9 w-9 place-items-center rounded-xl border border-line text-lagoon transition group-hover:bg-mint" aria-hidden="true"><i data-lucide="arrow-up-right" class="h-4 w-4"></i></span></div>
-              </div>
+              <article class="overflow-hidden rounded-2xl border border-line bg-paper">
+                <img class="h-36 w-full object-cover" src="https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=800&q=85" alt="Ancient landmarks in Rome">
+                <div class="p-5"><p class="text-[10px] font-bold uppercase tracking-[.14em] text-lagoon">A sample city break</p><h3 class="display mt-1 text-xl">Two days in Rome</h3><p class="mt-2 text-xs leading-5 text-muted">Ancient landmarks, neighborhood walks, and a long lunch between stops.</p><button type="button" data-trip-open="template-rome" class="mt-4 inline-flex items-center gap-1 text-xs font-bold text-lagoon">Explore the sample plan <i data-lucide="arrow-up-right" class="h-3.5 w-3.5"></i></button></div>
+              </article>
               <div class="rounded-2xl border border-line bg-paper p-5">
-                <div class="flex items-center justify-between"><h3 class="text-sm font-bold">Your travel rhythm</h3><i data-lucide="chart-no-axes-column-increasing" class="h-4 w-4 text-lagoon"></i></div>
-                <div class="mt-5 flex items-end gap-2" aria-label="Six trips saved this year"><div class="h-9 flex-1 rounded-t-md bg-[#b8d7ca]"></div><div class="h-14 flex-1 rounded-t-md bg-lagoon"></div><div class="h-11 flex-1 rounded-t-md bg-[#b8d7ca]"></div><div class="h-16 flex-1 rounded-t-md bg-coral"></div><div class="h-12 flex-1 rounded-t-md bg-[#b8d7ca]"></div><div class="h-20 flex-1 rounded-t-md bg-lagoon"></div></div>
-                <div class="mt-2 flex justify-between text-[10px] font-medium text-muted"><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span></div>
-                <p class="mt-4 border-t border-line pt-3 text-xs text-muted"><span class="font-bold text-ink">6 trips saved</span> this year. That's a good start.</p>
+                <div class="flex items-center justify-between"><h3 class="text-sm font-bold">Ideas for a lovely escape</h3><i data-lucide="sparkles" class="h-4 w-4 text-lagoon"></i></div>
+                <ul class="mt-4 space-y-3 text-xs leading-5 text-muted"><li><span class="font-bold text-ink">Lisbon:</span> tiled lanes and a sunset by the water.</li><li><span class="font-bold text-ink">Milos:</span> island coves and slow afternoons.</li><li><span class="font-bold text-ink">Copenhagen:</span> design, bakeries, and easy cycling.</li></ul>
               </div>
             </aside>
           </div>
@@ -304,6 +301,7 @@
                 <div class="flex flex-wrap items-center gap-3 xl:justify-end">
                   <div class="rounded-xl bg-[#E8F7F6] px-4 py-2"><p class="text-[10px] font-semibold text-muted">Trip duration</p><strong id="itinerary-summary-duration" class="text-sm font-bold text-lagoon">3 Days, 8 Hours</strong></div>
                   <div class="rounded-xl bg-[#FFF3D9] px-4 py-2"><p class="text-[10px] font-semibold text-muted">Planned stops</p><strong id="itinerary-summary-stops" class="text-sm font-bold text-ink">12 stops</strong></div>
+                  <button type="button" data-action="add-itinerary-stop" class="inline-flex items-center justify-center gap-2 rounded-xl border border-line bg-white px-4 py-3 text-sm font-bold text-lagoon transition hover:bg-canvas"><i data-lucide="plus" class="h-4 w-4"></i>Add stop</button>
                   <button id="save-itinerary" type="button" aria-pressed="false" class="inline-flex items-center justify-center gap-2 rounded-xl bg-coral px-4 py-3 text-sm font-bold text-white transition hover:bg-[#D9474A]"><i data-lucide="bookmark-plus" class="h-4 w-4"></i><span id="save-itinerary-label">Save to My Trips</span></button>
                   <button id="share-itinerary" type="button" class="inline-flex items-center justify-center gap-2 rounded-xl border border-line bg-white px-4 py-3 text-sm font-bold text-lagoon transition hover:bg-canvas"><i data-lucide="share-2" class="h-4 w-4"></i>Share Plan</button>
                 </div>
@@ -323,15 +321,16 @@
               <h2 class="display mt-4 text-[26px]">Alex Morgan</h2><p class="mt-1 text-sm text-muted">San Francisco, CA</p>
               <p class="mx-auto mt-4 max-w-xs text-sm leading-6 text-muted">Collector of little moments, good coffee, and scenic detours.</p>
               <button id="edit-profile" class="mt-5 inline-flex items-center gap-2 rounded-xl border border-line px-4 py-2.5 text-sm font-semibold hover:bg-canvas"><i data-lucide="pencil" class="h-4 w-4"></i>Edit profile</button>
-              <div class="mt-6 grid grid-cols-2 divide-x divide-line border-t border-line pt-5"><div><p class="text-2xl font-bold">8</p><p class="mt-1 text-xs text-muted">Saved trips</p></div><div><p class="text-2xl font-bold">3</p><p class="mt-1 text-xs text-muted">Countries explored</p></div></div>
+              <div class="mt-6 grid grid-cols-2 divide-x divide-line border-t border-line pt-5"><div><p id="profile-trip-count" class="text-2xl font-bold">3</p><p class="mt-1 text-xs text-muted">Planned &amp; saved</p></div><div><p class="text-2xl font-bold">3</p><p class="mt-1 text-xs text-muted">Countries explored</p></div></div>
             </div>
             <div class="space-y-6">
-              <div class="rounded-2xl border border-line bg-paper p-5 sm:p-6"><div class="mb-4 flex items-center justify-between"><div><p class="text-[10px] font-bold uppercase tracking-[.15em] text-muted">Coming up</p><h2 class="display mt-1 text-[24px]">Upcoming trips</h2></div><button data-nav="itinerary" class="inline-flex items-center gap-1.5 text-xs font-bold text-lagoon"><i data-lucide="plus" class="h-4 w-4"></i>Plan a trip</button></div>
-                <div class="divide-y divide-line">
-                  <button type="button" data-trip-open="cinque-terre" aria-label="Open Cinque Terre itinerary" class="flex w-full items-center gap-4 py-4 text-left transition hover:bg-canvas"><img src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=200&q=80" alt="Cinque Terre coast" class="h-16 w-20 rounded-xl object-cover"><span class="min-w-0 flex-1"><span class="block font-bold">Cinque Terre, Italy</span><span class="mt-1 block text-xs text-muted">Nov 14 &ndash; Nov 19 &middot; 5 days</span></span><span class="hidden rounded-full bg-mint px-2.5 py-1 text-[10px] font-bold text-lagoon sm:inline-block">Confirmed</span></button>
-                  <button type="button" data-trip-open="kyoto" aria-label="Open Kyoto itinerary" class="flex w-full items-center gap-4 py-4 text-left transition hover:bg-canvas"><img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=200&q=80" alt="Kyoto street at dusk" class="h-16 w-20 rounded-xl object-cover"><span class="min-w-0 flex-1"><span class="block font-bold">Kyoto, Japan</span><span class="mt-1 block text-xs text-muted">Mar 8 &ndash; Mar 15 &middot; 7 days</span></span><span class="hidden rounded-full bg-[#fff3df] px-2.5 py-1 text-[10px] font-bold text-[#9b6824] sm:inline-block">Planning</span></button>
-                  <button type="button" data-trip-open="athens" aria-label="Open Athens Weekend Getaway itinerary" class="flex w-full items-center gap-4 py-4 text-left transition hover:bg-canvas"><img src="https://images.unsplash.com/photo-1603565816030-6b389eeb23cb?auto=format&fit=crop&w=200&q=80" alt="Acropolis in Athens" class="h-16 w-20 rounded-xl object-cover"><span class="min-w-0 flex-1"><span class="block font-bold">Athens Weekend Getaway</span><span class="mt-1 block text-xs text-muted">Nov 21 &ndash; Nov 24 &middot; 4 days</span></span><span class="hidden rounded-full bg-mint px-2.5 py-1 text-[10px] font-bold text-lagoon sm:inline-block">Upcoming</span></button>
+              <div class="rounded-2xl border border-line bg-paper p-5 sm:p-6"><div class="mb-4 flex flex-wrap items-end justify-between gap-3"><div><p class="text-[10px] font-bold uppercase tracking-[.15em] text-muted">Your travel plans</p><h2 class="display mt-1 text-[24px]">My trips</h2></div><button data-nav="itinerary" class="inline-flex items-center gap-1.5 text-xs font-bold text-lagoon"><i data-lucide="plus" class="h-4 w-4"></i>Plan a trip</button></div>
+                <div class="mb-4 flex gap-2 border-b border-line" role="tablist" aria-label="My trip plans">
+                  <button id="upcoming-trip-tab" type="button" data-profile-tab="upcoming" role="tab" aria-controls="profile-trip-grid" aria-selected="true" class="profile-trip-tab border-b-2 border-lagoon px-3 py-2 text-xs font-bold text-lagoon">My Upcoming Trips</button>
+                  <button id="saved-trip-tab" type="button" data-profile-tab="saved" role="tab" aria-controls="profile-trip-grid" aria-selected="false" class="profile-trip-tab border-b-2 border-transparent px-3 py-2 text-xs font-bold text-muted">My Saved Plans</button>
                 </div>
+                <div id="profile-trip-grid" class="divide-y divide-line" role="tabpanel"></div>
+                <p id="profile-trip-empty" class="hidden rounded-xl bg-canvas px-4 py-6 text-center text-sm text-muted"></p>
               </div>
               <div class="rounded-2xl border border-line bg-paper p-5 sm:p-6"><p class="text-[10px] font-bold uppercase tracking-[.15em] text-muted">Travel style</p><h2 class="display mt-1 text-[24px]">The curious wanderer</h2><div class="mt-4 flex flex-wrap gap-2"><span class="rounded-full bg-mint px-3 py-1.5 text-xs font-semibold text-lagoon">Walkable neighborhoods</span><span class="rounded-full bg-[#fff3df] px-3 py-1.5 text-xs font-semibold text-[#9b6824]">Local food</span><span class="rounded-full bg-[#fce9e2] px-3 py-1.5 text-xs font-semibold text-[#a9563d]">History & culture</span><span class="rounded-full bg-[#e8edf7] px-3 py-1.5 text-xs font-semibold text-[#53698e]">Slow mornings</span></div></div>
             </div>
@@ -344,6 +343,7 @@
               <button id="trip-add-stop" class="inline-flex items-center gap-2 rounded-lg border border-line bg-paper px-3 py-2 text-xs font-bold hover:bg-canvas"><i data-lucide="plus" class="h-4 w-4"></i>Add New Stop</button>
               <button id="trip-open-chat" data-target-view="chat" class="inline-flex items-center gap-2 rounded-lg border border-line bg-paper px-3 py-2 text-xs font-bold hover:bg-canvas"><i data-lucide="messages-square" class="h-4 w-4"></i>Open Group Chat</button>
               <button id="trip-share" class="inline-flex items-center gap-2 rounded-lg bg-lagoon px-3 py-2 text-xs font-bold text-white hover:bg-ink"><i data-lucide="share-2" class="h-4 w-4"></i>Export / Share</button>
+              <button id="customize-template" type="button" data-action="customize-template" class="hidden items-center gap-2 rounded-lg bg-coral px-4 py-2 text-xs font-bold text-white transition hover:bg-[#D9474A]"><i data-lucide="pencil" class="h-4 w-4"></i>Customize &amp; Edit Itinerary</button>
             </div>
           </div>
 
@@ -352,7 +352,7 @@
             <div class="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/20 to-transparent"></div>
             <div class="absolute inset-x-0 bottom-0 flex flex-wrap items-end justify-between gap-4 p-5 text-white sm:p-7">
               <div><p id="trip-detail-destination" class="mb-2 text-xs font-bold uppercase tracking-[.16em] text-white/80"></p><h1 id="trip-detail-title" class="display text-[32px] leading-tight sm:text-[40px]"></h1><p id="trip-detail-dates" class="mt-2 text-sm text-white/90"></p></div>
-              <span class="rounded-full bg-mint px-3 py-1.5 text-xs font-bold text-lagoon">Upcoming</span>
+              <span id="trip-detail-status" class="rounded-full bg-mint px-3 py-1.5 text-xs font-bold text-lagoon">Upcoming</span>
             </div>
           </div>
 
@@ -443,12 +443,12 @@
 
   <script>
     const trips = [
-      { id: 'lisbon', center: [38.7223, -9.1393], city: 'Lisbon', country: 'Portugal', duration: '4 days', date: 'May 12 - May 16', image: 'photo-1555881400-74d7acaacd8b', tag: 'City & coast', color: 'bg-[#e4f0e8] text-lagoon' },
-      { id: 'kyoto', center: [35.0116, 135.7681], city: 'Kyoto', country: 'Japan', duration: '7 days', date: 'Mar 8 - Mar 15', image: 'photo-1493976040374-85c8e12f0c0e', tag: 'Culture', color: 'bg-[#fce9e2] text-[#a9563d]' },
-      { id: 'milos', center: [36.7213, 24.4292], city: 'Milos', country: 'Greece', duration: '5 days', date: 'Jun 2 - Jun 7', image: 'photo-1533105079780-92b9be482077', tag: 'Slow escape', color: 'bg-[#fff3df] text-[#9b6824]' },
-      { id: 'marrakech', center: [31.6295, -7.9811], city: 'Marrakech', country: 'Morocco', duration: '3 days', date: 'Oct 18 - Oct 21', image: 'photo-1539020140153-e479b8c22e70', tag: 'Food & color', color: 'bg-[#fce9e2] text-[#a9563d]' },
-      { id: 'copenhagen', center: [55.6761, 12.5683], city: 'Copenhagen', country: 'Denmark', duration: '4 days', date: 'Sep 4 - Sep 8', image: 'photo-1513622470522-26c3c8a854bc', tag: 'City break', color: 'bg-[#e8edf7] text-[#53698e]' },
-      { id: 'madeira', center: [32.6669, -16.9241], city: 'Madeira', country: 'Portugal', duration: '6 days', date: 'Apr 20 - Apr 26', image: 'photo-1519046904884-53103b34b206', tag: 'Outdoors', color: 'bg-[#e4f0e8] text-lagoon' }
+      { id: 'template-lisbon', center: [38.7223, -9.1393], city: 'Lisbon', country: 'Portugal', duration: '2 days', image: 'photo-1555881400-74d7acaacd8b', tag: 'City & coast', color: 'bg-[#e4f0e8] text-lagoon' },
+      { id: 'template-rome', center: [41.9028, 12.4964], city: 'Rome', country: 'Italy', duration: '2 days', image: 'photo-1552832230-c0197dd311b5', tag: 'History & culture', color: 'bg-[#fce9e2] text-[#a9563d]' },
+      { id: 'template-milos', center: [36.7213, 24.4292], city: 'Milos', country: 'Greece', duration: '2 days', image: 'photo-1533105079780-92b9be482077', tag: 'Slow escape', color: 'bg-[#fff3df] text-[#9b6824]' },
+      { id: 'template-marrakech', center: [31.6295, -7.9811], city: 'Marrakech', country: 'Morocco', duration: '2 days', image: 'photo-1539020140153-e479b8c22e70', tag: 'Food & color', color: 'bg-[#fce9e2] text-[#a9563d]' },
+      { id: 'template-copenhagen', center: [55.6761, 12.5683], city: 'Copenhagen', country: 'Denmark', duration: '2 days', image: 'photo-1513622470522-26c3c8a854bc', tag: 'City break', color: 'bg-[#e8edf7] text-[#53698e]' },
+      { id: 'template-madeira', center: [32.6669, -16.9241], city: 'Madeira', country: 'Portugal', duration: '2 days', image: 'photo-1519046904884-53103b34b206', tag: 'Outdoors', color: 'bg-[#e4f0e8] text-lagoon' }
     ];
 
     const itinerarySamples = {
@@ -507,6 +507,46 @@
         { place: 'Canal Saint-Martin', detail: 'Follow the waterside footpaths past cafes and boutiques.', duration: '60 min stroll' },
         { place: 'Eiffel Tower & Champ de Mars', detail: 'Walk the park lawns toward the tower viewpoints.', duration: '75 min stroll' },
         { place: 'Seine Riverbank', detail: 'Finish with an unhurried riverside walk past the bouquinistes.', duration: '60 min stroll' }
+      ],
+      lisbon: [
+        { place: 'Miradouro de São Pedro de Alcântara', detail: 'Take in the rooftops and river from this relaxed garden viewpoint.', duration: '45 min visit' },
+        { place: 'Chiado & Largo do Carmo', detail: 'Wander the elegant lanes and pause at the historic convent ruins.', duration: '75 min stroll' },
+        { place: 'Time Out Market', detail: 'Sample local favorites at the lively riverside food hall.', duration: '60 min visit' },
+        { place: 'Belém Tower', detail: 'Explore the landmark waterfront tower and its riverside setting.', duration: '60 min visit' },
+        { place: 'Jerónimos Monastery', detail: 'Admire the ornate cloisters and Manueline architecture.', duration: '75 min visit' },
+        { place: 'Pastéis de Belém', detail: 'Take a sweet break with a classic warm custard tart.', duration: '45 min pause' }
+      ],
+      milos: [
+        { place: 'Plaka Village', detail: 'Explore the island capital’s whitewashed lanes and small shops.', duration: '60 min stroll' },
+        { place: 'Plaka Castle Viewpoint', detail: 'Climb for a sweeping view across the Aegean at golden hour.', duration: '45 min visit' },
+        { place: 'Klima Fishing Village', detail: 'Walk the colorful waterfront lined with traditional boat houses.', duration: '60 min stroll' },
+        { place: 'Sarakiniko Beach', detail: 'Follow the sculpted white-rock coastline and find a quiet cove.', duration: '90 min visit' },
+        { place: 'Pollonia Harbor', detail: 'Enjoy a slow seaside lunch along the village waterfront.', duration: '75 min pause' },
+        { place: 'Papafragas Caves', detail: 'Take in the dramatic coastal inlets from the clifftop path.', duration: '60 min visit' }
+      ],
+      marrakech: [
+        { place: 'Jemaa el-Fnaa', detail: 'See the medina’s central square come to life in the morning.', duration: '60 min visit' },
+        { place: 'Souk Semmarine', detail: 'Browse the covered lanes for lanterns, textiles, and spices.', duration: '90 min stroll' },
+        { place: 'Le Jardin Secret', detail: 'Step into a calm garden courtyard tucked inside the medina.', duration: '60 min visit' },
+        { place: 'Bahia Palace', detail: 'Explore the intricate courtyards and carved cedar details.', duration: '75 min visit' },
+        { place: 'Mellah Spice Market', detail: 'Follow the fragrant market lanes through the old Jewish quarter.', duration: '60 min stroll' },
+        { place: 'Koutoubia Gardens', detail: 'Unwind among the palms with a view toward the minaret.', duration: '45 min stroll' }
+      ],
+      copenhagen: [
+        { place: 'Nyhavn Harbor', detail: 'Start beside the colorful waterfront houses and canal boats.', duration: '60 min stroll' },
+        { place: 'Designmuseum Danmark', detail: 'Discover Danish design through furniture, fashion, and craft.', duration: '75 min visit' },
+        { place: 'Torvehallerne Market', detail: 'Pick up a relaxed lunch from the city’s food stalls.', duration: '60 min visit' },
+        { place: 'Rosenborg Castle Gardens', detail: 'Walk the leafy paths around the historic royal castle.', duration: '60 min stroll' },
+        { place: 'The Round Tower', detail: 'Climb the spiral ramp for rooftops and city views.', duration: '60 min visit' },
+        { place: 'Christianshavn Canals', detail: 'Take a peaceful walk past houseboats and waterside cafes.', duration: '75 min stroll' }
+      ],
+      madeira: [
+        { place: 'Funchal Old Town', detail: 'Wander the painted-door lanes and small neighborhood galleries.', duration: '75 min stroll' },
+        { place: 'Mercado dos Lavradores', detail: 'Browse the lively market’s tropical fruit and flower stalls.', duration: '60 min visit' },
+        { place: 'Monte Palace Gardens', detail: 'Explore subtropical paths, koi ponds, and hillside views.', duration: '90 min stroll' },
+        { place: 'Câmara de Lobos', detail: 'See the colorful fishing harbor and take a slow waterfront break.', duration: '60 min visit' },
+        { place: 'Cabo Girão Viewpoint', detail: 'Look out over the coast from the dramatic cliffside platform.', duration: '45 min visit' },
+        { place: 'Funchal Seafront Promenade', detail: 'Finish with an easy walk beside the Atlantic.', duration: '60 min stroll' }
       ]
     };
 
@@ -578,6 +618,15 @@
     let activeTripId = null;
     let activeStopId = null;
     let currentPage = 'dashboard';
+    let activeProfileTab = 'upcoming';
+    let currentSchedule = [];
+    let importedTemplateId = null;
+    let savedItineraryId = null;
+    const userTrips = [
+      { id: 'cinque-terre', status: 'upcoming', label: 'Confirmed' },
+      { id: 'kyoto', status: 'upcoming', label: 'Planning' },
+      { id: 'athens', status: 'upcoming', label: 'Upcoming' }
+    ];
     let tripMapInstance = null;
     let tripMapLayers = null;
     let tripMapFallbackActive = false;
@@ -590,13 +639,55 @@
       toastTimer = setTimeout(() => toast.classList.add('hidden'), 2600);
     }
 
+    function renderProfileTrips() {
+      const grid = document.querySelector('#profile-trip-grid');
+      const emptyState = document.querySelector('#profile-trip-empty');
+      const profileTrips = userTrips.filter((trip) => trip.status === activeProfileTab);
+      document.querySelector('#profile-trip-count').textContent = String(userTrips.length);
+      grid.innerHTML = profileTrips.map((userTrip) => {
+        const trip = tripDetails[userTrip.id] || trips.find((candidate) => candidate.id === userTrip.id);
+        if (!trip) return '';
+        const title = trip.title || `${trip.city}, ${trip.country}`;
+        const destination = trip.destination || `${trip.city}, ${trip.country}`;
+        const dates = trip.dates || `${trip.duration} sample itinerary`;
+        const image = trip.image;
+        const statusLabel = userTrip.label || (activeProfileTab === 'saved' ? 'Saved plan' : 'Upcoming');
+        const removeButton = activeProfileTab === 'saved'
+          ? `<button type="button" data-profile-remove="${userTrip.id}" aria-label="Remove ${escapeHtml(title)} from saved plans" class="shrink-0 rounded-lg px-2 py-1 text-[10px] font-bold text-coral hover:bg-[#fce9e2]">Remove</button>`
+          : '';
+        return `<div data-trip-open="${userTrip.id}" role="button" tabindex="0" aria-label="Open ${escapeHtml(title)} itinerary" class="flex w-full cursor-pointer items-center gap-4 py-4 text-left transition hover:bg-canvas focus-visible:outline focus-visible:outline-2 focus-visible:outline-lagoon"><img src="https://images.unsplash.com/${image}?auto=format&fit=crop&w=200&q=80" alt="${escapeHtml(destination)}" class="h-16 w-20 rounded-xl object-cover"><span class="min-w-0 flex-1"><span class="block font-bold">${escapeHtml(title)}</span><span class="mt-1 block text-xs text-muted">${escapeHtml(dates)}</span></span><span class="hidden rounded-full bg-mint px-2.5 py-1 text-[10px] font-bold text-lagoon sm:inline-block">${escapeHtml(statusLabel)}</span>${removeButton}</div>`;
+      }).join('');
+      const hasTrips = profileTrips.length > 0;
+      grid.classList.toggle('hidden', !hasTrips);
+      emptyState.classList.toggle('hidden', hasTrips);
+      emptyState.textContent = activeProfileTab === 'saved'
+        ? 'Saved destination ideas and itineraries will appear here.'
+        : 'Your upcoming trips will appear here.';
+      if (window.lucide) window.lucide.createIcons({ nodes: [grid] });
+      document.querySelectorAll('[data-profile-tab]').forEach((tab) => {
+        const selected = tab.dataset.profileTab === activeProfileTab;
+        tab.setAttribute('aria-selected', String(selected));
+        tab.classList.toggle('border-lagoon', selected);
+        tab.classList.toggle('border-transparent', !selected);
+        tab.classList.toggle('text-lagoon', selected);
+        tab.classList.toggle('text-muted', !selected);
+      });
+      grid.setAttribute('aria-labelledby', activeProfileTab === 'saved' ? 'saved-trip-tab' : 'upcoming-trip-tab');
+    }
+
+    function setProfileTab(tabName) {
+      if (!['upcoming', 'saved'].includes(tabName)) return;
+      activeProfileTab = tabName;
+      renderProfileTrips();
+    }
+
     function renderTrips(query = '') {
       const normalizedQuery = query.trim().toLowerCase();
       const filtered = trips.filter((trip) => trip.city.toLowerCase().includes(normalizedQuery));
       tripGrid.innerHTML = filtered.map((trip) => `
-        <article data-trip-open="${trip.id}" role="button" tabindex="0" aria-label="Open ${trip.city} trip details" class="group cursor-pointer overflow-hidden rounded-2xl border border-line bg-paper transition duration-200 hover:-translate-y-1 hover:shadow-soft focus-visible:outline focus-visible:outline-2 focus-visible:outline-lagoon">
-          <div class="trip-image relative h-40 overflow-hidden"><img src="https://images.unsplash.com/${trip.image}?auto=format&fit=crop&w=800&q=85" alt="Scenery in ${trip.city}, ${trip.country}" class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]" loading="lazy"><span class="absolute left-3 top-3 rounded-full bg-paper/95 px-2.5 py-1 text-[10px] font-bold ${trip.color}">${trip.tag}</span><button class="save-trip absolute right-3 top-3 grid h-8 w-8 place-items-center rounded-full bg-paper/95 text-ink transition hover:text-coral" aria-label="Save ${trip.city}" data-city="${trip.city}"><i data-lucide="bookmark" class="h-4 w-4"></i></button></div>
-          <div class="p-4"><div class="flex items-start justify-between gap-2"><div><h3 class="text-lg font-bold leading-tight">${trip.city}</h3><p class="mt-0.5 text-xs text-muted">${trip.country}</p></div><span class="inline-flex items-center gap-1 rounded-lg bg-canvas px-2 py-1 text-[10px] font-semibold text-muted"><i data-lucide="calendar-days" class="h-3 w-3"></i>${trip.duration}</span></div><div class="mt-4 flex items-center justify-between border-t border-line pt-3"><span class="text-[11px] text-muted">${trip.date}</span><button class="plan-trip inline-flex items-center gap-1 text-xs font-bold text-lagoon hover:text-ink" data-city="${trip.city}">View trip <i data-lucide="arrow-up-right" class="h-3.5 w-3.5"></i></button></div></div>
+        <article data-trip-open="${trip.id}" role="button" tabindex="0" aria-label="Open ${trip.city} sample itinerary" class="group cursor-pointer overflow-hidden rounded-2xl border border-line bg-paper transition duration-200 hover:-translate-y-1 hover:shadow-soft focus-visible:outline focus-visible:outline-2 focus-visible:outline-lagoon">
+          <div class="trip-image relative h-40 overflow-hidden"><img src="https://images.unsplash.com/${trip.image}?auto=format&fit=crop&w=800&q=85" alt="Scenery in ${trip.city}, ${trip.country}" class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]" loading="lazy"><span class="absolute left-3 top-3 rounded-full bg-paper/95 px-2.5 py-1 text-[10px] font-bold ${trip.color}">${trip.tag}</span><button type="button" class="save-trip absolute right-3 top-3 grid h-8 w-8 place-items-center rounded-full bg-paper/95 ${userTrips.some((saved) => saved.id === trip.id && saved.status === 'saved') ? 'text-coral' : 'text-ink'} transition hover:text-coral" aria-label="Save ${trip.city}" aria-pressed="${userTrips.some((saved) => saved.id === trip.id && saved.status === 'saved')}" data-trip-save="${trip.id}"><i data-lucide="bookmark" class="h-4 w-4"></i></button></div>
+          <div class="p-4"><div class="flex items-start justify-between gap-2"><div><h3 class="text-lg font-bold leading-tight">${trip.city}</h3><p class="mt-0.5 text-xs text-muted">${trip.country}</p></div><span class="inline-flex items-center gap-1 rounded-lg bg-canvas px-2 py-1 text-[10px] font-semibold text-muted"><i data-lucide="calendar-days" class="h-3 w-3"></i>${trip.duration}</span></div><div class="mt-4 flex items-center justify-between border-t border-line pt-3"><span class="text-[11px] text-muted">2-Day Highlights sample</span><span class="inline-flex items-center gap-1 text-xs font-bold text-lagoon">View itinerary <i data-lucide="arrow-up-right" class="h-3.5 w-3.5"></i></span></div></div>
         </article>`).join('');
       const noResults = document.querySelector('#no-results');
       noResults.textContent = 'No trips found matching your search';
@@ -809,7 +900,15 @@
       });
       document.querySelector('#trip-member-count').textContent = `${trip.members.length} friends`;
 
-      document.querySelectorAll('[data-day-slot]').forEach((dayElement, dayIndex) => {
+      const itinerary = document.querySelector('#trip-itinerary');
+      const dayElements = [...itinerary.querySelectorAll('[data-day-slot]')];
+      while (dayElements.length < trip.days.length) {
+        const newDayElement = dayElements.at(-1).cloneNode(true);
+        newDayElement.classList.add('hidden');
+        itinerary.append(newDayElement);
+        dayElements.push(newDayElement);
+      }
+      dayElements.forEach((dayElement, dayIndex) => {
         const day = trip.days[dayIndex];
         dayElement.classList.toggle('hidden', !day);
         if (!day) return;
@@ -817,7 +916,14 @@
         dayElement.querySelector('[data-day-theme]').textContent = day.theme;
         dayElement.querySelector('[data-day-meta]').textContent = `${day.label} · ${day.date}`;
 
-        dayElement.querySelectorAll('[data-stop-slot]').forEach((stopElement, stopIndex) => {
+        const stopElements = [...dayElement.querySelectorAll('[data-stop-slot]')];
+        while (stopElements.length < day.stops.length) {
+          const newStopElement = stopElements.at(-1).cloneNode(true);
+          newStopElement.classList.add('hidden');
+          dayElement.querySelector('.space-y-0').append(newStopElement);
+          stopElements.push(newStopElement);
+        }
+        stopElements.forEach((stopElement, stopIndex) => {
           const stop = day.stops[stopIndex];
           stopElement.classList.toggle('hidden', !stop);
           stopElement.classList.toggle('flex', Boolean(stop));
@@ -838,6 +944,24 @@
           travel.classList.toggle('hidden', !stop.travel);
           travel.classList.toggle('flex', Boolean(stop.travel));
           if (stop.travel) travel.querySelector('[data-stop-travel-text]').textContent = stop.travel;
+
+          let stopActions = stopElement.querySelector('[data-trip-stop-actions]');
+          if (!activeTripId.startsWith('template-')) {
+            if (!stopActions) {
+              stopActions = document.createElement('div');
+              stopActions.dataset.tripStopActions = '';
+              stopActions.className = 'mt-3 flex gap-3';
+              stopActions.innerHTML = '<button type="button" data-trip-stop-action="edit" class="text-[10px] font-bold text-lagoon hover:underline">Edit activity</button><button type="button" data-trip-stop-action="remove" class="text-[10px] font-bold text-coral hover:underline">Remove stop</button>';
+              stopElement.querySelector('.min-w-0.flex-1').append(stopActions);
+            }
+            stopActions.classList.remove('hidden');
+            stopActions.querySelectorAll('[data-trip-stop-action]').forEach((button) => {
+              button.dataset.dayIndex = dayIndex;
+              button.dataset.stopIndex = stopIndex;
+            });
+          } else if (stopActions) {
+            stopActions.classList.add('hidden');
+          }
 
           const recommendationButton = stopElement.querySelector('[data-stop-recommendation]');
           const recommendation = stop.recommendation;
@@ -864,33 +988,43 @@
       if (!trip) {
         const previewTrip = trips.find((candidate) => candidate.id === tripId);
         if (!previewTrip) return;
-        const [latitude, longitude] = previewTrip.center;
+        const samples = itinerarySamples[previewTrip.city.toLowerCase()] || [];
+        const sampleTimes = ['8:30 - 10:00 AM', '10:30 AM - 12:00 PM', '1:00 - 2:30 PM'];
         trip = {
-          title: `${previewTrip.city} Trip`,
+          title: `${previewTrip.city} · 2-Day Highlights`,
           destination: `${previewTrip.city}, ${previewTrip.country}`,
-          dates: previewTrip.date,
+          dates: 'Sample itinerary · 2 days',
           image: previewTrip.image,
-          tip: 'Your trip outline is ready. Add the places you want to explore as your plans take shape.',
+          tip: 'A ready-to-edit two-day route with a mix of local highlights, walks, and time to pause.',
           members: [],
-          days: [{
-            label: 'Day 1',
-            date: previewTrip.date.split(' - ')[0],
-            theme: `Explore ${previewTrip.city}`,
-            stops: [{
-              name: `${previewTrip.city} highlights`,
-              time: 'Flexible',
-              duration: 'Plan at your own pace',
-              description: 'Add your favorite places to shape this trip.',
-              nearby: 'Suggested starting point',
-              travel: '',
-              lat: latitude,
-              lng: longitude
-            }]
-          }]
+          days: [0, 1].map((dayIndex) => ({
+            label: `Day ${dayIndex + 1}`,
+            date: 'Sample plan',
+            theme: dayIndex ? `${previewTrip.city} · local favorites` : `${previewTrip.city} · classic highlights`,
+            stops: samples.slice(dayIndex * 3, dayIndex * 3 + 3).map((sample, stopIndex) => ({
+              name: sample.place,
+              time: sampleTimes[stopIndex],
+              duration: sample.duration,
+              description: sample.detail,
+              nearby: 'Suggested stop',
+              travel: stopIndex < 2 ? `12-min walk to ${samples[dayIndex * 3 + stopIndex + 1].place}` : '',
+              cityKey: previewTrip.city.toLowerCase()
+            }))
+          }))
         };
+        tripDetails[tripId] = trip;
       }
       if (!trip) return;
       activeTripId = tripId;
+      const customizeButton = document.querySelector('#customize-template');
+      const isTemplate = tripId.startsWith('template-');
+      customizeButton.classList.toggle('hidden', !isTemplate);
+      customizeButton.classList.toggle('inline-flex', isTemplate);
+      document.querySelector('#trip-add-stop').classList.toggle('hidden', isTemplate);
+      const profileTrip = userTrips.find((userTrip) => userTrip.id === tripId);
+      document.querySelector('#trip-detail-status').textContent = tripId.startsWith('template-')
+        ? 'Sample itinerary'
+        : profileTrip?.status === 'saved' ? 'Saved plan' : 'Upcoming';
       document.querySelector('#trip-detail-title').textContent = trip.title;
       document.querySelector('#trip-detail-destination').textContent = trip.destination;
       document.querySelector('#trip-detail-dates').textContent = trip.dates;
@@ -903,15 +1037,87 @@
       updateTripDetailContent(trip);
       document.querySelector('#trip-added-stops').replaceChildren();
       renderMapForTrip(trip);
+      if (window.lucide) window.lucide.createIcons();
       activeStopId = null;
     }
 
+    function toDateTimeInputValue(date) {
+      const pad = (value) => String(value).padStart(2, '0');
+      return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
+    }
+
+    function customizeTemplate(templateId) {
+      const trip = tripDetails[templateId];
+      if (!trip || !templateId.startsWith('template-')) return;
+      resetSavedItinerary();
+      const arrival = new Date();
+      arrival.setDate(arrival.getDate() + 1);
+      arrival.setHours(10, 0, 0, 0);
+      const departure = new Date(arrival);
+      departure.setDate(departure.getDate() + 1);
+      departure.setHours(18, 0, 0, 0);
+      arrivalInput.value = toDateTimeInputValue(arrival);
+      departureInput.value = toDateTimeInputValue(departure);
+      document.querySelector('#destination').value = trip.destination.split(',')[0];
+      updateTripDuration();
+      importedTemplateId = templateId;
+      document.querySelector('#save-itinerary').setAttribute('aria-pressed', 'false');
+      document.querySelector('#save-itinerary').classList.remove('bg-lagoon');
+      document.querySelector('#save-itinerary').classList.add('bg-coral');
+      document.querySelector('#save-itinerary-label').textContent = 'Save to My Trips';
+      currentSchedule = trip.days.flatMap((day, dayIndex) => day.stops.map((stop) => {
+        const scheduledDate = new Date(arrival.getFullYear(), arrival.getMonth(), arrival.getDate() + dayIndex);
+        return {
+          place: stop.name,
+          detail: stop.description,
+          duration: stop.duration,
+          time: stop.time,
+          cityKey: trip.destination.split(',')[0].toLowerCase(),
+          dayLabel: day.label,
+          dayDate: formatScheduleDate(scheduledDate),
+          travel: stop.travel
+        };
+      }));
+      const plannedDays = new Set(currentSchedule.map((stop) => stop.dayLabel));
+      document.querySelector('#route-eyebrow').textContent = 'Sample plan · choose your dates and make it yours';
+      document.querySelector('#route-title').textContent = trip.title;
+      document.querySelector('#itinerary-summary-duration').textContent = formatTripDuration(departure - arrival);
+      document.querySelector('#itinerary-summary-stops').textContent = `${currentSchedule.length} stops`;
+      document.querySelector('#route-summary').textContent = currentSchedule.slice(0, 3).map((stop) => stop.place).join(' → ');
+      document.querySelector('#route-description').textContent = `${currentSchedule.length} sample activities across ${plannedDays.size} days. Edit or remove stops, add your own, and adjust the dates above.`;
+      renderStops(currentSchedule);
+      showPage('itinerary');
+      showToast(`${trip.destination.split(',')[0]} sample plan is ready to customize`);
+    }
+
+    function refreshScheduleSummary() {
+      const plannedDays = new Set(currentSchedule.map((stop) => stop.dayLabel));
+      const destination = document.querySelector('#destination').value.trim();
+      document.querySelector('#itinerary-summary-stops').textContent = `${currentSchedule.length} ${currentSchedule.length === 1 ? 'stop' : 'stops'}`;
+      document.querySelector('#route-summary').textContent = currentSchedule.length
+        ? currentSchedule.slice(0, 3).map((stop) => stop.place).join(' → ')
+        : 'No stops yet. Add an activity to start your route.';
+      document.querySelector('#route-description').textContent = currentSchedule.length
+        ? `${currentSchedule.length} activities across ${plannedDays.size} ${plannedDays.size === 1 ? 'day' : 'days'}. Edit or remove stops, add your own, and adjust the dates above.`
+        : 'Add activities to build your day-by-day route.';
+      if (importedTemplateId) {
+        document.querySelector('#route-title').textContent = tripDetails[importedTemplateId].title;
+      } else {
+        document.querySelector('#route-title').textContent = `${destination} · ${currentSchedule.length} ${currentSchedule.length === 1 ? 'stop' : 'stops'}`;
+      }
+      renderStops(currentSchedule);
+    }
+
     function renderStops(stops) {
+      if (!stops.length) {
+        document.querySelector('#stops-list').innerHTML = '<p class="rounded-2xl border border-dashed border-line bg-paper px-5 py-8 text-center text-sm text-muted">No activities yet. Add a stop to begin your itinerary.</p>';
+        return;
+      }
       const groups = new Map();
-      stops.forEach((stop) => {
+      stops.forEach((stop, stopIndex) => {
         const dayLabel = stop.dayLabel || 'Your route';
         if (!groups.has(dayLabel)) groups.set(dayLabel, { date: stop.dayDate || '', stops: [] });
-        groups.get(dayLabel).stops.push(stop);
+        groups.get(dayLabel).stops.push({ stop, stopIndex });
       });
 
       document.querySelector('#stops-list').innerHTML = [...groups].map(([dayLabel, day], dayIndex) => `
@@ -921,14 +1127,14 @@
             <span class="rounded-full bg-[#FFF3D9] px-3 py-1.5 text-[10px] font-bold text-[#9A6200]">${day.stops.length} planned stops</span>
           </div>
           <div class="itinerary-stop-track">
-            ${day.stops.map((stop, stopIndex) => {
+            ${day.stops.map(({ stop, stopIndex }, dayStopIndex) => {
               const spotCategory = getSpotCategory(stop.place);
               const image = getSpotImage(stop);
               const walkMinutes = stop.travel?.match(/(\d+)\s*[- ]min/i)?.[1];
-              return `${stopIndex ? `<span class="itinerary-walk-pill"><i data-lucide="footprints" class="h-3.5 w-3.5"></i>${walkMinutes || 12}-min walk</span>` : ''}
+              return `${dayStopIndex ? `<span class="itinerary-walk-pill"><i data-lucide="footprints" class="h-3.5 w-3.5"></i>${walkMinutes || 12}-min walk</span>` : ''}
                 <article class="itinerary-spot-card">
                   <div class="relative"><img class="itinerary-spot-image" src="https://images.unsplash.com/${image}?auto=format&fit=crop&w=640&q=82" alt="${escapeHtml(stop.place)}" loading="lazy"><span class="absolute left-3 top-3 rounded-full px-2.5 py-1 text-[10px] font-bold ${spotCategory.className}">${spotCategory.label}</span></div>
-                  <div class="p-3.5"><span class="inline-flex rounded-lg bg-[#E8F7F6] px-2.5 py-1 text-[10px] font-bold text-lagoon">${escapeHtml(stop.time)}</span><h4 class="mt-2 text-sm font-bold leading-5">${escapeHtml(stop.place)}</h4><p class="mt-1.5 min-h-10 text-xs leading-5 text-muted">${escapeHtml(stop.detail)}</p><div class="mt-3 flex items-center gap-1.5 text-[10px] font-bold text-lagoon"><i data-lucide="clock-3" class="h-3.5 w-3.5"></i>${escapeHtml(stop.duration)}</div></div>
+                  <div class="p-3.5"><div class="flex flex-wrap items-center justify-between gap-2"><span class="inline-flex rounded-lg bg-[#E8F7F6] px-2.5 py-1 text-[10px] font-bold text-lagoon">${escapeHtml(stop.time)}</span><span class="flex gap-2"><button type="button" data-itinerary-action="edit" data-stop-index="${stopIndex}" class="text-[10px] font-bold text-lagoon hover:underline">Edit</button><button type="button" data-itinerary-action="remove" data-stop-index="${stopIndex}" class="text-[10px] font-bold text-coral hover:underline">Remove</button></span></div><h4 class="mt-2 text-sm font-bold leading-5">${escapeHtml(stop.place)}</h4><p class="mt-1.5 min-h-10 text-xs leading-5 text-muted">${escapeHtml(stop.detail)}</p><div class="mt-3 flex items-center gap-1.5 text-[10px] font-bold text-lagoon"><i data-lucide="clock-3" class="h-3.5 w-3.5"></i>${escapeHtml(stop.duration)}</div></div>
                 </article>`;
             }).join('')}
           </div>
@@ -1072,16 +1278,28 @@
       const { valid, arrival, departure } = updateTripDuration();
       if (!place || !valid) return false;
 
-      const schedule = createSchedule(place, arrival, departure);
+      resetSavedItinerary();
+      const importedCity = importedTemplateId ? tripDetails[importedTemplateId].destination.split(',')[0].toLowerCase() : '';
+      if (importedTemplateId && place.toLowerCase() !== importedCity) importedTemplateId = null;
+      const schedule = importedTemplateId
+        ? currentSchedule.map((stop) => {
+          const dayOffset = Math.max(0, Number(stop.dayLabel.match(/\d+/)?.[0] || 1) - 1);
+          const dateForStop = new Date(arrival.getFullYear(), arrival.getMonth(), arrival.getDate() + dayOffset);
+          return { ...stop, dayDate: formatScheduleDate(dateForStop) };
+        })
+        : createSchedule(place, arrival, departure);
+      currentSchedule = schedule;
       const plannedDays = new Set(schedule.map((stop) => stop.dayLabel));
       const durationText = formatTripDuration(departure - arrival);
       document.querySelector('#route-eyebrow').textContent = `${formatScheduleDate(arrival)} ${formatScheduleTime(arrival)} to ${formatScheduleDate(departure)} ${formatScheduleTime(departure)}`;
-      document.querySelector('#route-title').textContent = `${place} · ${durationText}`;
+      document.querySelector('#route-title').textContent = importedTemplateId ? tripDetails[importedTemplateId].title : `${place} · ${durationText}`;
       document.querySelector('#itinerary-summary-duration').textContent = durationText;
       document.querySelector('#itinerary-summary-stops').textContent = `${schedule.length} ${schedule.length === 1 ? 'stop' : 'stops'}`;
-      document.querySelector('#route-summary').textContent = schedule.length ? schedule.slice(0, 3).map((stop) => stop.place).join(' -> ') : 'No sightseeing window remains within these arrival and departure times.';
+      document.querySelector('#route-summary').textContent = schedule.length ? schedule.slice(0, 3).map((stop) => stop.place).join(' → ') : 'No sightseeing window remains within these arrival and departure times.';
       document.querySelector('#route-description').textContent = schedule.length
-        ? `${schedule.length} visits across ${plannedDays.size} day${plannedDays.size === 1 ? '' : 's'}. Arrival day starts after a 75-minute transfer buffer; the final day ends at least 2 hours before departure.`
+        ? importedTemplateId
+          ? `${schedule.length} sample activities across ${plannedDays.size} days. Edit or remove stops, add your own, and adjust the dates above.`
+          : `${schedule.length} visits across ${plannedDays.size} day${plannedDays.size === 1 ? '' : 's'}. Arrival day starts after a 75-minute transfer buffer; the final day ends at least 2 hours before departure.`
         : 'Try an earlier arrival or later departure to leave time for a visit between transfer buffers.';
       renderStops(schedule);
       const saveButton = document.querySelector('#save-itinerary');
@@ -1093,6 +1311,71 @@
       return true;
     }
 
+    function resetSavedItinerary(removeSavedPlan = false) {
+      if (savedItineraryId && removeSavedPlan) {
+        const tripIndex = userTrips.findIndex((trip) => trip.id === savedItineraryId);
+        if (tripIndex >= 0) userTrips.splice(tripIndex, 1);
+        delete tripDetails[savedItineraryId];
+      }
+      savedItineraryId = null;
+      document.querySelector('#save-itinerary').setAttribute('aria-pressed', 'false');
+      document.querySelector('#save-itinerary').classList.remove('bg-lagoon');
+      document.querySelector('#save-itinerary').classList.add('bg-coral');
+      document.querySelector('#save-itinerary-label').textContent = 'Save to My Trips';
+      renderProfileTrips();
+    }
+
+    function saveCurrentItinerary() {
+      if (savedItineraryId) {
+        resetSavedItinerary(true);
+        showToast('Itinerary removed from My Saved Plans');
+        return;
+      }
+      if (!currentSchedule.length) {
+        showToast('Add at least one activity before saving this itinerary');
+        return;
+      }
+      const destination = document.querySelector('#destination').value.trim();
+      const arrival = new Date(arrivalInput.value);
+      const departure = new Date(departureInput.value);
+      const groupedDays = new Map();
+      currentSchedule.forEach((stop) => {
+        if (!groupedDays.has(stop.dayLabel)) groupedDays.set(stop.dayLabel, []);
+        groupedDays.get(stop.dayLabel).push({
+          name: stop.place,
+          time: stop.time,
+          duration: stop.duration,
+          description: stop.detail,
+          nearby: 'Saved from your Control Room',
+          travel: stop.travel || ''
+        });
+      });
+      const id = `saved-plan-${Date.now()}`;
+      const image = trips.find((trip) => destination.toLowerCase().includes(trip.city.toLowerCase()))?.image || 'photo-1480714378408-67cf0d13bc1b';
+      tripDetails[id] = {
+        title: document.querySelector('#route-title').textContent,
+        destination,
+        dates: `${formatScheduleDate(arrival)} - ${formatScheduleDate(departure)}`,
+        image,
+        tip: 'Your saved plan is ready to revisit and adjust whenever your trip takes shape.',
+        members: [],
+        days: [...groupedDays].map(([label, stops], dayIndex) => ({
+          label,
+          date: formatScheduleDate(new Date(arrival.getFullYear(), arrival.getMonth(), arrival.getDate() + Math.max(0, Number(label.match(/\d+/)?.[0] || dayIndex + 1) - 1))),
+          theme: `${destination} · ${label}`,
+          stops
+        }))
+      };
+      savedItineraryId = id;
+      userTrips.push({ id, status: 'saved', label: 'Saved plan' });
+      document.querySelector('#save-itinerary').setAttribute('aria-pressed', 'true');
+      document.querySelector('#save-itinerary').classList.add('bg-lagoon');
+      document.querySelector('#save-itinerary').classList.remove('bg-coral');
+      document.querySelector('#save-itinerary-label').textContent = 'Saved to My Trips';
+      renderProfileTrips();
+      showToast('Itinerary saved to My Saved Plans');
+    }
+
     document.body.addEventListener('click', (event) => {
       const recommendation = event.target.closest('[data-chat-context]');
       if (recommendation) {
@@ -1100,18 +1383,108 @@
         showToast(`${recommendation.dataset.chatContext} suggested this in the group chat`);
         return;
       }
+      const profileTab = event.target.closest('[data-profile-tab]');
+      if (profileTab) {
+        setProfileTab(profileTab.dataset.profileTab);
+        return;
+      }
+      const removeProfileTrip = event.target.closest('[data-profile-remove]');
+      if (removeProfileTrip) {
+        const tripId = removeProfileTrip.dataset.profileRemove;
+        if (tripId === savedItineraryId) {
+          resetSavedItinerary(true);
+        } else {
+          const tripIndex = userTrips.findIndex((trip) => trip.id === tripId && trip.status === 'saved');
+          if (tripIndex >= 0) userTrips.splice(tripIndex, 1);
+          if (tripId.startsWith('saved-plan-')) delete tripDetails[tripId];
+          renderProfileTrips();
+        }
+        showToast('Plan removed from My Saved Plans');
+        return;
+      }
+      const customizeButton = event.target.closest('[data-action="customize-template"]');
+      if (customizeButton) {
+        customizeTemplate(activeTripId);
+        return;
+      }
+      const tripStopAction = event.target.closest('[data-trip-stop-action]');
+      if (tripStopAction) {
+        const trip = tripDetails[activeTripId];
+        const day = trip?.days[Number(tripStopAction.dataset.dayIndex)];
+        const stopIndex = Number(tripStopAction.dataset.stopIndex);
+        const stop = day?.stops[stopIndex];
+        if (!stop) return;
+        if (tripStopAction.dataset.tripStopAction === 'remove') {
+          day.stops.splice(stopIndex, 1);
+        } else {
+          const name = window.prompt('Edit activity name:', stop.name);
+          if (!name?.trim()) return;
+          stop.name = name.trim();
+          const description = window.prompt('Edit activity details:', stop.description);
+          if (description?.trim()) stop.description = description.trim();
+        }
+        renderTripDetails(activeTripId);
+        showToast(tripStopAction.dataset.tripStopAction === 'remove' ? 'Stop removed from your trip' : 'Trip activity updated');
+        return;
+      }
+      const itineraryAction = event.target.closest('[data-itinerary-action]');
+      if (itineraryAction) {
+        const stopIndex = Number(itineraryAction.dataset.stopIndex);
+        if (!Number.isInteger(stopIndex) || !currentSchedule[stopIndex]) return;
+        if (itineraryAction.dataset.itineraryAction === 'remove') {
+          currentSchedule.splice(stopIndex, 1);
+        } else {
+          const stop = currentSchedule[stopIndex];
+          const place = window.prompt('Edit activity name:', stop.place);
+          if (!place?.trim()) return;
+          stop.place = place.trim();
+          const detail = window.prompt('Edit activity details:', stop.detail);
+          if (detail?.trim()) stop.detail = detail.trim();
+        }
+        resetSavedItinerary();
+        refreshScheduleSummary();
+        showToast(itineraryAction.dataset.itineraryAction === 'remove' ? 'Activity removed from your plan' : 'Activity updated');
+        return;
+      }
+      const addItineraryStop = event.target.closest('[data-action="add-itinerary-stop"]');
+      if (addItineraryStop) {
+        const place = window.prompt('What activity would you like to add?');
+        if (!place?.trim()) return;
+        resetSavedItinerary();
+        const lastStop = currentSchedule.at(-1);
+        currentSchedule.push({
+          place: place.trim(),
+          detail: 'Added to your itinerary. Edit this description to add your notes.',
+          duration: '60 min visit',
+          time: 'Flexible',
+          cityKey: document.querySelector('#destination').value.trim().toLowerCase(),
+          dayLabel: lastStop?.dayLabel || 'Day 1',
+          dayDate: lastStop?.dayDate || formatScheduleDate(new Date())
+        });
+        refreshScheduleSummary();
+        showToast(`${place.trim()} added to your itinerary`);
+        return;
+      }
       const stopItem = event.target.closest('.itinerary-stop-item');
       if (stopItem) {
         setActiveStop(stopItem.dataset.stopId);
         return;
       }
-      const save = event.target.closest('.save-trip');
+      const save = event.target.closest('[data-trip-save]');
       if (save) {
+        const tripId = save.dataset.tripSave;
+        const savedIndex = userTrips.findIndex((trip) => trip.id === tripId && trip.status === 'saved');
+        const saved = savedIndex < 0;
+        if (saved) userTrips.push({ id: tripId, status: 'saved', label: 'Saved idea' });
+        else userTrips.splice(savedIndex, 1);
         const icon = save.querySelector('svg');
-        const saved = save.classList.toggle('text-coral');
+        save.classList.toggle('text-coral', saved);
+        save.setAttribute('aria-pressed', String(saved));
         if (icon) icon.setAttribute('fill', saved ? 'currentColor' : 'none');
-        save.setAttribute('aria-label', `${saved ? 'Unsave' : 'Save'} ${save.dataset.city}`);
-        showToast(`${save.dataset.city} ${saved ? 'saved to' : 'removed from'} your trips`);
+        const trip = trips.find((candidate) => candidate.id === tripId);
+        save.setAttribute('aria-label', `${saved ? 'Unsave' : 'Save'} ${trip.city}`);
+        renderProfileTrips();
+        showToast(`${trip.city} ${saved ? 'saved to' : 'removed from'} My Saved Plans`);
         return;
       }
       const tripCard = event.target.closest('[data-trip-open]');
@@ -1133,7 +1506,7 @@
 
     document.body.addEventListener('keydown', (event) => {
       const tripCard = event.target.closest('[data-trip-open][role="button"]');
-      if (tripCard && (event.key === 'Enter' || event.key === ' ')) {
+      if (tripCard === event.target && (event.key === 'Enter' || event.key === ' ')) {
         event.preventDefault();
         openTripDetails(tripCard.dataset.tripOpen);
       }
@@ -1142,17 +1515,22 @@
     document.querySelector('#trip-add-stop').addEventListener('click', () => {
       const name = window.prompt('What stop would you like to add?');
       if (!name || !name.trim()) return;
-      const stop = document.createElement('div');
-      stop.className = 'flex items-start gap-3 rounded-xl border border-dashed border-lagoon/40 bg-paper p-4';
-      const icon = document.createElement('span');
-      icon.className = 'grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-mint text-lagoon';
-      icon.innerHTML = '<i data-lucide="map-pin" class="h-4 w-4"></i>';
-      const content = document.createElement('div');
-      content.innerHTML = '<p class="text-sm font-bold"></p><p class="mt-1 text-xs text-muted">Added to your trip ideas</p>';
-      content.querySelector('p').textContent = name.trim();
-      stop.append(icon, content);
-      document.querySelector('#trip-added-stops').append(stop);
-      lucide.createIcons();
+      const trip = tripDetails[activeTripId];
+      if (!trip) return;
+      let day = trip.days.find((candidate) => candidate.stops.length < 3);
+      if (!day) {
+        day = { label: `Day ${trip.days.length + 1}`, date: 'Flexible', theme: 'More trip ideas', stops: [] };
+        trip.days.push(day);
+      }
+      day.stops.push({
+        name: name.trim(),
+        time: 'Flexible',
+        duration: '60 min visit',
+        description: 'Added to your trip. Edit this activity to add more details.',
+        nearby: 'Suggested stop',
+        travel: ''
+      });
+      renderTripDetails(activeTripId);
       showToast(`${name.trim()} added to the itinerary`);
     });
 
@@ -1220,14 +1598,8 @@
       generateItineraryFromInputs();
     });
 
-    document.querySelector('#save-itinerary').addEventListener('click', (event) => {
-      const button = event.currentTarget;
-      const saved = button.getAttribute('aria-pressed') !== 'true';
-      button.setAttribute('aria-pressed', String(saved));
-      button.classList.toggle('bg-lagoon', saved);
-      button.classList.toggle('bg-coral', !saved);
-      document.querySelector('#save-itinerary-label').textContent = saved ? 'Saved to My Trips' : 'Save to My Trips';
-      showToast(saved ? 'Itinerary saved to My Trips' : 'Itinerary removed from My Trips');
+    document.querySelector('#save-itinerary').addEventListener('click', () => {
+      saveCurrentItinerary();
     });
 
     document.querySelector('#share-itinerary').addEventListener('click', async () => {
@@ -1291,6 +1663,7 @@
     document.querySelector('#signup-link').addEventListener('click', () => showToast('Account creation is not connected in this demo'));
 
     renderTrips();
+    renderProfileTrips();
     updateTripDuration();
     generateItineraryFromInputs(false);
     updateFloatingBackButton();
