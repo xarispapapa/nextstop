@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#29B5B9">
+  <meta name="theme-color" content="#7138E8">
   <title>nextstop - Smart Travel Planner</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,23 +15,23 @@
       theme: {
         extend: {
           colors: {
-            ink: '#0B5C7D',
-            muted: '#527481',
-            canvas: '#F4F7FB',
+            ink: '#242338',
+            muted: '#242338',
+            canvas: '#F6F4FC',
             paper: '#FFFFFF',
-            line: '#D5E9EB',
-            lagoon: '#1D96A3',
-            turquoise: '#29B5B9',
-            mint: '#DDF3F2',
-            coral: '#F05859',
-            sun: '#FBAF3C'
+            line: '#B9A2FF',
+            lagoon: '#7138E8',
+            turquoise: '#B9A2FF',
+            mint: '#E9E1FF',
+            coral: '#7138E8',
+            sun: '#B9A2FF'
           },
           fontFamily: {
             sans: ['DM Sans', 'sans-serif'],
             display: ['Fraunces', 'serif']
           },
           boxShadow: {
-            soft: '0 12px 40px rgba(11, 92, 125, .10)'
+            soft: '0 12px 40px rgba(36, 35, 56, .08)'
           }
         }
       }
@@ -40,23 +40,33 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <style>
+    :root {
+      --accent-primary: #7138E8;
+      --accent-secondary: #B9A2FF;
+      --text-primary: #242338;
+      --app-canvas: #F6F4FC;
+      --glass-fill: rgba(255, 255, 255, .55);
+      --glass-border: rgba(185, 162, 255, .4);
+    }
     body {
       font-family: 'DM Sans', sans-serif;
-      background: #F4F7FB;
-      color: #0B5C7D;
+      background: var(--app-canvas);
+      color: var(--text-primary);
     }
     .display { font-family: 'Fraunces', serif; }
     .fade-in { animation: fadeIn .35s ease both; }
     .app-shell {
       background:
-        radial-gradient(ellipse at 8% 4%, rgba(41, 181, 185, 0.13), transparent 34rem),
-        radial-gradient(ellipse at 96% 28%, rgba(251, 175, 60, 0.12), transparent 30rem),
-        linear-gradient(180deg, #FBFCFF 0%, #F2F7FA 100%);
+        radial-gradient(ellipse at 8% 4%, rgba(185, 162, 255, 0.2), transparent 34rem),
+        radial-gradient(ellipse at 96% 28%, rgba(113, 56, 232, 0.08), transparent 30rem),
+        linear-gradient(180deg, #F6F4FC 0%, #F1EDFA 100%);
     }
     .surface-card {
-      background: #FFFFFF;
-      border: 1px solid rgba(29, 150, 163, 0.15);
-      box-shadow: 0 14px 34px rgba(11, 92, 125, 0.09);
+      background: var(--glass-fill);
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 14px 34px rgba(36, 35, 56, 0.07);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
     }
     .trip-marker-primary,
     .trip-marker-secondary {
@@ -64,30 +74,30 @@
       height: 18px !important;
       border-radius: 50%;
       border: 3px solid rgba(255,255,255,0.9);
-      box-shadow: 0 8px 18px rgba(11, 92, 125, 0.22);
+      box-shadow: 0 8px 18px rgba(36, 35, 56, 0.18);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 9px;
       color: #FFFFFF;
       font-weight: 700;
-      background: #F05859;
+      background: var(--accent-primary);
     }
     .trip-marker-secondary {
-      background: #FBAF3C;
+      background: var(--accent-secondary);
     }
     .leaflet-container {
-      background: #DDF3F2;
+      background: #F1EDFA;
       border-radius: 16px;
     }
     .leaflet-control-zoom a {
       background: rgba(255,255,255,0.95);
-      color: #0B5C7D;
-      border-color: rgba(11, 92, 125, 0.18);
+      color: var(--text-primary);
+      border-color: var(--glass-border);
     }
     .leaflet-control-zoom a:hover {
-      background: #DDF3F2;
-      color: #1D96A3;
+      background: #EEE8FC;
+      color: var(--accent-primary);
     }
     .leaflet-div-icon {
       background: transparent;
@@ -99,7 +109,7 @@
       min-height: 300px;
       overflow: hidden;
       isolation: isolate;
-      background: #DDF3F2;
+      background: #F1EDFA;
     }
     .fallback-map-art {
       position: absolute;
@@ -107,84 +117,112 @@
       transform-origin: center;
       transition: transform .2s ease;
       background:
-        radial-gradient(ellipse at 18% 82%, rgba(41,181,185,.24) 0 10%, transparent 10.5%),
-        radial-gradient(ellipse at 78% 20%, rgba(29,150,163,.16) 0 14%, transparent 14.5%),
-        linear-gradient(155deg, #E9F7F2 0 30%, #C8E8E4 30% 31%, #E6F3EB 31% 68%, #B8E1E3 68% 69%, #DDF3F2 69%);
+        radial-gradient(ellipse at 18% 82%, rgba(185,162,255,.3) 0 10%, transparent 10.5%),
+        radial-gradient(ellipse at 78% 20%, rgba(113,56,232,.16) 0 14%, transparent 14.5%),
+        linear-gradient(155deg, #F6F4FC 0 30%, #E2D9FA 30% 31%, #F1EDFA 31% 68%, #D5C7F5 68% 69%, #F6F4FC 69%);
     }
     .fallback-map-art::before,
     .fallback-map-art::after {
       position: absolute;
       content: '';
-      border: 1px solid rgba(29,150,163,.18);
+      border: 1px solid rgba(185,162,255,.3);
       border-radius: 48% 52% 62% 38% / 39% 43% 57% 61%;
       transform: rotate(-18deg);
     }
     .fallback-map-art::before { width: 58%; height: 62%; left: -9%; top: -12%; background: rgba(255,255,255,.25); }
     .fallback-map-art::after { width: 48%; height: 70%; right: -9%; bottom: -27%; background: rgba(255,255,255,.2); }
     .fallback-route { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-    .fallback-route path { fill: none; stroke: #FFFFFF; stroke-width: 1.1; stroke-dasharray: 2.2 2.2; stroke-linecap: round; filter: drop-shadow(0 1px 2px rgba(11,92,125,.22)); }
+    .fallback-route path { fill: none; stroke: #FFFFFF; stroke-width: 1.1; stroke-dasharray: 2.2 2.2; stroke-linecap: round; filter: drop-shadow(0 1px 2px rgba(36,35,56,.22)); }
     .fallback-stop { position: absolute; z-index: 2; display: flex; flex-direction: column; align-items: center; transform: translate(-50%, -50%); }
-    .fallback-pin { display: grid; width: 30px; height: 30px; place-items: center; border: 3px solid #FFFFFF; border-radius: 50% 50% 50% 8px; background: #F05859; color: #FFFFFF; font-size: 11px; font-weight: 700; box-shadow: 0 4px 12px rgba(11,92,125,.24); transform: rotate(-45deg); }
+    .fallback-pin { display: grid; width: 30px; height: 30px; place-items: center; border: 3px solid #FFFFFF; border-radius: 50% 50% 50% 8px; background: var(--accent-primary); color: #FFFFFF; font-size: 11px; font-weight: 700; box-shadow: 0 4px 12px rgba(36,35,56,.2); transform: rotate(-45deg); }
     .fallback-pin span { transform: rotate(45deg); }
-    .fallback-stop:nth-of-type(even) .fallback-pin { background: #FBAF3C; }
-    .fallback-stop-label { max-width: 148px; margin-top: 5px; padding: 4px 8px; border: 1px solid rgba(29,150,163,.15); border-radius: 999px; background: rgba(255,255,255,.94); color: #0B5C7D; font-size: 10px; font-weight: 700; line-height: 1.2; text-align: center; box-shadow: 0 2px 8px rgba(11,92,125,.1); }
-    .fallback-walk-time { position: absolute; z-index: 3; padding: 5px 8px; border: 1px solid rgba(255,255,255,.8); border-radius: 999px; background: #1D96A3; color: #FFFFFF; font-size: 10px; font-weight: 700; white-space: nowrap; box-shadow: 0 3px 10px rgba(11,92,125,.18); transform: translate(-50%, -50%); }
+    .fallback-stop:nth-of-type(even) .fallback-pin { background: var(--accent-secondary); color: var(--text-primary); }
+    .fallback-stop-label { max-width: 148px; margin-top: 5px; padding: 4px 8px; border: 1px solid var(--glass-border); border-radius: 999px; background: rgba(255,255,255,.94); color: var(--text-primary); font-size: 10px; font-weight: 700; line-height: 1.2; text-align: center; box-shadow: 0 2px 8px rgba(36,35,56,.08); }
+    .fallback-walk-time { position: absolute; z-index: 3; padding: 5px 8px; border: 1px solid rgba(255,255,255,.8); border-radius: 999px; background: var(--accent-primary); color: #FFFFFF; font-size: 10px; font-weight: 700; white-space: nowrap; box-shadow: 0 3px 10px rgba(36,35,56,.14); transform: translate(-50%, -50%); }
     .fallback-map-controls { position: absolute; z-index: 5; top: 12px; right: 12px; display: flex; flex-direction: column; gap: 6px; }
     .fallback-map-controls button,
-    .fallback-recenter { display: grid; min-width: 36px; height: 36px; place-items: center; border: 1px solid rgba(11,92,125,.14); border-radius: 10px; background: #FFFFFF; color: #0B5C7D; font-size: 18px; font-weight: 700; box-shadow: 0 3px 10px rgba(11,92,125,.12); cursor: pointer; }
+    .fallback-recenter { display: grid; min-width: 36px; height: 36px; place-items: center; border: 1px solid var(--glass-border); border-radius: 10px; background: rgba(255,255,255,.8); color: var(--text-primary); font-size: 18px; font-weight: 700; box-shadow: 0 3px 10px rgba(36,35,56,.1); cursor: pointer; }
     .fallback-map-controls button:hover,
-    .fallback-recenter:hover { background: #FFF3D9; }
+    .fallback-map-controls button:hover,
+    .fallback-recenter:hover { background: #EEE8FC; }
     .fallback-recenter { position: absolute; z-index: 5; right: 12px; bottom: 12px; display: flex; width: auto; padding: 0 12px; gap: 7px; font-size: 11px; }
     .cta-primary {
-      background: #F05859;
+      background: var(--accent-primary);
       color: #FFFFFF;
-      box-shadow: 0 12px 22px rgba(240, 88, 89, 0.22);
+      box-shadow: 0 12px 22px rgba(113, 56, 232, 0.2);
     }
     .cta-secondary {
-      background: #FBAF3C;
-      color: #FFFFFF;
-      box-shadow: 0 12px 22px rgba(251, 175, 60, 0.22);
+      background: var(--accent-secondary);
+      color: var(--text-primary);
+      box-shadow: 0 12px 22px rgba(113, 56, 232, 0.12);
     }
     .itinerary-day-card {
       overflow: hidden;
-      border: 1px solid rgba(29, 150, 163, 0.16);
+      border: 1px solid var(--glass-border);
       border-radius: 18px;
-      background: rgba(255,255,255,.92);
-      box-shadow: 0 10px 28px rgba(11,92,125,.07);
+      background: var(--glass-fill);
+      box-shadow: 0 10px 28px rgba(36,35,56,.06);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
     }
     .itinerary-stop-track { display: flex; align-items: stretch; gap: 10px; overflow-x: auto; padding: 2px 2px 10px; scrollbar-width: thin; }
-    .itinerary-spot-card { flex: 0 0 252px; width: 252px; overflow: hidden; border: 1px solid rgba(11,92,125,.12); border-radius: 14px; background: #FFFFFF; }
-    .itinerary-spot-image { display: block; width: 100%; height: 126px; object-fit: cover; background: #DDF3F2; }
-    .itinerary-walk-pill { display: flex; flex: 0 0 auto; align-items: center; align-self: center; gap: 6px; border: 1px solid rgba(29,150,163,.16); border-radius: 999px; background: #E8F7F6; padding: 7px 10px; color: #0B5C7D; font-size: 10px; font-weight: 700; white-space: nowrap; }
+    .itinerary-spot-card { flex: 0 0 252px; width: 252px; overflow: hidden; border: 1px solid var(--glass-border); border-radius: 14px; background: var(--glass-fill); box-shadow: 0 6px 18px rgba(36,35,56,.05); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
+    .itinerary-spot-image { display: block; width: 100%; height: 126px; object-fit: cover; background: #F1EDFA; }
+    .itinerary-walk-pill { display: flex; flex: 0 0 auto; align-items: center; align-self: center; gap: 6px; border: 1px solid rgba(185,162,255,.4); border-radius: 999px; background: rgba(185,162,255,.2); padding: 7px 10px; color: var(--text-primary); font-size: 10px; font-weight: 700; white-space: nowrap; }
     @media (min-width: 1280px) {
       .itinerary-stop-track { flex-wrap: nowrap; overflow-x: auto; }
       .itinerary-spot-card { flex-basis: 252px; flex-grow: 0; }
     }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: translateY(0); } }
-    .nav-active { color: #D9474A; background: #FFF0EE; }
-    .trip-image { background-color: #EAF7F7; }
+    .nav-active { color: #FFFFFF !important; background: var(--accent-primary) !important; box-shadow: 0 6px 16px rgba(113,56,232,.18); }
+    .trip-image { background-color: #F1EDFA; }
     .chat-scroll::-webkit-scrollbar { width: 5px; }
-    .chat-scroll::-webkit-scrollbar-thumb { background: #B8DDE0; border-radius: 8px; }
-    [class~="bg-[#b8d7ca]"], [class~="bg-[#cbded2]"], [class~="bg-[#dce7df]"], [class~="bg-[#e4f0e8]"], [class~="bg-[#e6f0e9]"], [class~="bg-[#edf4ed]"], [class~="bg-[#fbfcf9]"] { background-color: #DDF3F2 !important; }
-    [class~="bg-[#d9d4ed]"], [class~="bg-[#e8edf7]"] { background-color: #E8EEFF !important; }
-    [class~="bg-[#f3d9ce]"], [class~="bg-[#f4d0bd]"], [class~="bg-[#fce9e2]"] { background-color: #FFF0EE !important; }
-    [class~="bg-[#f4dca6]"], [class~="bg-[#e8e4d7]"], [class~="bg-[#fff3df]"], [class~="bg-[#fff8e9]"] { background-color: #FFF3D9 !important; }
-    [class~="bg-lagoon"] { background-color: #1D96A3 !important; }
-    [class~="bg-coral"] { background-color: #F05859 !important; }
-    [class~="bg-sun"] { background-color: #FBAF3C !important; }
-    [class~="bg-ink"] { background-color: #F05859 !important; }
-    [class~="hover:bg-ink"]:hover { background-color: #D9474A !important; }
-    [class~="hover:bg-lagoon"]:hover { background-color: #177F8B !important; }
-    [class~="text-lagoon"] { color: #1D96A3 !important; }
-    [class~="text-coral"] { color: #E34D52 !important; }
-    [class~="text-sun"] { color: #B76B08 !important; }
-    [class~="border-[#b8d7ca]"] { border-color: rgb(41 181 185 / 45%) !important; }
-    [class~="border-[#f2dfb6]"] { border-color: rgb(251 175 60 / 55%) !important; }
-    [class~="text-[#53698e]"], [class~="text-[#765b2c]"], [class~="text-[#9b6824]"] { color: #0B5C7D !important; }
-    [class~="text-[#a9563d]"] { color: #F05859 !important; }
-    [class~="ring-[#f9e9e1]"] { --tw-ring-color: rgb(240 88 89 / 20%) !important; }
-    [class~="from-[#173e38]"] { --tw-gradient-from: #0B5C7D var(--tw-gradient-from-position); --tw-gradient-to: rgb(11 92 125 / 0) var(--tw-gradient-to-position); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
-    [class~="via-[#173e38]"] { --tw-gradient-to: rgb(11 92 125 / 0) var(--tw-gradient-to-position); --tw-gradient-stops: var(--tw-gradient-from), #0B5C7D var(--tw-gradient-via-position), var(--tw-gradient-to); }
+    .chat-scroll::-webkit-scrollbar-thumb { background: var(--accent-secondary); border-radius: 8px; }
+    .bg-paper {
+      background-color: var(--glass-fill) !important;
+      border-color: var(--glass-border) !important;
+      box-shadow: 0 10px 28px rgba(36,35,56,.06);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    header {
+      background-color: rgba(255,255,255,.72) !important;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .border-line { border-color: var(--glass-border) !important; }
+    .text-line { color: rgba(185,162,255,.75) !important; }
+    .surface-card, .itinerary-day-card, .itinerary-spot-card {
+      border-color: var(--glass-border);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    [id^="page-"] .rounded-2xl.bg-white {
+      background-color: var(--glass-fill) !important;
+      border-color: var(--glass-border);
+      box-shadow: 0 10px 28px rgba(36,35,56,.06);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    [class~="bg-[#b8d7ca]"], [class~="bg-[#cbded2]"], [class~="bg-[#dce7df]"], [class~="bg-[#e4f0e8]"], [class~="bg-[#e6f0e9]"], [class~="bg-[#edf4ed]"], [class~="bg-[#fbfcf9]"],
+    [class~="bg-[#d9d4ed]"], [class~="bg-[#e8edf7]"], [class~="bg-[#f3d9ce]"], [class~="bg-[#f4d0bd]"], [class~="bg-[#fce9e2]"],
+    [class~="bg-[#f4dca6]"], [class~="bg-[#e8e4d7]"], [class~="bg-[#fff3df]"], [class~="bg-[#fff8e9]"], [class~="bg-[#eefaf9]"], [class~="bg-[#e8f7f6]"], [class~="bg-[#f4f7fb]"], [class~="bg-[#FBAF3C]"], [class~="bg-[#FFF3D9]"], [class~="bg-[#E8F7F6]"], [class~="bg-[#F4F7FB]"], [class~="bg-[#E8E7FF]"], [class~="bg-[#DFFAFF]"] {
+      background-color: rgba(185,162,255,.16) !important;
+    }
+    [class~="hover:bg-[#D9474A]"]:hover { background-color: #5D2BC6 !important; }
+    [class~="bg-lagoon"], [class~="bg-coral"] { background-color: var(--accent-primary) !important; }
+    [class~="bg-sun"] { background-color: var(--accent-secondary) !important; }
+    [class~="bg-ink"] { background-color: #5D2BC6 !important; }
+    [class~="hover:bg-ink"]:hover { background-color: #5D2BC6 !important; }
+    [class~="hover:bg-lagoon"]:hover { background-color: #5D2BC6 !important; }
+    [class~="text-lagoon"], [class~="text-coral"] { color: var(--accent-primary) !important; }
+    [class~="text-sun"] { color: var(--text-primary) !important; }
+    [class~="border-[#b8d7ca]"], [class~="border-[#d7edf0]"], [class~="border-[#C9C4FF]"], [class~="border-[#A8EFF8]"] { border-color: var(--glass-border) !important; }
+    [class~="border-[#f2dfb6]"] { border-color: var(--glass-border) !important; }
+    [class~="text-[#53698e]"], [class~="text-[#765b2c]"], [class~="text-[#9b6824]"], [class~="text-[#9A6200]"], [class~="text-[#a9563d]"], [class~="text-[#6546E8]"], [class~="text-[#087E91]"] { color: var(--accent-primary) !important; }
+    [class~="ring-[#f9e9e1]"] { --tw-ring-color: rgba(185,162,255,.4) !important; }
+    [class~="from-[#173e38]"] { --tw-gradient-from: #242338 var(--tw-gradient-from-position); --tw-gradient-to: rgb(36 35 56 / 0) var(--tw-gradient-to-position); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+    [class~="via-[#173e38]"] { --tw-gradient-to: rgb(36 35 56 / 0) var(--tw-gradient-to-position); --tw-gradient-stops: var(--tw-gradient-from), #242338 var(--tw-gradient-via-position), var(--tw-gradient-to); }
   </style>
 </head>
 <body class="min-h-screen bg-canvas text-ink antialiased">
@@ -246,8 +284,8 @@
       <div class="mx-auto max-w-[1440px] px-4 pb-12 pt-7 sm:px-7 sm:pt-9 xl:px-10">
         <section id="page-dashboard" class="page fade-in">
           <div class="mb-7 flex flex-wrap items-end justify-between gap-4">
-            <div><p class="mb-2 text-xs font-bold uppercase tracking-[.15em] text-lagoon">Your travel, thoughtfully planned</p><h1 class="display text-[34px] leading-tight sm:text-[40px]">A good day starts <span class="text-lagoon">somewhere.</span></h1><p class="mt-2 text-sm text-muted">Pick a place. We'll help with the rest.</p></div>
-            <span class="hidden rounded-full bg-mint px-4 py-2 text-xs font-bold text-lagoon sm:inline-flex">A little inspiration for your next trip</span>
+            <div><p class="mb-2 text-xs font-bold uppercase tracking-[.15em] text-lagoon">Less searching, more traveling.</p><h1 class="display text-[34px] leading-tight sm:text-[40px]">No dry trips, just <span class="text-lagoon">pure vibes.</span></h1><p class="mt-2 text-sm text-muted">Drop the destination, we’ll do the heavy lifting in the Control Room.</p></div>
+            <span class="hidden rounded-full bg-mint px-4 py-2 text-xs font-bold text-lagoon sm:inline-flex">Places that actually deserve a spot on your grid ✨</span>
           </div>
 
           <form id="destination-search" class="mb-8 flex flex-col gap-2 rounded-2xl border border-line bg-paper p-2 shadow-soft sm:flex-row sm:items-center">
@@ -260,9 +298,9 @@
               <div class="mb-4 flex items-end justify-between gap-3"><div><p class="text-xs font-bold uppercase tracking-[.14em] text-muted">Picked for your next chapter</p><h2 class="display mt-1 text-[25px]">Recommended trips</h2></div><button id="clear-search" class="hidden text-xs font-bold text-lagoon hover:underline">Clear search</button></div>
               <div id="trip-grid" class="grid gap-4 sm:grid-cols-2 2xl:grid-cols-3"></div>
               <p id="no-results" class="hidden rounded-2xl border border-dashed border-line bg-paper px-5 py-10 text-center text-sm text-muted">No trips found matching your search</p>
-              <div class="mt-7 flex items-center justify-between rounded-2xl bg-[#e6f0e9] p-5 sm:p-6">
-                <div class="flex items-start gap-3"><span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-paper text-lagoon"><i data-lucide="sparkles" class="h-5 w-5"></i></span><div><h3 class="font-bold">Only have a few hours?</h3><p class="mt-1 max-w-md text-sm leading-6 text-muted">Turn one landmark into a lovely little route, with time for the in-between.</p></div></div>
-                <button data-nav="itinerary" class="ml-3 grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-lagoon text-white transition hover:bg-ink" aria-label="Open itinerary builder"><i data-lucide="arrow-up-right" class="h-4 w-4"></i></button>
+              <div class="mt-7 flex flex-col items-start gap-4 rounded-2xl bg-[#e6f0e9] p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
+                <div class="flex items-start gap-3"><span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-paper text-lagoon"><i data-lucide="sparkles" class="h-5 w-5"></i></span><div><h3 class="font-bold">Speedrunning a city? We got you.</h3><p class="mt-1 max-w-md text-sm leading-6 text-muted">Skip the tourist traps. Hit the iconic spots and local coffee breaks.</p></div></div>
+                <button data-nav="itinerary" class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-lagoon text-white transition hover:bg-ink sm:ml-3" aria-label="Open itinerary builder"><i data-lucide="arrow-up-right" class="h-4 w-4"></i></button>
               </div>
             </div>
 
@@ -280,17 +318,27 @@
         </section>
 
         <section id="page-itinerary" class="page hidden fade-in">
-          <div class="mb-7 max-w-2xl"><p class="mb-2 text-xs font-bold uppercase tracking-[.15em] text-lagoon">Make time for the good bits</p><h1 class="display text-[34px] leading-tight sm:text-[40px]">Build a little adventure.</h1><p class="mt-2 text-sm leading-6 text-muted">Set your arrival and departure times to shape a day-by-day plan around your trip.</p></div>
+          <div class="mb-7 max-w-2xl"><p class="mb-2 text-xs font-bold uppercase tracking-[.15em] text-lagoon">Cooking up the ultimate itinerary for the squad.</p><h1 class="display text-[34px] leading-tight sm:text-[40px]">Build a little adventure.</h1><p class="mt-2 text-sm leading-6 text-muted">Set your arrival and departure times to shape a day-by-day plan around your trip.</p></div>
           <div class="space-y-6">
             <form id="itinerary-form" class="rounded-2xl border border-line bg-paper p-5 shadow-soft sm:p-6">
-              <div class="grid gap-4 xl:grid-cols-[minmax(190px,1fr)_minmax(240px,1fr)_minmax(240px,1fr)_auto] xl:items-end">
+              <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-4 xl:items-start">
                 <div>
               <label for="destination" class="mb-2 block text-sm font-bold">Where are you exploring?</label>
               <div class="flex items-center gap-3 rounded-xl border border-line px-3"><i data-lucide="map-pin" class="h-4 w-4 shrink-0 text-lagoon"></i><input id="destination" required value="Athens" class="w-full bg-transparent py-3 text-sm outline-none placeholder:text-muted" placeholder="City or landmark"></div>
                 </div>
                 <div><label for="arrival-datetime" class="mb-2 block text-sm font-bold">Arrival date &amp; time</label><div class="flex items-center gap-2 rounded-xl border border-line px-3"><i data-lucide="plane-landing" class="h-4 w-4 shrink-0 text-coral"></i><input id="arrival-datetime" required type="datetime-local" value="2026-11-03T10:00" class="min-w-0 w-full bg-transparent py-3 text-xs outline-none"></div></div>
                 <div><label for="departure-datetime" class="mb-2 block text-sm font-bold">Departure date &amp; time</label><div class="flex items-center gap-2 rounded-xl border border-line px-3"><i data-lucide="plane-takeoff" class="h-4 w-4 shrink-0 text-sun"></i><input id="departure-datetime" required type="datetime-local" value="2026-11-06T18:00" class="min-w-0 w-full bg-transparent py-3 text-xs outline-none"></div></div>
-                <button id="generate-itinerary" class="flex items-center justify-center gap-2 rounded-xl bg-lagoon px-5 py-3.5 text-sm font-bold text-white transition hover:bg-ink" type="submit"><i data-lucide="sparkles" class="h-4 w-4"></i>Generate Itinerary</button>
+                <button id="generate-itinerary" class="flex items-center justify-center gap-2 rounded-xl bg-lagoon px-5 py-3.5 text-sm font-bold text-white transition hover:bg-ink xl:self-end" type="submit"><i data-lucide="sparkles" class="h-4 w-4"></i>Generate Itinerary</button>
+                <div class="md:col-span-1 xl:col-span-2">
+                  <label for="accommodation-location" class="mb-2 block text-sm font-bold">Where are you staying?</label>
+                  <div class="flex items-center gap-3 rounded-xl border border-line px-3"><i data-lucide="bed-double" class="h-4 w-4 shrink-0 text-lagoon"></i><input id="accommodation-location" class="w-full bg-transparent py-3 text-sm outline-none placeholder:text-muted" placeholder="Hotel, hostel, neighborhood, or address"></div>
+                </div>
+                <div class="md:col-span-1 xl:col-span-2">
+                  <label for="must-see-input" class="mb-2 block text-sm font-bold">Must-See Spots &amp; Attractions</label>
+                  <div class="flex gap-2"><input id="must-see-input" list="popular-must-see-spots" class="min-w-0 flex-1 rounded-xl border border-line px-3 py-3 text-sm outline-none placeholder:text-muted focus:border-lagoon" placeholder="Type a place to pin"><datalist id="popular-must-see-spots"><option value="Acropolis"><option value="Plaka Walk"><option value="Lycabettus Hill"></datalist><button type="button" data-action="add-must-see" class="grid h-11 w-11 shrink-0 place-items-center rounded-xl border border-line text-lagoon transition hover:bg-mint" aria-label="Add must-see spot" title="Add must-see spot"><i data-lucide="plus" class="h-4 w-4"></i></button></div>
+                  <div class="mt-2 flex flex-wrap gap-2" aria-label="Popular must-see spots"><button type="button" data-must-see-suggestion="Acropolis" class="rounded-full border border-line px-3 py-1 text-[11px] font-semibold text-muted transition hover:border-lagoon hover:text-lagoon">Acropolis</button><button type="button" data-must-see-suggestion="Plaka Walk" class="rounded-full border border-line px-3 py-1 text-[11px] font-semibold text-muted transition hover:border-lagoon hover:text-lagoon">Plaka Walk</button><button type="button" data-must-see-suggestion="Lycabettus Hill" class="rounded-full border border-line px-3 py-1 text-[11px] font-semibold text-muted transition hover:border-lagoon hover:text-lagoon">Lycabettus Hill</button></div>
+                  <div id="must-see-tags" class="mt-2 flex flex-wrap gap-2" aria-live="polite"></div>
+                </div>
               </div>
               <div class="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-line pt-4"><div class="flex items-center gap-2"><i data-lucide="clock-3" class="h-4 w-4 text-lagoon"></i><span class="text-xs font-semibold text-muted">Total time available</span><strong id="trip-duration-display" class="text-sm font-bold text-lagoon">3 Days, 8 Hours</strong></div><span class="text-[11px] text-muted">Plans include arrival and departure transfer time.</span></div>
             </form>
@@ -310,11 +358,11 @@
               <div id="stops-list" class="space-y-5"></div>
             </div>
           </div>
-          <div class="mt-6 flex items-start gap-3 rounded-xl border border-[#f2dfb6] bg-[#fff8e9] p-4 text-xs leading-5 text-[#765b2c]"><i data-lucide="info" class="mt-0.5 h-4 w-4 shrink-0"></i><p>Travel times are estimates. Check opening hours and local conditions before you head out.</p></div>
+          <div class="mt-6 flex items-start gap-3 rounded-xl border border-[#f2dfb6] bg-[#fff8e9] p-4 text-xs leading-5 text-[#765b2c]"><i data-lucide="info" class="mt-0.5 h-4 w-4 shrink-0"></i><p>Travel times and distances are estimates. Known Athens landmarks use approximate proximity; other locations use a general city estimate. Check opening hours and local conditions before you head out.</p></div>
         </section>
 
         <section id="page-profile" class="page hidden fade-in">
-          <div class="mb-7"><p class="mb-2 text-xs font-bold uppercase tracking-[.15em] text-lagoon">Your corner of the map</p><h1 class="display text-[34px] sm:text-[40px]">Traveler profile</h1></div>
+          <div class="mb-7"><p class="mb-2 text-xs font-bold uppercase tracking-[.15em] text-lagoon">Your trip history, saved spots, and passport stamps.</p><h1 class="display text-[34px] sm:text-[40px]">Traveler profile</h1></div>
           <div class="grid items-start gap-6 xl:grid-cols-[320px_minmax(0,1fr)]">
             <div class="rounded-2xl border border-line bg-paper p-6 text-center shadow-soft">
               <div class="mx-auto grid h-24 w-24 place-items-center rounded-full bg-[#f3d9ce] text-2xl font-bold text-ink ring-4 ring-[#f9e9e1]">AM</div>
@@ -340,8 +388,9 @@
         <section id="page-trip" class="page hidden fade-in">
           <div class="mb-5 flex flex-wrap justify-end gap-3">
             <div class="flex flex-wrap gap-2">
+              <button id="trip-edit-control-room" type="button" data-action="edit-trip-in-control-room" class="inline-flex items-center gap-2 rounded-lg bg-coral px-3 py-2 text-xs font-bold text-white hover:bg-[#D9474A]"><i data-lucide="pencil" class="h-4 w-4"></i>Edit in Control Room</button>
               <button id="trip-add-stop" class="inline-flex items-center gap-2 rounded-lg border border-line bg-paper px-3 py-2 text-xs font-bold hover:bg-canvas"><i data-lucide="plus" class="h-4 w-4"></i>Add New Stop</button>
-              <button id="trip-open-chat" data-target-view="chat" class="inline-flex items-center gap-2 rounded-lg border border-line bg-paper px-3 py-2 text-xs font-bold hover:bg-canvas"><i data-lucide="messages-square" class="h-4 w-4"></i>Open Group Chat</button>
+              <button id="trip-open-chat" data-target-view="chat" class="inline-flex items-center gap-2 rounded-lg border border-line bg-paper px-3 py-2 text-xs font-bold hover:bg-canvas"><i data-lucide="messages-square" class="h-4 w-4"></i>Share to Who is coming?</button>
               <button id="trip-share" class="inline-flex items-center gap-2 rounded-lg bg-lagoon px-3 py-2 text-xs font-bold text-white hover:bg-ink"><i data-lucide="share-2" class="h-4 w-4"></i>Export / Share</button>
               <button id="customize-template" type="button" data-action="customize-template" class="hidden items-center gap-2 rounded-lg bg-coral px-4 py-2 text-xs font-bold text-white transition hover:bg-[#D9474A]"><i data-lucide="pencil" class="h-4 w-4"></i>Customize &amp; Edit Itinerary</button>
             </div>
@@ -351,7 +400,7 @@
             <img id="trip-detail-cover" class="absolute inset-0 h-full w-full object-cover" src="" alt="">
             <div class="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/20 to-transparent"></div>
             <div class="absolute inset-x-0 bottom-0 flex flex-wrap items-end justify-between gap-4 p-5 text-white sm:p-7">
-              <div><p id="trip-detail-destination" class="mb-2 text-xs font-bold uppercase tracking-[.16em] text-white/80"></p><h1 id="trip-detail-title" class="display text-[32px] leading-tight sm:text-[40px]"></h1><p id="trip-detail-dates" class="mt-2 text-sm text-white/90"></p></div>
+              <div><p id="trip-detail-destination" class="mb-2 text-xs font-bold uppercase tracking-[.16em] text-white/80"></p><h1 id="trip-detail-title" class="display text-[32px] leading-tight sm:text-[40px]"></h1><p id="trip-detail-dates" class="mt-2 text-sm text-white/90"></p><div class="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs font-semibold text-white/90"><span id="trip-detail-base"></span><span id="trip-detail-duration"></span></div></div>
               <span id="trip-detail-status" class="rounded-full bg-mint px-3 py-1.5 text-xs font-bold text-lagoon">Upcoming</span>
             </div>
           </div>
@@ -398,14 +447,14 @@
               </div>
             </div>
             <aside class="space-y-4">
-              <div class="rounded-2xl border border-line bg-paper p-5"><p class="text-[10px] font-bold uppercase tracking-[.14em] text-muted">Trip at a glance</p><div class="mt-4 space-y-4 text-sm"><div class="flex gap-3"><i data-lucide="calendar-days" class="h-4 w-4 text-lagoon"></i><span id="trip-summary-dates" class="text-muted"></span></div><div class="flex gap-3"><i data-lucide="map-pin" class="h-4 w-4 text-lagoon"></i><span id="trip-summary-destination" class="text-muted"></span></div><div class="flex gap-3"><i data-lucide="users-round" class="h-4 w-4 text-lagoon"></i><span id="trip-summary-members" class="text-muted"></span></div></div></div>
+              <div class="rounded-2xl border border-line bg-paper p-5"><p class="text-[10px] font-bold uppercase tracking-[.14em] text-muted">Trip at a glance</p><div class="mt-4 space-y-4 text-sm"><div class="flex gap-3"><i data-lucide="calendar-days" class="h-4 w-4 text-lagoon"></i><span id="trip-summary-dates" class="text-muted"></span></div><div class="flex gap-3"><i data-lucide="map-pin" class="h-4 w-4 text-lagoon"></i><span id="trip-summary-destination" class="text-muted"></span></div><div class="flex gap-3"><i data-lucide="bed-double" class="h-4 w-4 text-lagoon"></i><span id="trip-summary-base" class="text-muted"></span></div><div class="flex gap-3"><i data-lucide="clock-3" class="h-4 w-4 text-lagoon"></i><span id="trip-summary-duration" class="text-muted"></span></div><div class="flex gap-3"><i data-lucide="users-round" class="h-4 w-4 text-lagoon"></i><span id="trip-summary-members" class="text-muted"></span></div></div></div>
               <div class="rounded-2xl border border-[#f2dfb6] bg-[#fff8e9] p-4"><div class="flex gap-3"><i data-lucide="lightbulb" class="mt-0.5 h-4 w-4 shrink-0 text-[#9b6824]"></i><div><p class="text-sm font-bold text-ink">A local tip</p><p id="trip-local-tip" class="mt-1 text-xs leading-5 text-[#765b2c]"></p></div></div></div>
             </aside>
           </div>
         </section>
 
         <section id="page-chat" class="page hidden fade-in">
-          <div class="mb-7"><p class="mb-2 text-xs font-bold uppercase tracking-[.15em] text-lagoon">Better trips, together</p><h1 class="display text-[34px] sm:text-[40px]">The trip circle.</h1><p class="mt-2 text-sm text-muted">Swap ideas, save the good ones, make a plan.</p></div>
+          <div class="mb-7"><p class="mb-2 text-xs font-bold uppercase tracking-[.15em] text-lagoon">The group chat where the real decisions happen.</p><h1 class="display text-[34px] sm:text-[40px]">The trip circle.</h1><p class="mt-2 text-sm text-muted">Swap ideas, save the good ones, make a plan.</p></div>
           <div class="grid overflow-hidden rounded-2xl border border-line bg-paper shadow-soft lg:grid-cols-[250px_minmax(0,1fr)]">
             <aside class="border-b border-line bg-[#fbfcf9] p-4 lg:border-b-0 lg:border-r"><div class="mb-4 flex items-center justify-between px-1"><p class="text-[10px] font-bold uppercase tracking-[.14em] text-muted">Your circles</p><button id="new-circle" class="grid h-8 w-8 place-items-center rounded-lg text-muted hover:bg-mint hover:text-lagoon" aria-label="New trip circle"><i data-lucide="plus" class="h-4 w-4"></i></button></div>
               <button class="flex w-full items-center gap-3 rounded-xl bg-mint p-3 text-left"><span class="grid h-10 w-10 place-items-center rounded-xl bg-[#f4d0bd] text-[10px] font-bold text-ink">IT</span><span class="min-w-0 flex-1"><span class="block truncate text-sm font-bold">Italy in autumn</span><span class="mt-0.5 block text-[11px] text-muted">3 travelers &middot; 2 new</span></span><i data-lucide="chevron-right" class="h-4 w-4 text-lagoon"></i></button>
@@ -560,13 +609,13 @@
         members: [{ initials: 'AM', name: 'Alex Morgan', color: 'bg-[#f3d9ce]' }, { initials: 'JL', name: 'Jamie Lee', color: 'bg-[#cbded2]' }, { initials: 'SK', name: 'Sam Kim', color: 'bg-[#f4dca6]' }],
         days: [
           { label: 'Day 1', date: 'Nov 14', theme: 'Arrive in Monterosso', stops: [
-            { name: 'Monterosso Old Town', time: '10:00 - 11:30 AM', duration: '90 min', description: 'Drop your bags, then wander the lanes around Piazza Garibaldi.', nearby: 'Nearby: San Giovanni Battista, 4-min walk', travel: '12-min train to Vernazza', lat: 44.1471, lng: 9.6580 },
-            { name: 'Vernazza Harbor', time: '12:00 - 1:30 PM', duration: '90 min', description: 'Find a waterside table and take the afternoon at an easy pace.', nearby: 'Nearby: Doria Castle viewpoint, 6-min walk', travel: '15-min train to Corniglia', recommendation: { friend: 'Jamie', initials: 'JL', color: 'bg-[#cbded2]', quote: 'Found a little seafood place in Vernazza that looks lovely. Adding it to our list!' }, lat: 44.1365, lng: 9.6840 },
-            { name: 'Corniglia Viewpoint', time: '2:00 - 3:00 PM', duration: '60 min', description: 'Take in the coastline from the village terrace.', nearby: 'Nearby: Santa Maria Belvedere, 3-min walk', travel: '', lat: 44.1207, lng: 9.7009 }
+            { name: 'Monterosso Old Town', time: '10:00 - 11:30 AM', duration: '90 min', description: 'Drop your bags, then wander the lanes around Piazza Garibaldi.', nearby: 'Nearby: San Giovanni Battista, 4-min walk', travel: '12-min train to Vernazza', systemRecommended: true, lat: 44.1471, lng: 9.6580 },
+            { name: 'Vernazza Harbor', time: '12:00 - 1:30 PM', duration: '90 min', description: 'Find a waterside table and take the afternoon at an easy pace.', nearby: 'Nearby: Doria Castle viewpoint, 6-min walk', travel: '15-min train to Corniglia', systemRecommended: true, recommendation: { friend: 'Jamie', initials: 'JL', color: 'bg-[#cbded2]', quote: 'Found a little seafood place in Vernazza that looks lovely. Adding it to our list!' }, lat: 44.1365, lng: 9.6840 },
+            { name: 'Corniglia Viewpoint', time: '2:00 - 3:00 PM', duration: '60 min', description: 'Take in the coastline from the village terrace.', nearby: 'Nearby: Santa Maria Belvedere, 3-min walk', travel: '', systemRecommended: true, lat: 44.1207, lng: 9.7009 }
           ] },
           { label: 'Day 2', date: 'Nov 15', theme: 'Coastal paths & Riomaggiore', stops: [
-            { name: 'Manarola Harbor', time: '9:30 - 11:00 AM', duration: '90 min', description: 'Follow the harbor path for the classic village view.', nearby: 'Nearby: Punta Bonfiglio terrace, 8-min walk', travel: '10-min train to Riomaggiore', lat: 44.1157, lng: 9.7240 },
-            { name: 'Riomaggiore Marina', time: '11:30 AM - 1:00 PM', duration: '90 min', description: 'Browse the waterfront and pause for a long lunch.', nearby: 'Nearby: Castello di Riomaggiore, 7-min walk', travel: '', lat: 44.1052, lng: 9.7428 }
+            { name: 'Manarola Harbor', time: '9:30 - 11:00 AM', duration: '90 min', description: 'Follow the harbor path for the classic village view.', nearby: 'Nearby: Punta Bonfiglio terrace, 8-min walk', travel: '10-min train to Riomaggiore', systemRecommended: true, lat: 44.1157, lng: 9.7240 },
+            { name: 'Riomaggiore Marina', time: '11:30 AM - 1:00 PM', duration: '90 min', description: 'Browse the waterfront and pause for a long lunch.', nearby: 'Nearby: Castello di Riomaggiore, 7-min walk', travel: '', systemRecommended: true, lat: 44.1052, lng: 9.7428 }
           ] }
         ]
       },
@@ -579,13 +628,13 @@
         members: [{ initials: 'AM', name: 'Alex Morgan', color: 'bg-[#f3d9ce]' }, { initials: 'TK', name: 'Taylor Kim', color: 'bg-[#d9d4ed]' }],
         days: [
           { label: 'Day 1', date: 'Mar 8', theme: 'Higashiyama at a gentle pace', stops: [
-            { name: 'Kiyomizu-dera', time: '8:30 - 10:00 AM', duration: '90 min', description: 'Arrive early for the hillside views and quiet temple grounds.', nearby: 'Nearby: Otowa waterfall, inside the temple grounds', travel: '10-min walk to Sannenzaka', lat: 34.9949, lng: 135.7850 },
-            { name: 'Sannenzaka & Ninenzaka', time: '10:15 AM - 12:00 PM', duration: '105 min', description: 'Explore the old stone lanes and independent craft shops.', nearby: 'Nearby: Yasaka Pagoda, 5-min walk', travel: '15-min walk to Yasaka Shrine', lat: 35.0013, lng: 135.7805 },
-            { name: 'Yasaka Shrine', time: '12:20 - 1:00 PM', duration: '40 min', description: 'Take a quiet loop through the shrine before lunch.', nearby: 'Nearby: Maruyama Park, 3-min walk', travel: '', lat: 35.0033, lng: 135.7786 }
+            { name: 'Kiyomizu-dera', time: '8:30 - 10:00 AM', duration: '90 min', description: 'Arrive early for the hillside views and quiet temple grounds.', nearby: 'Nearby: Otowa waterfall, inside the temple grounds', travel: '10-min walk to Sannenzaka', systemRecommended: true, lat: 34.9949, lng: 135.7850 },
+            { name: 'Sannenzaka & Ninenzaka', time: '10:15 AM - 12:00 PM', duration: '105 min', description: 'Explore the old stone lanes and independent craft shops.', nearby: 'Nearby: Yasaka Pagoda, 5-min walk', travel: '15-min walk to Yasaka Shrine', systemRecommended: true, lat: 35.0013, lng: 135.7805 },
+            { name: 'Yasaka Shrine', time: '12:20 - 1:00 PM', duration: '40 min', description: 'Take a quiet loop through the shrine before lunch.', nearby: 'Nearby: Maruyama Park, 3-min walk', travel: '', systemRecommended: true, lat: 35.0033, lng: 135.7786 }
           ] },
           { label: 'Day 2', date: 'Mar 9', theme: 'Arashiyama riverside', stops: [
-            { name: 'Bamboo Grove', time: '8:00 - 9:00 AM', duration: '60 min', description: 'Walk the grove before the main tour groups arrive.', nearby: 'Nearby: Tenryu-ji garden, 4-min walk', travel: '12-min walk to Togetsukyo Bridge', lat: 35.0173, lng: 135.6724 },
-            { name: 'Togetsukyo Bridge', time: '9:20 - 10:00 AM', duration: '40 min', description: 'Pause along the river for a slow morning view.', nearby: 'Nearby: Riverside coffee shops, 5-min walk', travel: '', lat: 35.0165, lng: 135.6696 }
+            { name: 'Bamboo Grove', time: '8:00 - 9:00 AM', duration: '60 min', description: 'Walk the grove before the main tour groups arrive.', nearby: 'Nearby: Tenryu-ji garden, 4-min walk', travel: '12-min walk to Togetsukyo Bridge', systemRecommended: true, lat: 35.0173, lng: 135.6724 },
+            { name: 'Togetsukyo Bridge', time: '9:20 - 10:00 AM', duration: '40 min', description: 'Pause along the river for a slow morning view.', nearby: 'Nearby: Riverside coffee shops, 5-min walk', travel: '', systemRecommended: true, lat: 35.0165, lng: 135.6696 }
           ] }
         ]
       },
@@ -598,14 +647,14 @@
         members: [{ initials: 'AM', name: 'Alex Morgan', color: 'bg-[#f3d9ce]' }, { initials: 'JL', name: 'Jamie Lee', color: 'bg-[#cbded2]' }, { initials: 'SK', name: 'Sam Kim', color: 'bg-[#f4dca6]' }],
         days: [
           { label: 'Day 1', date: 'Nov 21', theme: 'Ancient Athens', stops: [
-            { name: 'Acropolis Hill', time: '8:30 - 10:00 AM', duration: '90 min', description: 'Explore the Parthenon and hillside monuments while the morning is cool.', nearby: 'Nearby: Areopagus Hill, 5-min walk', travel: '10-min walk to Acropolis Museum', lat: 37.9715, lng: 23.7267 },
-            { name: 'Acropolis Museum', time: '10:15 AM - 12:00 PM', duration: '105 min', description: 'Follow the archaeological story from the gallery floors to the glass atrium.', nearby: 'Nearby: Dionysiou Areopagitou promenade, 2-min walk', travel: '12-min walk to Plaka', lat: 37.9688, lng: 23.7289 },
-            { name: 'Plaka & Anafiotika', time: '12:15 - 2:00 PM', duration: '105 min', description: 'Take a relaxed lunch and explore the narrow lanes beneath the Acropolis.', nearby: 'Nearby: Roman Agora, 6-min walk', travel: '', lat: 37.9726, lng: 23.7319 }
+            { name: 'Acropolis Hill', time: '8:30 - 10:00 AM', duration: '90 min', description: 'Explore the Parthenon and hillside monuments while the morning is cool.', nearby: 'Nearby: Areopagus Hill, 5-min walk', travel: '10-min walk to Acropolis Museum', systemRecommended: true, lat: 37.9715, lng: 23.7267 },
+            { name: 'Acropolis Museum', time: '10:15 AM - 12:00 PM', duration: '105 min', description: 'Follow the archaeological story from the gallery floors to the glass atrium.', nearby: 'Nearby: Dionysiou Areopagitou promenade, 2-min walk', travel: '12-min walk to Plaka', systemRecommended: true, lat: 37.9688, lng: 23.7289 },
+            { name: 'Plaka & Anafiotika', time: '12:15 - 2:00 PM', duration: '105 min', description: 'Take a relaxed lunch and explore the narrow lanes beneath the Acropolis.', nearby: 'Nearby: Roman Agora, 6-min walk', travel: '', systemRecommended: true, lat: 37.9726, lng: 23.7319 }
           ] },
           { label: 'Day 2', date: 'Nov 22', theme: 'Markets, gardens & city views', stops: [
-            { name: 'Monastiraki Flea Market', time: '9:30 - 11:00 AM', duration: '90 min', description: 'Browse the stalls and side streets around the lively square.', nearby: 'Nearby: Hadrian’s Library, 3-min walk', travel: '12-min walk to the National Garden', lat: 37.9834, lng: 23.7277 },
-            { name: 'National Garden', time: '11:20 AM - 12:30 PM', duration: '70 min', description: 'Take a shady break along the garden paths before lunch.', nearby: 'Nearby: Zappeion Hall, 4-min walk', travel: '15-min walk to Panathenaic Stadium', lat: 37.9752, lng: 23.7343 },
-            { name: 'Panathenaic Stadium', time: '12:50 - 1:45 PM', duration: '55 min', description: 'Finish with a visit to the marble stadium and its museum.', nearby: 'Nearby: Ardittos Hill viewpoint, 8-min walk', travel: '', lat: 37.9683, lng: 23.7403 }
+            { name: 'Monastiraki Flea Market', time: '9:30 - 11:00 AM', duration: '90 min', description: 'Browse the stalls and side streets around the lively square.', nearby: 'Nearby: Hadrian’s Library, 3-min walk', travel: '12-min walk to the National Garden', systemRecommended: true, lat: 37.9834, lng: 23.7277 },
+            { name: 'National Garden', time: '11:20 AM - 12:30 PM', duration: '70 min', description: 'Take a shady break along the garden paths before lunch.', nearby: 'Nearby: Zappeion Hall, 4-min walk', travel: '15-min walk to Panathenaic Stadium', systemRecommended: true, lat: 37.9752, lng: 23.7343 },
+            { name: 'Panathenaic Stadium', time: '12:50 - 1:45 PM', duration: '55 min', description: 'Finish with a visit to the marble stadium and its museum.', nearby: 'Nearby: Ardittos Hill viewpoint, 8-min walk', travel: '', systemRecommended: true, lat: 37.9683, lng: 23.7403 }
           ] }
         ]
       }
@@ -620,6 +669,7 @@
     let currentPage = 'dashboard';
     let activeProfileTab = 'upcoming';
     let currentSchedule = [];
+    let pinnedMustSee = [];
     let importedTemplateId = null;
     let savedItineraryId = null;
     const userTrips = [
@@ -901,86 +951,88 @@
       document.querySelector('#trip-member-count').textContent = `${trip.members.length} friends`;
 
       const itinerary = document.querySelector('#trip-itinerary');
-      const dayElements = [...itinerary.querySelectorAll('[data-day-slot]')];
-      while (dayElements.length < trip.days.length) {
-        const newDayElement = dayElements.at(-1).cloneNode(true);
-        newDayElement.classList.add('hidden');
-        itinerary.append(newDayElement);
-        dayElements.push(newDayElement);
+      const baseLocation = trip.accommodation || '';
+      const cityKey = trip.destination.split(',')[0].trim().toLowerCase();
+      const canEdit = !activeTripId.startsWith('template-');
+      const travelPill = (travel) => `<span class="itinerary-walk-pill"><i data-lucide="footprints" class="h-3.5 w-3.5"></i>${escapeHtml(travel)}</span>`;
+      itinerary.innerHTML = trip.days.map((day, dayIndex) => `
+        <section class="itinerary-day-card p-4 sm:p-5">
+          <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-3"><span class="grid h-9 w-9 place-items-center rounded-xl bg-mint text-sm font-bold text-lagoon">${dayIndex + 1}</span><div><h3 class="text-base font-bold">${escapeHtml(day.theme || day.label)}</h3><p class="mt-0.5 text-xs text-muted">${escapeHtml(day.label)} · ${escapeHtml(day.date)}</p></div></div>
+            <span class="rounded-full bg-[#FFF3D9] px-3 py-1.5 text-[10px] font-bold text-[#9A6200]">${day.stops.length} planned stops</span>
+          </div>
+          <div class="itinerary-stop-track">
+            ${baseLocation ? `<article class="itinerary-spot-card flex flex-col justify-center border-dashed bg-[#F4F7FB] p-4"><span class="text-[10px] font-bold uppercase tracking-[.12em] text-lagoon">Daily start</span><h4 class="mt-2 text-sm font-bold leading-5">${escapeHtml(baseLocation)}</h4><span class="mt-3 inline-flex w-fit rounded-lg bg-white px-2.5 py-1 text-[10px] font-bold text-lagoon">Start of day</span></article>` : ''}
+            ${day.stops.map((stop, stopIndex) => {
+              const place = stop.name || stop.place || 'Planned stop';
+              const spotCategory = getSpotCategory(place);
+              const image = getSpotImage({ place, cityKey: stop.cityKey || cityKey });
+              const travel = stop.travel || '';
+              const hasDirection = /\bto\b/i.test(travel);
+              const showIncomingTravel = Boolean(travel && !hasDirection && (stopIndex > 0 || baseLocation));
+              const showOutgoingTravel = Boolean(travel && hasDirection);
+              const recommendation = stop.recommendation;
+              const systemRecommendation = getSystemRecommendationBadge(stop, baseLocation);
+              const recommendationButton = recommendation ? `<button type="button" data-chat-context="${escapeHtml(recommendation.friend)}" data-chat-quote="${escapeHtml(recommendation.quote)}" title="${escapeHtml(recommendation.quote)} — suggested by ${escapeHtml(recommendation.friend)} in the group chat" class="mt-3 inline-flex items-center gap-2 rounded-full border border-[#d7edf0] bg-[#eefaf9] px-2.5 py-1.5 text-[10px] font-bold text-lagoon transition hover:bg-mint"><span class="grid h-5 w-5 place-items-center rounded-full ${recommendation.color} text-[8px] font-bold text-ink">${escapeHtml(recommendation.initials)}</span><span>Recommended by ${escapeHtml(recommendation.friend)}</span><i data-lucide="quote" class="h-3 w-3"></i></button>` : '';
+              const stopActions = canEdit ? `<span class="flex gap-2"><button type="button" data-trip-stop-action="edit" data-day-index="${dayIndex}" data-stop-index="${stopIndex}" class="text-[10px] font-bold text-lagoon hover:underline">Edit</button><button type="button" data-trip-stop-action="remove" data-day-index="${dayIndex}" data-stop-index="${stopIndex}" class="text-[10px] font-bold text-coral hover:underline">Remove</button></span>` : '';
+              return `${showIncomingTravel ? travelPill(travel) : ''}<article class="itinerary-spot-card">
+                <div class="relative"><img class="itinerary-spot-image" src="https://images.unsplash.com/${image}?auto=format&fit=crop&w=640&q=82" alt="${escapeHtml(place)}" loading="lazy"><span class="absolute left-3 top-3 rounded-full px-2.5 py-1 text-[10px] font-bold ${spotCategory.className}">${spotCategory.label}</span></div>
+                <div class="p-3.5"><div class="flex flex-wrap items-center justify-between gap-2"><span class="inline-flex rounded-lg bg-[#E8F7F6] px-2.5 py-1 text-[10px] font-bold text-lagoon">${escapeHtml(stop.time || 'Flexible')}</span>${stopActions}</div><h4 class="mt-2 text-sm font-bold leading-5">${escapeHtml(place)}</h4>${systemRecommendation}<p class="mt-1.5 min-h-10 text-xs leading-5 text-muted">${escapeHtml(stop.description || stop.detail || '')}</p><div class="mt-3 flex items-center gap-1.5 text-[10px] font-bold text-lagoon"><i data-lucide="clock-3" class="h-3.5 w-3.5"></i>${escapeHtml(stop.duration || 'Visit time flexible')}</div>${recommendationButton}</div>
+              </article>${showOutgoingTravel ? travelPill(travel) : ''}`;
+            }).join('')}
+            ${baseLocation ? `${day.stops.at(-1)?.travelToBase ? travelPill(day.stops.at(-1).travelToBase) : ''}<article class="itinerary-spot-card flex flex-col justify-center border-dashed bg-[#F4F7FB] p-4"><span class="text-[10px] font-bold uppercase tracking-[.12em] text-coral">Return to base</span><h4 class="mt-2 text-sm font-bold leading-5">${escapeHtml(baseLocation)}</h4><span class="mt-3 inline-flex w-fit rounded-lg bg-white px-2.5 py-1 text-[10px] font-bold text-lagoon">End of day</span></article>` : ''}
+          </div>
+        </section>`).join('');
+      if (window.lucide) window.lucide.createIcons();
+    }
+
+    function editTripInControlRoom() {
+      const trip = tripDetails[activeTripId];
+      if (!trip) return;
+      const destination = trip.destination.split(',')[0].trim();
+      const baseLocation = trip.accommodation || '';
+      document.querySelector('#destination').value = destination;
+      document.querySelector('#accommodation-location').value = baseLocation;
+      if (trip.arrival && trip.departure) {
+        document.querySelector('#arrival-datetime').value = toDateTimeInputValue(new Date(trip.arrival));
+        document.querySelector('#departure-datetime').value = toDateTimeInputValue(new Date(trip.departure));
       }
-      dayElements.forEach((dayElement, dayIndex) => {
-        const day = trip.days[dayIndex];
-        dayElement.classList.toggle('hidden', !day);
-        if (!day) return;
-        dayElement.querySelector('[data-day-number]').textContent = day.label.replace('Day ', '');
-        dayElement.querySelector('[data-day-theme]').textContent = day.theme;
-        dayElement.querySelector('[data-day-meta]').textContent = `${day.label} · ${day.date}`;
-
-        const stopElements = [...dayElement.querySelectorAll('[data-stop-slot]')];
-        while (stopElements.length < day.stops.length) {
-          const newStopElement = stopElements.at(-1).cloneNode(true);
-          newStopElement.classList.add('hidden');
-          dayElement.querySelector('.space-y-0').append(newStopElement);
-          stopElements.push(newStopElement);
-        }
-        stopElements.forEach((stopElement, stopIndex) => {
-          const stop = day.stops[stopIndex];
-          stopElement.classList.toggle('hidden', !stop);
-          stopElement.classList.toggle('flex', Boolean(stop));
-          if (!stop) return;
-
-          const stopId = `${day.label}-${stop.name}`.replace(/\s+/g, '-').toLowerCase();
-          stopElement.dataset.stopId = stopId;
-          stopElement.querySelector('[data-stop-number]').textContent = String(stopIndex + 1);
-          stopElement.querySelector('[data-stop-name]').textContent = stop.name;
-          stopElement.querySelector('[data-stop-time]').textContent = stop.time;
-          stopElement.querySelector('[data-stop-description]').textContent = stop.description;
-          stopElement.querySelector('[data-stop-duration]').textContent = stop.duration;
-          stopElement.querySelector('[data-stop-nearby]').textContent = stop.nearby;
-
-          const connector = stopElement.querySelector('[data-stop-connector]');
-          connector.classList.toggle('hidden', stopIndex === day.stops.length - 1);
-          const travel = stopElement.querySelector('[data-stop-travel]');
-          travel.classList.toggle('hidden', !stop.travel);
-          travel.classList.toggle('flex', Boolean(stop.travel));
-          if (stop.travel) travel.querySelector('[data-stop-travel-text]').textContent = stop.travel;
-
-          let stopActions = stopElement.querySelector('[data-trip-stop-actions]');
-          if (!activeTripId.startsWith('template-')) {
-            if (!stopActions) {
-              stopActions = document.createElement('div');
-              stopActions.dataset.tripStopActions = '';
-              stopActions.className = 'mt-3 flex gap-3';
-              stopActions.innerHTML = '<button type="button" data-trip-stop-action="edit" class="text-[10px] font-bold text-lagoon hover:underline">Edit activity</button><button type="button" data-trip-stop-action="remove" class="text-[10px] font-bold text-coral hover:underline">Remove stop</button>';
-              stopElement.querySelector('.min-w-0.flex-1').append(stopActions);
-            }
-            stopActions.classList.remove('hidden');
-            stopActions.querySelectorAll('[data-trip-stop-action]').forEach((button) => {
-              button.dataset.dayIndex = dayIndex;
-              button.dataset.stopIndex = stopIndex;
-            });
-          } else if (stopActions) {
-            stopActions.classList.add('hidden');
-          }
-
-          const recommendationButton = stopElement.querySelector('[data-stop-recommendation]');
-          const recommendation = stop.recommendation;
-          recommendationButton.classList.toggle('hidden', !recommendation);
-          recommendationButton.classList.toggle('inline-flex', Boolean(recommendation));
-          if (recommendation) {
-            recommendationButton.dataset.chatContext = recommendation.friend;
-            recommendationButton.dataset.chatQuote = recommendation.quote;
-            recommendationButton.title = `${recommendation.quote} — suggested by ${recommendation.friend} in the group chat`;
-            recommendationButton.querySelector('[data-recommend-initials]').textContent = recommendation.initials;
-            recommendationButton.querySelector('[data-recommend-initials]').classList.add(recommendation.color);
-            recommendationButton.querySelector('[data-recommend-label]').textContent = `Recommended by ${recommendation.friend}`;
-          } else {
-            delete recommendationButton.dataset.chatContext;
-            delete recommendationButton.dataset.chatQuote;
-            recommendationButton.title = '';
-          }
-        });
+      pinnedMustSee = trip.days.flatMap((day) => day.stops.filter((stop) => stop.mustSee).map((stop) => stop.name));
+      renderMustSeeTags();
+      importedTemplateId = null;
+      resetSavedItinerary();
+      currentSchedule = trip.days.flatMap((day) => {
+        const activities = day.stops.map((stop) => ({
+          place: stop.name,
+          detail: stop.description,
+          duration: stop.duration,
+          time: stop.time,
+          cityKey: stop.cityKey || destination.toLowerCase(),
+          mustSee: Boolean(stop.mustSee),
+          systemRecommended: Boolean(stop.systemRecommended),
+          recommendationReason: stop.recommendationReason || '',
+          travel: stop.travel || '',
+          travelToBase: stop.travelToBase || '',
+          dayLabel: day.label,
+          dayDate: day.date
+        }));
+        if (!baseLocation) return activities;
+        return [
+          { place: baseLocation, detail: 'Start your day from your accommodation.', duration: 'Daily base', time: 'Start of day', kind: 'base', endpoint: 'start', dayLabel: day.label, dayDate: day.date },
+          ...activities,
+          { place: baseLocation, detail: 'Return to your accommodation at the end of the day.', duration: 'Daily base', time: 'End of day', kind: 'base', endpoint: 'end', travel: activities.at(-1)?.travelToBase || '', dayLabel: day.label, dayDate: day.date }
+        ];
       });
+      updateTripDuration();
+      const activities = currentSchedule.filter((stop) => stop.kind !== 'base');
+      document.querySelector('#route-title').textContent = trip.title;
+      document.querySelector('#route-eyebrow').textContent = trip.dates;
+      document.querySelector('#itinerary-summary-duration').textContent = trip.duration || `${trip.days.length} ${trip.days.length === 1 ? 'Day' : 'Days'}`;
+      document.querySelector('#itinerary-summary-stops').textContent = `${activities.length} ${activities.length === 1 ? 'stop' : 'stops'}`;
+      document.querySelector('#route-summary').textContent = [...(baseLocation ? [baseLocation] : []), ...activities.slice(0, 3).map((stop) => stop.place), ...(baseLocation ? [baseLocation] : [])].join(' → ');
+      document.querySelector('#route-description').textContent = `${activities.length} activities across ${trip.days.length} ${trip.days.length === 1 ? 'day' : 'days'}. Adjust the dates or preferences and generate a new itinerary.`;
+      renderStops(currentSchedule);
+      showPage('itinerary');
     }
 
     function renderTripDetails(tripId) {
@@ -1008,6 +1060,7 @@
               description: sample.detail,
               nearby: 'Suggested stop',
               travel: stopIndex < 2 ? `12-min walk to ${samples[dayIndex * 3 + stopIndex + 1].place}` : '',
+              systemRecommended: true,
               cityKey: previewTrip.city.toLowerCase()
             }))
           }))
@@ -1016,6 +1069,9 @@
       }
       if (!trip) return;
       activeTripId = tripId;
+      const detailGrid = document.querySelector('#page-trip > .grid');
+      const itinerarySection = document.querySelector('#trip-itinerary').parentElement;
+      if (detailGrid && detailGrid.previousElementSibling !== itinerarySection) detailGrid.before(itinerarySection);
       const customizeButton = document.querySelector('#customize-template');
       const isTemplate = tripId.startsWith('template-');
       customizeButton.classList.toggle('hidden', !isTemplate);
@@ -1028,10 +1084,15 @@
       document.querySelector('#trip-detail-title').textContent = trip.title;
       document.querySelector('#trip-detail-destination').textContent = trip.destination;
       document.querySelector('#trip-detail-dates').textContent = trip.dates;
+      const duration = trip.duration || (trip.arrival && trip.departure ? formatTripDuration(new Date(trip.departure) - new Date(trip.arrival)) : `${trip.days.length} ${trip.days.length === 1 ? 'day' : 'days'}`);
+      document.querySelector('#trip-detail-base').textContent = `Base: ${trip.accommodation || 'Not specified'}`;
+      document.querySelector('#trip-detail-duration').textContent = `Total duration: ${duration}`;
       document.querySelector('#trip-detail-cover').src = `https://images.unsplash.com/${trip.image}?auto=format&fit=crop&w=1400&q=85`;
       document.querySelector('#trip-detail-cover').alt = `Trip cover: ${trip.destination}`;
       document.querySelector('#trip-summary-dates').textContent = trip.dates;
       document.querySelector('#trip-summary-destination').textContent = trip.destination;
+      document.querySelector('#trip-summary-base').textContent = trip.accommodation || 'Base not specified';
+      document.querySelector('#trip-summary-duration').textContent = duration;
       document.querySelector('#trip-summary-members').textContent = `${trip.members.length} travelers`;
       document.querySelector('#trip-local-tip').textContent = trip.tip;
       updateTripDetailContent(trip);
@@ -1075,7 +1136,9 @@
           cityKey: trip.destination.split(',')[0].toLowerCase(),
           dayLabel: day.label,
           dayDate: formatScheduleDate(scheduledDate),
-          travel: stop.travel
+          travel: stop.travel,
+          systemRecommended: stop.systemRecommended !== false,
+          recommendationReason: stop.recommendationReason || ''
         };
       }));
       const plannedDays = new Set(currentSchedule.map((stop) => stop.dayLabel));
@@ -1093,12 +1156,13 @@
     function refreshScheduleSummary() {
       const plannedDays = new Set(currentSchedule.map((stop) => stop.dayLabel));
       const destination = document.querySelector('#destination').value.trim();
-      document.querySelector('#itinerary-summary-stops').textContent = `${currentSchedule.length} ${currentSchedule.length === 1 ? 'stop' : 'stops'}`;
-      document.querySelector('#route-summary').textContent = currentSchedule.length
-        ? currentSchedule.slice(0, 3).map((stop) => stop.place).join(' → ')
+      const activities = currentSchedule.filter((stop) => stop.kind !== 'base');
+      document.querySelector('#itinerary-summary-stops').textContent = `${activities.length} ${activities.length === 1 ? 'stop' : 'stops'}`;
+      document.querySelector('#route-summary').textContent = activities.length
+        ? activities.slice(0, 3).map((stop) => stop.place).join(' → ')
         : 'No stops yet. Add an activity to start your route.';
-      document.querySelector('#route-description').textContent = currentSchedule.length
-        ? `${currentSchedule.length} activities across ${plannedDays.size} ${plannedDays.size === 1 ? 'day' : 'days'}. Edit or remove stops, add your own, and adjust the dates above.`
+      document.querySelector('#route-description').textContent = activities.length
+        ? `${activities.length} activities across ${plannedDays.size} ${plannedDays.size === 1 ? 'day' : 'days'}. Edit or remove stops, add your own, and adjust the dates above.`
         : 'Add activities to build your day-by-day route.';
       if (importedTemplateId) {
         document.querySelector('#route-title').textContent = tripDetails[importedTemplateId].title;
@@ -1130,11 +1194,13 @@
             ${day.stops.map(({ stop, stopIndex }, dayStopIndex) => {
               const spotCategory = getSpotCategory(stop.place);
               const image = getSpotImage(stop);
-              const walkMinutes = stop.travel?.match(/(\d+)\s*[- ]min/i)?.[1];
-              return `${dayStopIndex ? `<span class="itinerary-walk-pill"><i data-lucide="footprints" class="h-3.5 w-3.5"></i>${walkMinutes || 12}-min walk</span>` : ''}
+              const systemRecommendation = getSystemRecommendationBadge(stop, document.querySelector('#accommodation-location').value.trim());
+              const travelPill = stop.travel ? `<span class="itinerary-walk-pill"><i data-lucide="footprints" class="h-3.5 w-3.5"></i>${escapeHtml(stop.travel)}</span>` : '';
+              if (stop.kind === 'base') return `${travelPill}<article class="itinerary-spot-card flex flex-col justify-center border-dashed bg-[#F4F7FB] p-4"><span class="text-[10px] font-bold uppercase tracking-[.12em] text-lagoon">${stop.endpoint === 'start' ? 'Daily start' : 'Return to base'}</span><h4 class="mt-2 text-sm font-bold leading-5">${escapeHtml(stop.place)}</h4><p class="mt-1.5 text-xs leading-5 text-muted">${escapeHtml(stop.detail)}</p><span class="mt-3 inline-flex w-fit rounded-lg bg-white px-2.5 py-1 text-[10px] font-bold text-lagoon">${escapeHtml(stop.time)}</span></article>`;
+              return `${travelPill}
                 <article class="itinerary-spot-card">
                   <div class="relative"><img class="itinerary-spot-image" src="https://images.unsplash.com/${image}?auto=format&fit=crop&w=640&q=82" alt="${escapeHtml(stop.place)}" loading="lazy"><span class="absolute left-3 top-3 rounded-full px-2.5 py-1 text-[10px] font-bold ${spotCategory.className}">${spotCategory.label}</span></div>
-                  <div class="p-3.5"><div class="flex flex-wrap items-center justify-between gap-2"><span class="inline-flex rounded-lg bg-[#E8F7F6] px-2.5 py-1 text-[10px] font-bold text-lagoon">${escapeHtml(stop.time)}</span><span class="flex gap-2"><button type="button" data-itinerary-action="edit" data-stop-index="${stopIndex}" class="text-[10px] font-bold text-lagoon hover:underline">Edit</button><button type="button" data-itinerary-action="remove" data-stop-index="${stopIndex}" class="text-[10px] font-bold text-coral hover:underline">Remove</button></span></div><h4 class="mt-2 text-sm font-bold leading-5">${escapeHtml(stop.place)}</h4><p class="mt-1.5 min-h-10 text-xs leading-5 text-muted">${escapeHtml(stop.detail)}</p><div class="mt-3 flex items-center gap-1.5 text-[10px] font-bold text-lagoon"><i data-lucide="clock-3" class="h-3.5 w-3.5"></i>${escapeHtml(stop.duration)}</div></div>
+                  <div class="p-3.5"><div class="flex flex-wrap items-center justify-between gap-2"><span class="inline-flex rounded-lg bg-[#E8F7F6] px-2.5 py-1 text-[10px] font-bold text-lagoon">${escapeHtml(stop.time)}</span><span class="flex gap-2"><button type="button" data-itinerary-action="edit" data-stop-index="${stopIndex}" class="text-[10px] font-bold text-lagoon hover:underline">Edit</button><button type="button" data-itinerary-action="remove" data-stop-index="${stopIndex}" class="text-[10px] font-bold text-coral hover:underline">Remove</button></span></div><h4 class="mt-2 text-sm font-bold leading-5">${escapeHtml(stop.place)}</h4>${systemRecommendation}<p class="mt-1.5 min-h-10 text-xs leading-5 text-muted">${escapeHtml(stop.detail)}</p><div class="mt-3 flex items-center gap-1.5 text-[10px] font-bold text-lagoon"><i data-lucide="clock-3" class="h-3.5 w-3.5"></i>${escapeHtml(stop.duration)}</div></div>
                 </article>`;
             }).join('')}
           </div>
@@ -1144,9 +1210,27 @@
 
     function getSpotCategory(place) {
       const name = place.toLowerCase();
-      if (/market|cafe|food|tavern|coffee/.test(name)) return { label: 'Local flavor', className: 'bg-[#FBAF3C] text-white' };
-      if (/garden|park|walk|path|hill|waterfront|way|river|bamboo/.test(name)) return { label: 'Outdoors', className: 'bg-[#FBAF3C] text-white' };
+      if (/market|cafe|food|tavern|coffee/.test(name)) return { label: 'Local flavor', className: 'bg-[#B9A2FF] text-ink' };
+      if (/garden|park|walk|path|hill|waterfront|way|river|bamboo/.test(name)) return { label: 'Outdoors', className: 'bg-[#B9A2FF] text-ink' };
       return { label: 'Culture & sights', className: 'bg-coral text-white' };
+    }
+
+    function getSystemRecommendationReason(stop, baseLocation = '') {
+      const place = String(stop.place || stop.name || '').toLowerCase();
+      const cityKey = String(stop.cityKey || '').toLowerCase();
+      if (baseLocation && cityKey === 'athens') {
+        const distance = Number(estimateBaseLeg(baseLocation, place, cityKey).match(/([\d.]+) km/)?.[1]);
+        if (Number.isFinite(distance) && distance <= 1) return '📍 Near Your Base';
+      }
+      if (/acropolis|parthenon|colosseum|eiffel|lycabettus|jemaa el-fnaa|nyhavn|monastiraki/.test(place)) return '🔥 Hot Spot';
+      if (/anafiotika|lanes|alley|backstreet|hidden|secret|old town/.test(place)) return '💎 Hidden Gem';
+      return '⭐ Top Rated';
+    }
+
+    function getSystemRecommendationBadge(stop, baseLocation = '') {
+      if (!stop.systemRecommended) return '';
+      const reason = stop.recommendationReason || getSystemRecommendationReason(stop, baseLocation);
+      return `<div class="mt-2 flex flex-wrap items-center gap-1.5"><span title="Nextstop System Recommendation" class="inline-flex items-center whitespace-nowrap rounded-full border border-[#C9C4FF] bg-[#E8E7FF] px-2 py-1 text-[9px] font-bold leading-none text-[#6546E8]">✨ App Pick</span><span class="inline-flex items-center whitespace-nowrap rounded-full border border-[#A8EFF8] bg-[#DFFAFF] px-2 py-1 text-[9px] font-bold leading-none text-[#087E91]">${escapeHtml(reason)}</span></div>`;
     }
 
     function getSpotImage(stop) {
@@ -1199,7 +1283,53 @@
       return new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: '2-digit' }).format(date);
     }
 
-    function createSchedule(place, arrival, departure) {
+    function renderMustSeeTags() {
+      document.querySelector('#must-see-tags').innerHTML = pinnedMustSee.map((spot, index) => `<span class="inline-flex items-center gap-1 rounded-full bg-mint px-3 py-1.5 text-xs font-semibold text-lagoon">${escapeHtml(spot)}<button type="button" data-must-see-remove="${index}" class="grid h-4 w-4 place-items-center rounded-full hover:bg-white/70" aria-label="Remove ${escapeHtml(spot)}"><i data-lucide="x" class="h-3 w-3"></i></button></span>`).join('');
+      if (window.lucide) window.lucide.createIcons();
+    }
+
+    function addMustSeeSpot(value) {
+      const spot = value.trim().replace(/,$/, '').trim();
+      if (!spot || pinnedMustSee.some((item) => item.toLowerCase() === spot.toLowerCase())) return false;
+      pinnedMustSee.push(spot);
+      renderMustSeeTags();
+      return true;
+    }
+
+    function estimateBaseLeg(baseLocation, place, cityKey) {
+      const athensPoints = {
+        acropolis: [37.9715, 23.7267],
+        plaka: [37.9717, 23.7285],
+        monastiraki: [37.9765, 23.7257],
+        syntagma: [37.9755, 23.7348],
+        koukaki: [37.9622, 23.7285],
+        kolonaki: [37.9785, 23.7413],
+        lycabettus: [37.9838, 23.7437],
+        'ancient agora': [37.9747, 23.7214],
+        'national garden': [37.9735, 23.7362],
+        'acropolis museum': [37.9688, 23.7289]
+      };
+      const findPoint = (value) => Object.entries(athensPoints).sort(([first], [second]) => second.length - first.length).find(([name]) => value.toLowerCase().includes(name))?.[1];
+      let distanceKm = 1.2;
+      const base = baseLocation.toLowerCase();
+      const destination = place.toLowerCase();
+      if (base && base === destination) distanceKm = 0.2;
+      else if (cityKey === 'athens') {
+        const from = findPoint(base);
+        const to = findPoint(destination);
+        if (from && to) {
+          const radians = (degrees) => degrees * Math.PI / 180;
+          const latitudeDelta = radians(to[0] - from[0]);
+          const longitudeDelta = radians(to[1] - from[1]);
+          const haversine = Math.sin(latitudeDelta / 2) ** 2 + Math.cos(radians(from[0])) * Math.cos(radians(to[0])) * Math.sin(longitudeDelta / 2) ** 2;
+          distanceKm = Math.max(0.2, 6371 * 2 * Math.atan2(Math.sqrt(haversine), Math.sqrt(1 - haversine)) * 1.3);
+        }
+      }
+      const walkMinutes = Math.max(4, Math.round(distanceKm / 4 * 60));
+      return `${distanceKm.toFixed(1)} km · ${walkMinutes}-min walk`;
+    }
+
+    function createSchedule(place, arrival, departure, baseLocation = '', mustSeeSpots = []) {
       const normalizedPlace = place.toLowerCase();
       const cityKey = Object.keys(itinerarySamples).find((city) => normalizedPlace.includes(city));
       const candidates = [...(itinerarySamples[cityKey] || [
@@ -1216,7 +1346,15 @@
         { place: `${place} public gardens`, detail: 'Relax among the lawns and shaded paths.', duration: '60 min stroll' },
         { place: `${place} evening square`, detail: 'End with a relaxed visit to a lively neighborhood square.', duration: '45 min stroll' }
       ])];
-      let remainingCandidates = [...candidates];
+      const pinnedCandidates = mustSeeSpots.map((spot) => {
+        const normalizedSpot = spot.toLowerCase();
+        const matchingCandidate = candidates.find((candidate) => candidate.place.toLowerCase() === normalizedSpot || candidate.place.toLowerCase().includes(normalizedSpot) || normalizedSpot.includes(candidate.place.toLowerCase()));
+        return matchingCandidate
+          ? { ...matchingCandidate, mustSee: true }
+          : { place: spot, detail: 'Pinned as a must-see attraction for this trip.', duration: '60 min visit', mustSee: true };
+      });
+      const pinnedNames = new Set(pinnedCandidates.map((candidate) => candidate.place.toLowerCase()));
+      let remainingCandidates = [...pinnedCandidates, ...candidates.filter((candidate) => !pinnedNames.has(candidate.place.toLowerCase()))];
       const minuteMilliseconds = 60000;
       const arrivalBuffer = 75 * minuteMilliseconds;
       const departureBuffer = 120 * minuteMilliseconds;
@@ -1230,7 +1368,10 @@
         const isDepartureDay = dateForLabel.getFullYear() === departure.getFullYear() && dateForLabel.getMonth() === departure.getMonth() && dateForLabel.getDate() === departure.getDate();
         const activityStart = isArrivalDay ? Math.max(arrival.getTime() + arrivalBuffer, new Date(dayCursor).setHours(9, 0, 0, 0)) : new Date(dayCursor).setHours(9, 0, 0, 0);
         const activityEnd = isDepartureDay ? departure.getTime() - departureBuffer : new Date(dayCursor).setHours(17, 0, 0, 0);
-        if (activityStart >= activityEnd) continue;
+        if (activityStart >= activityEnd) {
+          if (baseLocation) schedule.push({ place: baseLocation, detail: 'Start your day from your accommodation.', duration: 'Daily base', time: 'Start of day', kind: 'base', endpoint: 'start', dayLabel: `Day ${dayOffset + 1}`, dayDate: formatScheduleDate(dateForLabel) }, { place: baseLocation, detail: 'Return to your accommodation at the end of the day.', duration: 'Daily base', time: 'End of day', kind: 'base', endpoint: 'end', dayLabel: `Day ${dayOffset + 1}`, dayDate: formatScheduleDate(dateForLabel) });
+          continue;
+        }
         if (!remainingCandidates.length) {
           remainingCandidates = [
             { place: `${place} neighborhood architecture walk · Day ${dayOffset + 1}`, detail: 'Explore a different local district and its distinctive street life.', duration: '60 min stroll' },
@@ -1250,25 +1391,55 @@
           const visitMinutes = Number(candidate.visitMinutes || durationMatches.at(-1)?.[1] || 60);
           const endTime = startTime + visitMinutes * minuteMilliseconds;
           if (endTime > activityEnd) {
+            if (candidate.mustSee) {
+              deferredCandidates.push(...remainingCandidates.slice(candidateIndex));
+              break;
+            }
             deferredCandidates.push(candidate);
             candidateIndex += 1;
             continue;
           }
           remainingCandidates.splice(candidateIndex, 1);
-          if (dayStops.length) dayStops[dayStops.length - 1].travel = `${walkMinutes}-min walk to ${candidate.place}`;
+          const incomingTravel = dayStops.length ? `${walkMinutes}-min walk` : baseLocation ? estimateBaseLeg(baseLocation, candidate.place, cityKey) : '';
           dayStops.push({
             place: candidate.place,
             detail: candidate.detail,
             duration: `${visitMinutes} min visit`,
             time: `${formatScheduleTime(new Date(startTime))} - ${formatScheduleTime(new Date(endTime))}`,
             cityKey: cityKey || 'destination',
+            mustSee: Boolean(candidate.mustSee),
+            systemRecommended: !candidate.mustSee,
+            recommendationReason: candidate.mustSee ? '' : getSystemRecommendationReason({ place: candidate.place, cityKey: cityKey || 'destination' }, baseLocation),
+            travel: incomingTravel,
             dayLabel: `Day ${dayOffset + 1}`,
             dayDate: formatScheduleDate(dateForLabel)
           });
           currentTime = endTime;
         }
         remainingCandidates = [...deferredCandidates, ...remainingCandidates];
+        if (baseLocation) {
+          schedule.push({ place: baseLocation, detail: 'Start your day from your accommodation.', duration: 'Daily base', time: 'Start of day', kind: 'base', endpoint: 'start', dayLabel: `Day ${dayOffset + 1}`, dayDate: formatScheduleDate(dateForLabel) });
+        }
         schedule.push(...dayStops);
+        if (baseLocation) {
+          const lastStop = dayStops.at(-1);
+          if (lastStop) lastStop.travelToBase = estimateBaseLeg(baseLocation, lastStop.place, cityKey);
+          schedule.push({ place: baseLocation, detail: 'Return to your accommodation at the end of the day.', duration: 'Daily base', time: 'End of day', kind: 'base', endpoint: 'end', travel: lastStop?.travelToBase || '', dayLabel: `Day ${dayOffset + 1}`, dayDate: formatScheduleDate(dateForLabel) });
+        }
+      }
+      const scheduledPins = new Set(schedule.filter((stop) => stop.mustSee).map((stop) => stop.place.toLowerCase()));
+      const missingPins = pinnedCandidates.filter((candidate) => !scheduledPins.has(candidate.place.toLowerCase()));
+      if (missingPins.length) {
+        const finalDay = `Day ${Math.max(1, Math.round((lastDay - firstDay) / (24 * 60 * minuteMilliseconds)) + 1)}`;
+        const dayDate = formatScheduleDate(lastDay);
+        const returnIndex = schedule.findIndex((stop) => stop.kind === 'base' && stop.endpoint === 'end' && stop.dayLabel === finalDay);
+        const fallbackPins = missingPins.map((candidate) => ({ place: candidate.place, detail: candidate.detail, duration: '60 min visit', time: 'Flexible', cityKey: cityKey || 'destination', mustSee: true, systemRecommended: false, travel: '', dayLabel: finalDay, dayDate }));
+        schedule.splice(returnIndex < 0 ? schedule.length : returnIndex, 0, ...fallbackPins);
+        if (baseLocation) {
+          const returnStop = schedule.find((stop) => stop.kind === 'base' && stop.endpoint === 'end' && stop.dayLabel === finalDay);
+          const lastActivity = schedule.slice(0, returnIndex < 0 ? schedule.length : returnIndex + fallbackPins.length).filter((stop) => stop.kind !== 'base').at(-1);
+          if (returnStop && lastActivity) returnStop.travel = estimateBaseLeg(baseLocation, lastActivity.place, cityKey);
+        }
       }
       return schedule;
     }
@@ -1280,26 +1451,29 @@
 
       resetSavedItinerary();
       const importedCity = importedTemplateId ? tripDetails[importedTemplateId].destination.split(',')[0].toLowerCase() : '';
-      if (importedTemplateId && place.toLowerCase() !== importedCity) importedTemplateId = null;
+      const baseLocation = document.querySelector('#accommodation-location').value.trim();
+      if (importedTemplateId && (place.toLowerCase() !== importedCity || baseLocation || pinnedMustSee.length)) importedTemplateId = null;
       const schedule = importedTemplateId
         ? currentSchedule.map((stop) => {
           const dayOffset = Math.max(0, Number(stop.dayLabel.match(/\d+/)?.[0] || 1) - 1);
           const dateForStop = new Date(arrival.getFullYear(), arrival.getMonth(), arrival.getDate() + dayOffset);
           return { ...stop, dayDate: formatScheduleDate(dateForStop) };
         })
-        : createSchedule(place, arrival, departure);
+        : createSchedule(place, arrival, departure, baseLocation, pinnedMustSee);
       currentSchedule = schedule;
       const plannedDays = new Set(schedule.map((stop) => stop.dayLabel));
       const durationText = formatTripDuration(departure - arrival);
       document.querySelector('#route-eyebrow').textContent = `${formatScheduleDate(arrival)} ${formatScheduleTime(arrival)} to ${formatScheduleDate(departure)} ${formatScheduleTime(departure)}`;
       document.querySelector('#route-title').textContent = importedTemplateId ? tripDetails[importedTemplateId].title : `${place} · ${durationText}`;
       document.querySelector('#itinerary-summary-duration').textContent = durationText;
-      document.querySelector('#itinerary-summary-stops').textContent = `${schedule.length} ${schedule.length === 1 ? 'stop' : 'stops'}`;
-      document.querySelector('#route-summary').textContent = schedule.length ? schedule.slice(0, 3).map((stop) => stop.place).join(' → ') : 'No sightseeing window remains within these arrival and departure times.';
-      document.querySelector('#route-description').textContent = schedule.length
+      const activityCount = schedule.filter((stop) => stop.kind !== 'base').length;
+      const summaryStops = schedule.filter((stop) => stop.kind !== 'base');
+      document.querySelector('#itinerary-summary-stops').textContent = `${activityCount} ${activityCount === 1 ? 'stop' : 'stops'}`;
+      document.querySelector('#route-summary').textContent = activityCount ? [...(baseLocation ? [baseLocation] : []), ...summaryStops.slice(0, 3).map((stop) => stop.place), ...(baseLocation ? [baseLocation] : [])].join(' → ') : 'No sightseeing window remains within these arrival and departure times.';
+      document.querySelector('#route-description').textContent = activityCount
         ? importedTemplateId
-          ? `${schedule.length} sample activities across ${plannedDays.size} days. Edit or remove stops, add your own, and adjust the dates above.`
-          : `${schedule.length} visits across ${plannedDays.size} day${plannedDays.size === 1 ? '' : 's'}. Arrival day starts after a 75-minute transfer buffer; the final day ends at least 2 hours before departure.`
+          ? `${activityCount} sample activities across ${plannedDays.size} days. Edit or remove stops, add your own, and adjust the dates above.`
+          : `${activityCount} visits across ${plannedDays.size} day${plannedDays.size === 1 ? '' : 's'}${pinnedMustSee.length ? `, including all ${pinnedMustSee.length} pinned must-see spot${pinnedMustSee.length === 1 ? '' : 's'}` : ''}. ${baseLocation ? `Each day starts and ends at ${baseLocation}. ` : ''}Arrival day starts after a 75-minute transfer buffer; the final day ends at least 2 hours before departure.`
         : 'Try an earlier arrival or later departure to leave time for a visit between transfer buffers.';
       renderStops(schedule);
       const saveButton = document.querySelector('#save-itinerary');
@@ -1331,7 +1505,8 @@
         showToast('Itinerary removed from My Saved Plans');
         return;
       }
-      if (!currentSchedule.length) {
+      const activities = currentSchedule.filter((stop) => stop.kind !== 'base');
+      if (!activities.length) {
         showToast('Add at least one activity before saving this itinerary');
         return;
       }
@@ -1339,7 +1514,7 @@
       const arrival = new Date(arrivalInput.value);
       const departure = new Date(departureInput.value);
       const groupedDays = new Map();
-      currentSchedule.forEach((stop) => {
+      activities.forEach((stop) => {
         if (!groupedDays.has(stop.dayLabel)) groupedDays.set(stop.dayLabel, []);
         groupedDays.get(stop.dayLabel).push({
           name: stop.place,
@@ -1347,7 +1522,12 @@
           duration: stop.duration,
           description: stop.detail,
           nearby: 'Saved from your Control Room',
-          travel: stop.travel || ''
+          travel: stop.travel || '',
+          travelToBase: stop.travelToBase || '',
+          cityKey: stop.cityKey,
+          mustSee: Boolean(stop.mustSee),
+          systemRecommended: Boolean(stop.systemRecommended),
+          recommendationReason: stop.recommendationReason || ''
         });
       });
       const id = `saved-plan-${Date.now()}`;
@@ -1355,6 +1535,10 @@
       tripDetails[id] = {
         title: document.querySelector('#route-title').textContent,
         destination,
+        accommodation: document.querySelector('#accommodation-location').value.trim(),
+        duration: formatTripDuration(departure - arrival),
+        arrival: arrival.toISOString(),
+        departure: departure.toISOString(),
         dates: `${formatScheduleDate(arrival)} - ${formatScheduleDate(departure)}`,
         image,
         tip: 'Your saved plan is ready to revisit and adjust whenever your trip takes shape.',
@@ -1377,6 +1561,28 @@
     }
 
     document.body.addEventListener('click', (event) => {
+      const editTrip = event.target.closest('[data-action="edit-trip-in-control-room"]');
+      if (editTrip) {
+        editTripInControlRoom();
+        return;
+      }
+      const mustSeeSuggestion = event.target.closest('[data-must-see-suggestion]');
+      if (mustSeeSuggestion) {
+        addMustSeeSpot(mustSeeSuggestion.dataset.mustSeeSuggestion);
+        return;
+      }
+      const removeMustSee = event.target.closest('[data-must-see-remove]');
+      if (removeMustSee) {
+        pinnedMustSee.splice(Number(removeMustSee.dataset.mustSeeRemove), 1);
+        renderMustSeeTags();
+        return;
+      }
+      const addMustSee = event.target.closest('[data-action="add-must-see"]');
+      if (addMustSee) {
+        const input = document.querySelector('#must-see-input');
+        if (addMustSeeSpot(input.value)) input.value = '';
+        return;
+      }
       const recommendation = event.target.closest('[data-chat-context]');
       if (recommendation) {
         showPage('chat');
@@ -1451,16 +1657,24 @@
         const place = window.prompt('What activity would you like to add?');
         if (!place?.trim()) return;
         resetSavedItinerary();
-        const lastStop = currentSchedule.at(-1);
-        currentSchedule.push({
+        const lastDay = currentSchedule.at(-1);
+        const dayLabel = lastDay?.dayLabel || 'Day 1';
+        const lastStop = [...currentSchedule].reverse().find((stop) => stop.kind !== 'base' && stop.dayLabel === dayLabel);
+        const baseLocation = document.querySelector('#accommodation-location').value.trim();
+        const newStop = {
           place: place.trim(),
           detail: 'Added to your itinerary. Edit this description to add your notes.',
           duration: '60 min visit',
           time: 'Flexible',
           cityKey: document.querySelector('#destination').value.trim().toLowerCase(),
-          dayLabel: lastStop?.dayLabel || 'Day 1',
-          dayDate: lastStop?.dayDate || formatScheduleDate(new Date())
-        });
+          travel: lastStop ? '12-min walk' : baseLocation ? estimateBaseLeg(baseLocation, place.trim(), document.querySelector('#destination').value.trim().toLowerCase()) : '',
+          dayLabel,
+          dayDate: lastDay?.dayDate || formatScheduleDate(new Date())
+        };
+        const returnIndex = currentSchedule.findIndex((stop) => stop.kind === 'base' && stop.endpoint === 'end' && stop.dayLabel === dayLabel);
+        currentSchedule.splice(returnIndex < 0 ? currentSchedule.length : returnIndex, 0, newStop);
+        const returnStop = currentSchedule.find((stop) => stop.kind === 'base' && stop.endpoint === 'end' && stop.dayLabel === dayLabel);
+        if (returnStop && baseLocation) returnStop.travel = estimateBaseLeg(baseLocation, newStop.place, newStop.cityKey);
         refreshScheduleSummary();
         showToast(`${place.trim()} added to your itinerary`);
         return;
@@ -1592,6 +1806,13 @@
     };
     document.body.addEventListener('input', updateScheduleDurationFromEvent);
     document.body.addEventListener('change', updateScheduleDurationFromEvent);
+    document.body.addEventListener('keydown', (event) => {
+      if (event.target.matches('#must-see-input') && (event.key === 'Enter' || event.key === ',')) {
+        event.preventDefault();
+        const input = event.target;
+        if (addMustSeeSpot(input.value)) input.value = '';
+      }
+    });
     document.body.addEventListener('submit', (event) => {
       if (!event.target.matches('#itinerary-form')) return;
       event.preventDefault();
